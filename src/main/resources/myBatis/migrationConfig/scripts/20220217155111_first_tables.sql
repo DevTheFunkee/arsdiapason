@@ -1,14 +1,23 @@
 -- // create first tables
 
-CREATE TABLE psicologo (
+CREATE TABLE utente (
     id INT AUTO_INCREMENT,
-    mail varchar(40) NOT NULL UNIQUE,
-    password varchar(20) NOT NULL,
-    nome varchar(50) NOT NULL,
-    cognome varchar(50) NOT NULL,
+    username VARCHAR(40) NOT NULL,
+    password VARCHAR(20) NOT NULL,
+    ruolo VARCHAR(10) NOT NULL,
+    id_psicologo INT,
     data_ins TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE psicologo (
+    id INT AUTO_INCREMENT,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    data_ins TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_mod TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE bambino (
@@ -70,6 +79,7 @@ CREATE TABLE rel_bambino_scheda (
 
 -- //@UNDO
 
+DROP TABLE utente
 DROP TABLE psicologo;
 DROP TABLE bambino;
 DROP TABLE rel_psicologo_bambino;
