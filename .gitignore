@@ -6,6 +6,7 @@ target/
 !**/src/main/resources/static
 src/main/java/comboDev/arsdiapason/mybatis/mapper
 src/main/java/comboDev/arsdiapason/mybatis/model
+src/main/resources/static
 
 ### STS ###
 .apt_generated
