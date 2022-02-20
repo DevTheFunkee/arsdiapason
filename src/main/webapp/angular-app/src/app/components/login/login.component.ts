@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
       this.httpService.callGet('login', "Errore in fase di login").subscribe(
         data => {
           //this.sendMail()
-          sessionStorage.setItem('userRole', data[0].authority)
+          sessionStorage.setItem('psicologo', data[0])
           this.router.navigate(['insertChild'])
           this.errMsg = ""
         },

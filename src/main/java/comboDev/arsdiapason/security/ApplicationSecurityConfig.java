@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 
 @Configuration
 @EnableWebSecurity
@@ -19,12 +20,12 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.csrf().disable()
                 .authorizeRequests()
-                .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
-                .antMatchers("/api/login").authenticated()
-                //.antMatchers("/api/updateOrder").hasAuthority("ADMIN")
-                .anyRequest().hasAnyAuthority("ADMIN", "USER")
+                .anyRequest().authenticated()
                 .and()
-                .httpBasic().authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint());
+                .httpBasic().authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint())
+                .and()
+                .sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
     }
 
     @Bean

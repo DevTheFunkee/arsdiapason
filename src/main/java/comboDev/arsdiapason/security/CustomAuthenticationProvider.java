@@ -26,10 +26,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         if (username != null && password != null) {
             Psicologo psicologo = userService.login(username, password);
-            if(psicologo != null && psicologo.getRole() != null) {
+            if(psicologo != null) {
                 List<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority(psicologo.getRole()));
-                return new UsernamePasswordAuthenticationToken(username, password, authorities);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, authorities);
+                token.setDetails(psicologo);
+                return token;
             }
         }
         return null;
