@@ -35,4 +35,8 @@ export class InsertChildComponent implements OnInit {
         )
     }
 
+    svuotaCampi() {
+      this.model = {}
+    }
+
 }

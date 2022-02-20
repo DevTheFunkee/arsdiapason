@@ -4,13 +4,15 @@
     <div class="col-10 pl-5">
       <span style="font-size: 1.4em">Arsdiapason</span> - {{page}}
     </div>
-    <div class="col-2 text-right pr-4" (click)="logout()" [hidden]="hideLogout()">Logout</div>
+    <div class="col-2 text-right pr-5" (click)="logout()" [hidden]="hideLogout()">
+      <span class="c-pointer">Logout</span>
+    </div>
   </div>
 
   <div class="row mb-4" [hidden]="hideLogout()">
     <div class="col-12 pl-5">
       <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let p of pages" (click)="page = p.title">
+        <li class="nav-item" *ngFor="let p of pages" (click)="page = p.title" [hidden]="p.hidden">
           <a class="nav-link" routerLink="{{p.route}}" routerLinkActive="active">{{p.title}}</a>
         </li>
       </ul>

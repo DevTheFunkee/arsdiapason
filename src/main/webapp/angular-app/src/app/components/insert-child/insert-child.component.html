@@ -12,7 +12,7 @@
       </div>
     </div>
 
-    <form name="form" (ngSubmit)="insertChild()" #f="ngForm" novalidate>
+    <form name="form" (ngSubmit)="f.form.valid && insertChild()" #f="ngForm" novalidate>
 
       <div class="row mt-3">
         <div class="col-4">
@@ -45,18 +45,18 @@
         </div>
         <div class="col-4">
           <label>Ordine Genitura</label>
-          <input type="number" class="form-control form-control-sm" name="ordineGenitura" [(ngModel)]="model.ordineGenitura" required />
+          <input type="number" class="form-control form-control-sm" name="ordineGenitura" [(ngModel)]="model.ordineGenitura" min="1" required />
         </div>
       </div>
 
       <div class="row mt-3">
         <div class="col-4">
           <label>Numero Fratelli</label>
-          <input type="number" class="form-control form-control-sm" name="numeroFratelli" [(ngModel)]="model.numeroFratelli" required />
+          <input type="number" class="form-control form-control-sm" name="numeroFratelli" [(ngModel)]="model.numeroFratelli" min="0" required />
         </div>
         <div class="col-4">
           <label>Numero Sorelle</label>
-          <input type="number" class="form-control form-control-sm" name="numeroSorelle" [(ngModel)]="model.numeroSorelle" required />
+          <input type="number" class="form-control form-control-sm" name="numeroSorelle" [(ngModel)]="model.numeroSorelle" min="0" required />
         </div>
       </div>
 
@@ -82,11 +82,10 @@
         </div>
       </div>
 
-
       <div class="row mt-3">
         <div class="col-5">
-          <button class="btn btn-primary mr-5" type="submit">Salva</button>
-          <button class="btn btn-primary">Svuota campi</button>
+          <button class="btn btn-primary mr-5" type="submit" [disabled]="f.form.invalid">Salva</button>
+          <button class="btn btn-primary" (click)="svuotaCampi()">Svuota campi</button>
         </div>
       </div>
 
