@@ -2,23 +2,24 @@ package comboDev.arsdiapason.controller;
 
 import comboDev.arsdiapason.mybatis.model.Bambino;
 import comboDev.arsdiapason.mybatis.model.Psicologo;
-import comboDev.arsdiapason.service.InsertChildService;
+import comboDev.arsdiapason.service.ChildListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
-public class InsertChildController implements BasicController  {
+public class ChildListController implements BasicController  {
 
     @Autowired
-    InsertChildService insertChildService;
+    ChildListService childListService;
 
-    @PostMapping("/insertChild")
-    public void insertChild(@RequestBody Bambino bambino, Authentication authentication) {
+    @PostMapping("/childsList")
+    public List<Bambino> childsList(Authentication authentication) {
         Psicologo psicologo = (Psicologo) authentication.getDetails();
-        insertChildService.insertChild(bambino, psicologo.getId());
+        return childListService.childsList(psicologo.getId());
     }
 
 }

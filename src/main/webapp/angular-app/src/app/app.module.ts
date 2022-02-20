@@ -17,6 +17,7 @@ import { CreateAccountComponent } from './components/create-account/create-accou
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { InsertChildComponent } from './components/insert-child/insert-child.component';
+import { ChildListComponent } from './components/child-list/child-list.component';
 
 registerLocaleData(localeIt);
 
@@ -25,7 +26,8 @@ registerLocaleData(localeIt);
     AppComponent,
     LoginComponent,
     CreateAccountComponent,
-    InsertChildComponent
+    InsertChildComponent,
+    ChildListComponent
   ],
   imports: [
     BrowserModule,

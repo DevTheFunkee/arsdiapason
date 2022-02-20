@@ -20,13 +20,11 @@ export class LoginComponent implements OnInit {
     if (this.model.username && this.model.password) {
       sessionStorage.setItem('auth', window.btoa(this.model.username + ":" + this.model.password))
       this.httpService.callGet('login', "Errore in fase di login").subscribe(
-        data => {
-          //this.sendMail()
-          sessionStorage.setItem('psicologo', data[0])
+        (data: any) => {
+          sessionStorage.setItem('psicologo', JSON.stringify(data))
           this.router.navigate(['insertChild'])
-          this.errMsg = ""
         },
-        error => {
+        (error: any) => {
           this.errMsg = "Errore in fase di login"
         },
         () => { }
@@ -38,14 +36,6 @@ export class LoginComponent implements OnInit {
 
   goToRegister() {
     this.router.navigate(['createAccount'])
-  }
-
-  sendMail() {
-    this.httpService.callGet('sendMail', "Errore all'invio della mail").subscribe(
-      data => { },
-      error => { },
-      () => { }
-    )
   }
 
 }

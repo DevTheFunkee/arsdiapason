@@ -9,7 +9,7 @@
     </div>
   </div>
 
-  <div class="row mb-4" [hidden]="hideLogout()">
+  <div class="row" [hidden]="hideLogout()">
     <div class="col-12 pl-5">
       <ul class="nav nav-tabs">
         <li class="nav-item" *ngFor="let p of pages" (click)="page = p.title" [hidden]="p.hidden">
@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div class="row py-4">
     <div class="col-12 pl-5">
       <router-outlet></router-outlet>
     </div>

@@ -6,11 +6,13 @@ import { HttpService } from './services/http.service'
 import { LoginComponent } from './components/login/login.component'
 import { CreateAccountComponent } from './components/create-account/create-account.component'
 import { InsertChildComponent } from './components/insert-child/insert-child.component'
+import { ChildListComponent } from './components/child-list/child-list.component';
 
 const routes: Routes = [
   { path: 'loginPage', component: LoginComponent },
   { path: 'createAccount', component: CreateAccountComponent },
   { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
+  { path: 'childList', component: ChildListComponent, canActivate: [RouteGuardService] },
   { path: '', redirectTo: 'insertChild', pathMatch: 'full', canActivate: [RouteGuardService] },
   { path: '**', redirectTo: 'insertChild' , pathMatch: 'full', canActivate: [RouteGuardService] }
 ]
