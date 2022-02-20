@@ -21,7 +21,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                 .antMatchers("/api/login").authenticated()
-                .antMatchers("/api/updateOrder").hasAuthority("ADMIN")
+                //.antMatchers("/api/updateOrder").hasAuthority("ADMIN")
                 .anyRequest().hasAnyAuthority("ADMIN", "USER")
                 .and()
                 .httpBasic().authenticationEntryPoint(new NoPopupBasicAuthenticationEntryPoint());

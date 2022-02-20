@@ -26,15 +26,7 @@ export class HttpService {
     return this.http.get(this.baseUrl + url).pipe(tap(
       data => { },
       error => {
-        if (error.status != 504) {
-          this.openModal('Errore', errorMsg, error.error.cause, error.error.message, error.error.intStatus + " - " + error.error.status)
-          this.serverOn = true
-        } else {
-          if (this.serverOn) {
-            this.serverOn = false
-            this.openServerOffModal()
-          }
-        }
+        this.openModal('Errore', errorMsg, error.error.cause, error.error.message, error.error.intStatus + " - " + error.error.status)
       },
       () => { }
     ))
@@ -44,15 +36,7 @@ export class HttpService {
     return this.http.post(this.baseUrl + url, item).pipe(tap(
       data => { },
       error => {
-        if (error.status != 504) {
-          this.serverOn = true
-          this.openModal('Errore', errorMsg, error.error.cause, error.error.message, error.error.intStatus + " - " + error.error.status)
-        } else {
-          if (this.serverOn) {
-            this.serverOn = false
-            this.openServerOffModal()
-          }
-        }
+        this.openModal('Errore', errorMsg, error.error.cause, error.error.message, error.error.intStatus + " - " + error.error.status)
       },
       () => { }
     ))
@@ -65,14 +49,6 @@ export class HttpService {
         "<strong>Status:</strong> " + status + "<br>" +
         "<strong>Causa:</strong> " + cause + "<br>" +
         "<strong>Message:</strong> " + message
-    }
-    this.modalService.show(AlertModalComponent, { initialState })
-  }
-
-  openServerOffModal() {
-    const initialState = {
-      title: "Attenzione",
-      text: "<h5>Il server non risponde</h5>"
     }
     this.modalService.show(AlertModalComponent, { initialState })
   }

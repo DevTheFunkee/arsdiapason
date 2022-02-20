@@ -29,9 +29,7 @@ export class CreateAccountComponent implements OnInit {
   }
 
   register() {
-    if (this.model.username && this.model.password) {
-      var params = '?username=' + this.model.username + '&password=' + this.model.password
-      this.httpService.callGet('createAccount' + params, "Non è stato possibile creare l'account").subscribe(
+      this.httpService.callPost('createAccount', this.model, "Non è stato possibile creare l'account").subscribe(
         data => {
           this.router.navigate(['loginPage'])
         },
@@ -40,9 +38,6 @@ export class CreateAccountComponent implements OnInit {
         },
         () => { }
       )
-    } else {
-      this.errMsg = "Immettere Utente e Password e Confermaa Password"
-    }
   }
 
   goToLogin() {
