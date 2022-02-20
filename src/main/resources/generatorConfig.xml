@@ -19,7 +19,6 @@
                         userId="sito_psiche_ut"
                         password="sito_psiche_psw">
             <property name="nullCatalogMeansCurrent" value="true" />
-
         </jdbcConnection>
 
         <javaModelGenerator targetPackage="comboDev.arsdiapason.mybatis.model" targetProject="src/main/java">
@@ -31,9 +30,8 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="%"></table>
-
-        <table tableName="ALLTYPES" >
+        <table tableName="%">
+            <generatedKey column="id" sqlStatement="MySql" identity="true" />
             <columnOverride column="UNSIGNED_BIGINT_FIELD" javaType="java.lang.Object" jdbcType="LONG" />
         </table>
 
