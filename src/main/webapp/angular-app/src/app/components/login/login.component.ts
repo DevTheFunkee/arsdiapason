@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
         data => {
           //this.sendMail()
           sessionStorage.setItem('userRole', data[0].authority)
-          //this.router.navigate(['ordiniBe'])
+          this.router.navigate(['insertChild'])
           this.errMsg = ""
         },
         error => {

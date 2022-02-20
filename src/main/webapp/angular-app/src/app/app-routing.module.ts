@@ -5,10 +5,12 @@ import { HttpService } from './services/http.service'
 
 import { LoginComponent } from './components/login/login.component'
 import { CreateAccountComponent } from './components/create-account/create-account.component'
+import { InsertChildComponent } from './components/insert-child/insert-child.component'
 
 const routes: Routes = [
   { path: 'loginPage', component: LoginComponent },
   { path: 'createAccount', component: CreateAccountComponent },
+  { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
   { path: '', redirectTo: 'loginPage', pathMatch: 'full', canActivate: [RouteGuardService] },
   { path: '**', redirectTo: 'loginPage' , pathMatch: 'full', canActivate: [RouteGuardService] }
 ]

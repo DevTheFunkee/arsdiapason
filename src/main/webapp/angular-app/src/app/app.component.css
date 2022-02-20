@@ -4,3 +4,13 @@ button {
 .container-fluid {
     min-height:100vh;
 }
+.toolbar {
+  height: 60px;
+  background-color: #007bff;
+  color: white;
+  display: flex;
+  font-weight: 600;
+  padding-left: 30px;
+  align-items: center;
+  margin-bottom: 20px;
+}

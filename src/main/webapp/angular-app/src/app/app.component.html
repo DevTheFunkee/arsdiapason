@@ -1,23 +1,27 @@
 <div class="container-fluid">
-  <div class="row toolbar">
-    <div class="col-12 text-center">
-      <h1>Arsdiapason - {{page}}</h1>
+  <div class="row toolbar pl-0">
+    <div class="col-10 pl-5">
+      <span style="font-size: 1.4em">Arsdiapason</span> - {{page}}
     </div>
-    <div class="col-12 text-center">
-      <button class="btn btn-primary btn-sm" type="button" (click)="logout()" [hidden]="hideLogout()">Logout</button>
-    </div>
+    <div class="col-2 text-right pr-4" (click)="logout()" [hidden]="hideLogout()">Logout</div>
   </div>
-  <div class="row">
-    <div class="col-2">
-      <ul class="list-group" *ngIf="page !== 'Login'">
-        <li class="list-group-item" *ngFor="let section of pages" routerLink="{{section.route}}"
-            [hidden]="section.hidden || !section.roles.includes(role)" (click)="page = section.title"
-            routerLinkActive="active" [ngClass]="{'disabled': section.disabled}">
-          {{section.title}}
+  <div class="row mb-4" [hidden]="hideLogout()">
+    <div class="col-12 pl-5">
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link active" href="#">Lista Bambini</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Inserisci Bambino</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Fai il Test</a>
         </li>
       </ul>
     </div>
-    <div class="col-10" style="padding-left:0;">
+  </div>
+  <div class="row">
+    <div class="col-12 pl-5">
       <router-outlet></router-outlet>
     </div>
   </div>

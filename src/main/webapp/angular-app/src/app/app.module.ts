@@ -16,6 +16,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { InsertChildComponent } from './components/insert-child/insert-child.component';
 
 registerLocaleData(localeIt);
 
@@ -23,7 +24,8 @@ registerLocaleData(localeIt);
   declarations: [
     AppComponent,
     LoginComponent,
-    CreateAccountComponent
+    CreateAccountComponent,
+    InsertChildComponent
   ],
   imports: [
     BrowserModule,

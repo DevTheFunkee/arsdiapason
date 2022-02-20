@@ -22,7 +22,8 @@ export class AppComponent {
   page: string
   pages = [
     {title: 'Login', route: '/loginPage', hidden: true},
-    {title: 'Crea Account', route: '/createAccount', hidden: true}
+    {title: 'Crea Account', route: '/createAccount', hidden: true},
+    {title: 'Inserisci Dati Bambino', route: '/insertChild'}
   ]
 
   ngOnInit(){}

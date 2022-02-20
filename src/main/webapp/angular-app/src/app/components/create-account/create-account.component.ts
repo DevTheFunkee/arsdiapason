@@ -29,15 +29,15 @@ export class CreateAccountComponent implements OnInit {
   }
 
   register() {
-      this.httpService.callPost('createAccount', this.model, "Non è stato possibile creare l'account").subscribe(
-        data => {
-          this.router.navigate(['loginPage'])
-        },
-        error => {
-          this.errMsg = "Errore in fase di registrazione"
-        },
-        () => { }
-      )
+    this.httpService.callPost('createAccount', this.model, "Non è stato possibile creare l'account").subscribe(
+      data => {
+        this.router.navigate(['loginPage'])
+      },
+      error => {
+        this.errMsg = "Errore in fase di registrazione"
+      },
+      () => { }
+    )
   }
 
   goToLogin() {
