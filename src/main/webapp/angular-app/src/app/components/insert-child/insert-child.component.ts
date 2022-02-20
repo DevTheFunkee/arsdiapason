@@ -23,16 +23,15 @@ export class InsertChildComponent implements OnInit {
             (data: any) => {
                 this.msg = "Inserimento avvenuto con successo"
                 this.alert = "alert-success"
+                setTimeout(() => {
+                    $("#alert").fadeOut(500);
+                }, 2500);
             },
             (error: any) => {
                 this.msg = "Errore in fase di inserimento"
                 this.alert = "alert-danger"
             },
-            () => {
-                setTimeout(() => {
-                    $("#alert").fadeOut(500);
-                }, 2500);
-            }
+            () => { }
         )
     }
 

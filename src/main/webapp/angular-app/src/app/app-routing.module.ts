@@ -11,8 +11,8 @@ const routes: Routes = [
   { path: 'loginPage', component: LoginComponent },
   { path: 'createAccount', component: CreateAccountComponent },
   { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
-  { path: '', redirectTo: 'loginPage', pathMatch: 'full', canActivate: [RouteGuardService] },
-  { path: '**', redirectTo: 'loginPage' , pathMatch: 'full', canActivate: [RouteGuardService] }
+  { path: '', redirectTo: 'insertChild', pathMatch: 'full', canActivate: [RouteGuardService] },
+  { path: '**', redirectTo: 'insertChild' , pathMatch: 'full', canActivate: [RouteGuardService] }
 ]
 
 @NgModule({
