@@ -48,21 +48,22 @@ CREATE TABLE rel_psicologo_bambino (
 
 CREATE TABLE scheda (
     numero TINYINT(2) NOT NULL,
-    titolo VARCHAR(15) NOT NULL,
-    obbiettivo VARCHAR(40) NOT NULL,
-    url_img  VARCHAR(15) NOT NULL,
+    titolo VARCHAR(30) NOT NULL,
+    obbiettivo VARCHAR(80) NOT NULL,
+    dicitura_tabella VARCHAR(30) NOT NULL,
+    immagini VARCHAR(10),
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(numero)
 );
 
 CREATE TABLE prova_scheda (
-    id TINYINT(3) NOT NULL,
+    id TINYINT(2) NOT NULL,
     numero_scheda TINYINT(2) NOT NULL,
     tipo VARCHAR(10),
-    testo VARCHAR(30),
-    anni TINYINT(1) NOT NULL,
-    prova TINYINT(1),
+    testo VARCHAR(70) NOT NULL,
+    anni TINYINT(2) NOT NULL,
+    prova TINYINT(2),
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(id)

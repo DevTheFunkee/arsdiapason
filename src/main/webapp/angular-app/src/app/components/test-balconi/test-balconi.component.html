@@ -1,0 +1,58 @@
+<div class="row">
+
+  <div class="col-2">
+    <table>
+      <tr *ngFor="let scheda of schede">
+        <td>
+          <button class="btn btn-primary w-100" (click)="showDatiScheda(scheda)">Scheda {{scheda.numero}}</button>
+        </td>
+        <td>
+          <button class="btn btn-primary ml-2" tooltip="Scarica immagine">
+            <i class="fa fa-download"></i>
+          </button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-3 text-center" *ngIf="schedaOpen">
+    <div class="row">
+      <div class="col-12">
+        <h4>{{schedaOpen.titolo}}</h4>
+        <h6>{{schedaOpen.obbiettivo}}</h6>
+      </div>
+    </div>
+    <div class="row" *ngIf="schedaOpen.immagini">
+      <div class="col-12" *ngFor="let img of schedaOpen.immagini.split(';')">
+        <img src="/assets/img/scheda{{schedaOpen.numero}}{{img}}.png" width="300" class="mb-1" style="border: 2px solid black">
+      </div>
+    </div>
+  </div>
+
+  <div class="col-7" *ngIf="schedaOpen">
+
+    <div class="col-12 px-3" *ngFor="let tipo of tipiTabellaPunti">
+      <table class="table table-bordered table-striped text-center mb-2" style="background-color: yellowgreen">
+        <tbody>
+        <tr *ngIf="tipo !== 'null'">
+          <th [attr.colspan]="arrayAnni.length + 1" class="text-center">{{tipo.toUpperCase()}}</th>
+        </tr>
+        <tr>
+          <td></td>
+          <th *ngFor="let x of arrayAnni" style="white-space: nowrap; width: 20%">{{x}} ANNI</th>
+        </tr>
+        <tr>
+          <th style="vertical-align: middle">ESITO</th>
+          <td style="vertical-align: middle" *ngFor="let x of arrayAnni">{{getDatiPerAnno(x, 'testo', tipo)}}</td>
+        </tr>
+        <tr>
+          <th>PROVA N.</th>
+          <td *ngFor="let x of arrayAnni">{{getDatiPerAnno(x, 'prova', tipo)}}</td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>

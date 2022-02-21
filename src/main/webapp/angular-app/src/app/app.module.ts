@@ -18,6 +18,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { InsertChildComponent } from './components/insert-child/insert-child.component';
 import { ChildListComponent } from './components/child-list/child-list.component';
+import { TestBalconiComponent } from './components/test-balconi/test-balconi.component';
 
 registerLocaleData(localeIt);
 
@@ -27,7 +28,8 @@ registerLocaleData(localeIt);
     LoginComponent,
     CreateAccountComponent,
     InsertChildComponent,
-    ChildListComponent
+    ChildListComponent,
+    TestBalconiComponent
   ],
   imports: [
     BrowserModule,
