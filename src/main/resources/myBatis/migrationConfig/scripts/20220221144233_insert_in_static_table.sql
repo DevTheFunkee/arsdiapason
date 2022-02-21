@@ -1,16 +1,16 @@
 -- // insert in static table
 
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (1, 'Figura complessa di Ray B', 'Copiare la figura e riprodurla a memoria', 'Numero rapporti riprodotti', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (2, 'Quadrato e losanga', 'Copiare le figure', 'Elementi copiati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (3, 'Figure lacunari', 'Disegnare ciò che manca', 'Elementi trovati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (4, 'Somiglianze e differenze', 'Mettere una crocetta sulla figura diversa', 'Elementi trovati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (5, 'Disegni  da completare', 'Completare i disegni', 'Greche completate', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (6, 'Cubi da completare', 'Completare le figure', 'Cubi completati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (7, 'Assurdità', 'Mettere una crocetta su ciò che non centra con l\'insieme del disegno', 'Elementi individuati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (8, 'Facce', 'Disegnare parti mancanti', 'Visi completati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (9, 'Labirinti', 'Tirare una riga nel binario più corto dal bambino alla casetta', 'Percorsi trovati', 'A;B;C');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (10, 'Omino', 'Disegnare elementi mancanti', 'Elementi disegnati', 'A');
-INSERT INTO scheda (numero, titolo, obbiettivo, dicitura_tabella, immagini) VALUES (11, 'Piegatura', 'Piegare un foglio in diagonale', 'Foglio piegato', NULL);
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (1, 'Figura complessa di Ray B', 'Copiare la figura e riprodurla a memoria', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (2, 'Quadrato e losanga', 'Copiare le figure', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (3, 'Figure lacunari', 'Disegnare ciò che manca', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (4, 'Somiglianze e differenze', 'Mettere una crocetta sulla figura diversa', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (5, 'Disegni  da completare', 'Completare i disegni', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (6, 'Cubi da completare', 'Completare le figure', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (7, 'Assurdità', 'Mettere una crocetta su ciò che non centra con l\'insieme del disegno', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (8, 'Facce', 'Disegnare parti mancanti', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (9, 'Labirinti', 'Tirare una riga nel binario più corto dal bambino alla casetta', 'A;B;C');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (10, 'Omino', 'Disegnare elementi mancanti', 'A');
+INSERT INTO scheda (numero, titolo, obbiettivo, immagini) VALUES (11, 'Piegatura', 'Piegare un foglio in diagonale', NULL);
 
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (1, 1, 'Copia', 'Copiata con 2 figure geometriche incastrate', 6, 1);
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (2, 1, 'Copia', 'Copiata con 3 figure geometriche incastrate', 7, NULL);
@@ -19,7 +19,7 @@ INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (4
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (5, 1, 'Memoria', 'Disegnata a memoria con 3 figure geometriche incastrate', 7, 6);
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (6, 1, 'Memoria', 'Disegnata a memoria con 4 figure geometriche incastrate', 8, 6);
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (7, 2, NULL, 'Riproduzione del quadrato', 5, 3);
-INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (8, 2, NULL, 'Riproduzione della losanga', 6, 3);
+INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (8, 2, NULL, 'Riproduzione del quadrato e della losanga', 6, 3);
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (9, 3, NULL, 'Completate 2 figure', 5, NULL);
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (10, 3, NULL, 'Completate 3 figure', 6, NULL);
 INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (11, 3, NULL, 'Completate 4 figure', 7, 3);
