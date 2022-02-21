@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import * as $ from 'jquery'
+import * as moment from 'moment'
 
 @Component({
     selector: 'app-insert-child',
@@ -13,6 +14,7 @@ export class InsertChildComponent implements OnInit {
     model: any = {}
     SiNo: any = ['No', 'Si']
     alert: string
+    today: string = moment().format('YYYY-MM-DD')
 
     constructor(private httpService: HttpService) { }
 
@@ -36,7 +38,7 @@ export class InsertChildComponent implements OnInit {
     }
 
     svuotaCampi() {
-      this.model = {}
+        this.model = {}
     }
 
 }

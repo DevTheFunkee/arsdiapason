@@ -28,7 +28,7 @@
       <div class="row mt-3">
         <div class="col-4">
           <label>Data di Nascita</label>
-          <input type="date" class="form-control form-control-sm" name="dataNascita" [(ngModel)]="model.dataNascita" required />
+          <input type="date" class="form-control form-control-sm" name="dataNascita" [(ngModel)]="model.dataNascita" max="{{today}}" required />
         </div>
         <div class="col-4">
           <label>Città di Nascita</label>
