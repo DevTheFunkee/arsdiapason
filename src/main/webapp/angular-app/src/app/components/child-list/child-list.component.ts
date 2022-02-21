@@ -10,6 +10,7 @@ import * as moment from 'moment'
 export class ChildListComponent implements OnInit {
 
     childList: any = []
+    bambino: any
 
     constructor(private httpService: HttpService) { }
 
@@ -35,6 +36,7 @@ export class ChildListComponent implements OnInit {
     }
 
     lookChild(child){
+      this.bambino = child
     }
 
 }

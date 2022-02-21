@@ -8,3 +8,6 @@ input.ng-dirty.ng-invalid{
 .c-pointer {
   cursor: pointer;
 }
+.btn-sm {
+  font-size: .800rem !important;
+}
