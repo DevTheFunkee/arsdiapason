@@ -1,7 +1,6 @@
 package comboDev.arsdiapason.controller;
 
 import comboDev.arsdiapason.mybatis.model.Bambino;
-import comboDev.arsdiapason.mybatis.model.Psicologo;
 import comboDev.arsdiapason.service.InsertChildService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,8 +16,7 @@ public class InsertChildController implements BasicController  {
 
     @PostMapping("/insertChild")
     public void insertChild(@RequestBody Bambino bambino, Authentication authentication) {
-        Psicologo psicologo = (Psicologo) authentication.getDetails();
-        insertChildService.insertChild(bambino, psicologo.getId());
+        insertChildService.insertChild(bambino, (Integer) authentication.getDetails());
     }
 
 }

@@ -1,18 +1,23 @@
 -- // create first tables
 
-CREATE TABLE psicologo (
-    id INT AUTO_INCREMENT,
+CREATE TABLE utente (
     username VARCHAR(40) NOT NULL,
     password VARCHAR(20) NOT NULL,
     role VARCHAR(10) NOT NULL,
+    id_psicologo INT NOT NULL,
+    data_ins TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    data_mod TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(username, password)
+);
+
+CREATE TABLE psicologo (
+    id INT AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
     data_ins TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
 );
-
-ALTER TABLE psicologo ADD CONSTRAINT unique_user UNIQUE (username, password);
 
 CREATE TABLE bambino (
     id INT AUTO_INCREMENT,
@@ -73,6 +78,7 @@ CREATE TABLE rel_bambino_scheda (
 
 -- //@UNDO
 
+DROP TABLE utente;
 DROP TABLE psicologo;
 DROP TABLE bambino;
 DROP TABLE rel_psicologo_bambino;

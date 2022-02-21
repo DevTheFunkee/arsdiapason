@@ -1,7 +1,6 @@
 package comboDev.arsdiapason.controller;
 
 import comboDev.arsdiapason.mybatis.model.Bambino;
-import comboDev.arsdiapason.mybatis.model.Psicologo;
 import comboDev.arsdiapason.service.ChildListService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -18,8 +17,7 @@ public class ChildListController implements BasicController  {
 
     @PostMapping("/childsList")
     public List<Bambino> childsList(Authentication authentication) {
-        Psicologo psicologo = (Psicologo) authentication.getDetails();
-        return childListService.childsList(psicologo.getId());
+        return childListService.childsList((Integer) authentication.getDetails());
     }
 
 }

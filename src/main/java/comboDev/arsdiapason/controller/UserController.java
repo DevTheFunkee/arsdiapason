@@ -1,5 +1,7 @@
 package comboDev.arsdiapason.controller;
 
+import comboDev.arsdiapason.model.DatiRegistrazione;
+import comboDev.arsdiapason.mybatis.mapper.PsicologoMapper;
 import comboDev.arsdiapason.mybatis.model.Psicologo;
 import comboDev.arsdiapason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,17 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController implements BasicController  {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
+    @Autowired
+    private PsicologoMapper psicologoMapper;
 
     @GetMapping("/login")
     public Psicologo login(Authentication authentication) {
-        return (Psicologo) authentication.getDetails();
+        return psicologoMapper.selectByPrimaryKey((Integer) authentication.getDetails());
     }
 
     @PostMapping("/createAccount")
-    public void createAccount(@RequestBody Psicologo psicologo) {
-        psicologo.setRole("USER");
-        userService.createAccount(psicologo);
+    public void createAccount(@RequestBody DatiRegistrazione datiRegistrazione) {
+        userService.createAccount(datiRegistrazione);
     }
 
 }

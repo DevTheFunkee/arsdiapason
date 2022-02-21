@@ -1,9 +1,9 @@
 package comboDev.arsdiapason.controller;
 
+import comboDev.arsdiapason.utils.MailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
-import comboDev.arsdiapason.utils.MailService;
 
 @RestController
 public class MailController implements BasicController {

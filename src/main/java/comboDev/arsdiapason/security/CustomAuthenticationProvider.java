@@ -1,6 +1,6 @@
 package comboDev.arsdiapason.security;
 
-import comboDev.arsdiapason.mybatis.model.Psicologo;
+import comboDev.arsdiapason.mybatis.model.Utente;
 import comboDev.arsdiapason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -17,7 +17,7 @@ import java.util.List;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    UserService userService;
+    private UserService userService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -25,12 +25,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         if (username != null && password != null) {
-            Psicologo psicologo = userService.login(username, password);
-            if(psicologo != null) {
+            Utente utente = userService.login(username, password);
+            if(utente != null) {
                 List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                authorities.add(new SimpleGrantedAuthority(psicologo.getRole()));
+                authorities.add(new SimpleGrantedAuthority(utente.getRole()));
                 UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, authorities);
-                token.setDetails(psicologo);
+                token.setDetails(utente.getIdPsicologo());
                 return token;
             }
         }
