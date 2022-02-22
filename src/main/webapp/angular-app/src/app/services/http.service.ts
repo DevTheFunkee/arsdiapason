@@ -16,17 +16,19 @@ export class HttpService {
 
     callGetOutside(url: string) {
         return this.http.get(url).pipe(tap(
-            data => { },
-            error => { },
+            (data: any) => { },
+            (error: any) => { },
             () => { }
         ))
     }
 
     callGet(url: string, errorMsg: string) {
         return this.http.get(this.baseUrl + url).pipe(tap(
-            data => { },
-            error => {
-                if (errorMsg) {
+            (data: any) => { },
+            (error: any) => {
+                if (error.status === 504) {
+                    this.openServerOffModal()
+                } else if (errorMsg) {
                     this.openModal('Errore', errorMsg, error.error.cause, error.error.message, error.error.intStatus + " - " + error.error.status)
                 }
             },
@@ -36,9 +38,11 @@ export class HttpService {
 
     callPost(url: string, item: any, errorMsg: string) {
         return this.http.post(this.baseUrl + url, item).pipe(tap(
-            data => { },
-            error => {
-                if (errorMsg) {
+            (data: any) => { },
+            (error: any) => {
+                if (error.status === 504) {
+                    this.openServerOffModal()
+                } else if (errorMsg) {
                     this.openModal('Errore', errorMsg, error.error.cause, error.error.message, error.error.intStatus + " - " + error.error.status)
                 }
             },
@@ -53,6 +57,14 @@ export class HttpService {
                 "<strong>Status:</strong> " + status + "<br>" +
                 "<strong>Causa:</strong> " + cause + "<br>" +
                 "<strong>Message:</strong> " + message
+        }
+        this.modalService.show(AlertModalComponent, { initialState })
+    }
+
+    openServerOffModal() {
+        const initialState = {
+            title: "Attenzione",
+            text: "<h5>Il server non risponde</h5>"
         }
         this.modalService.show(AlertModalComponent, { initialState })
     }
