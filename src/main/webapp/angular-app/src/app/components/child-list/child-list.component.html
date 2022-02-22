@@ -1,3 +1,14 @@
+<div class="my-3">
+  <div class="row mb-2" *ngFor="let combo of combos">
+    <div class="col-4 form-inline" *ngIf="comboList[combo.list].length">
+      <label class="font-weight-bold mr-3">{{combo.label}}</label>
+      <select class="custom-select custom-select-sm" name="{{combo.item}}" [(ngModel)]="comboItem[combo.item]" (ngModelChange)="comboChanged(combo.item)">
+        <option *ngFor="let x of comboList[combo.list]">{{x}}</option>
+      </select>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-6">
     <table class="table table-sm table-striped">
@@ -35,7 +46,7 @@
     <table class="table table-sm table-striped" *ngIf="bambino">
       <thead>
       <tr>
-        <th colspan="2" class="text-center">-- Dati Bambino --</th>
+        <th colspan="2" class="text-center">-- Dettagli Bambino --</th>
       </tr>
       </thead>
       <tbody>

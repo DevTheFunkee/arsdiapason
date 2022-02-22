@@ -9,7 +9,7 @@ import { HttpService } from '../../services/http.service'
 })
 export class LoginComponent implements OnInit {
 
-  errMsg = ""
+  errMsg: string = ""
   model: any = {}
 
   constructor(private httpService: HttpService, private router: Router) { }

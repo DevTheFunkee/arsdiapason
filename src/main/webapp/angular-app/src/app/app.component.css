@@ -11,3 +11,29 @@
   align-items: center;
   margin-bottom: 20px;
 }
+.navbar {
+  align-items: end; font-family: cursive
+}
+.navbar-brand {
+  margin-left: 30px;
+}
+.navbar-brand .title {
+  font-size: larger;
+}
+.navbar-brand .title2 {
+  font-size: smaller;
+}
+.navbar-brand .subtitle {
+  font-size: medium;
+  margin-bottom: 5px;
+}
+.navbar-collapse {
+  align-items: end;
+}
+.nav-link {
+  padding-bottom: 0;
+}
+.navbar-text {
+  color: white;
+  padding-bottom: 0;
+}

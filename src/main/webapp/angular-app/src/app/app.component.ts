@@ -9,14 +9,16 @@ import { Router, NavigationEnd } from '@angular/router'
 })
 export class AppComponent {
 
-  constructor(private httpService: HttpService, private router: Router){
-   router.events.subscribe((val) => {
-      if(val instanceof NavigationEnd){
-        this.page = this.pages.find(function (o) { return o.route === "/" + router.url.split("/")[1] }).title
-      }
-    });
-  }
+    constructor(private httpService: HttpService, private router: Router) {
+        router.events.subscribe((val: any) => {
+            if (val instanceof NavigationEnd) {
+                this.page = this.pages.find(function (o) { return o.route === "/" + router.url.split("/")[1] }).title
+                this.psicologo = JSON.parse(sessionStorage.getItem('psicologo')) || {}
+            }
+        });
+    }
 
+    psicologo: any = {}
     page: string
     pages = [
         { title: 'Login', route: '/loginPage', hidden: true },
@@ -30,12 +32,12 @@ export class AppComponent {
 
     logout() {
         sessionStorage.removeItem('auth')
-        sessionStorage.removeItem('userRole')
+        sessionStorage.removeItem('psicologo')
         this.router.navigate(['loginPage'])
     }
 
-    hideLogout() {
-        return this.page === 'Login' || this.page === 'Crea Account'
+    loggedIn() {
+        return !!sessionStorage.getItem('psicologo')
     }
 
 }

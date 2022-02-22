@@ -1,29 +1,32 @@
 <div class="container-fluid">
 
-  <div class="row toolbar pl-0">
-    <div class="col-10 pl-5">
-      <span style="font-size: 1.4em">Arsdiapason</span> - {{page}}
-    </div>
-    <div class="col-2 text-right pr-5" (click)="logout()" [hidden]="hideLogout()">
-      <span class="c-pointer">Logout</span>
-    </div>
-  </div>
-
-  <div class="row" [hidden]="hideLogout()">
-    <div class="col-12 pl-5">
-      <ul class="nav nav-tabs">
+  <nav class="row navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand">
+      <div>
+        <span class="title">Arsdiapason</span> - <span class="title2">Test Balconi</span>
+      </div>
+      <div class="subtitle" [hidden]="!loggedIn()">Bentornato {{psicologo.nome}}</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" *ngIf="loggedIn()">
+      <div class="navbar-nav mr-auto">
         <li class="nav-item" *ngFor="let p of pages" [hidden]="p.hidden">
           <a class="nav-link {{p.disabled}}" routerLink="{{p.route}}" routerLinkActive="active">{{p.title}}</a>
         </li>
-      </ul>
+      </div>
+      <span class="navbar-text" (click)="logout()" [hidden]="!loggedIn()">Logout</span>
     </div>
-  </div>
+  </nav>
 
-  <div class="row py-4">
+  <div class="row py-3">
     <div class="col-12 pl-5">
+      <h3>{{page}}</h3>
       <router-outlet></router-outlet>
     </div>
   </div>
+
 </div>
 
 <ngx-spinner size="medium" type="line-spin-fade" [fullScreen]="true">

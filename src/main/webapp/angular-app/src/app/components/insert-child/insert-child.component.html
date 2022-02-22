@@ -1,92 +1,78 @@
-<div class="row">
-  <div class="col-10">
 
-    <div class="row">
-      <div class="col-4">
-        <h3>Inserisci Bambino</h3>
-      </div>
-      <div class="col-4">
-        <div id="alert" class="alert {{alert}}" [hidden]="!msg">
-          <strong>{{msg}}</strong>
-        </div>
-      </div>
+<form name="form" (ngSubmit)="f.form.valid && insertChild()" #f="ngForm" novalidate>
+
+  <div class="row mt-3">
+    <div class="col-4">
+      <label>Nome</label>
+      <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="model.nome" required />
     </div>
-
-    <form name="form" (ngSubmit)="f.form.valid && insertChild()" #f="ngForm" novalidate>
-
-      <div class="row mt-3">
-        <div class="col-4">
-          <label>Nome</label>
-          <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="model.nome" required />
-        </div>
-        <div class="col-4">
-          <label>Cognome</label>
-          <input type="text" class="form-control form-control-sm" name="cognome" [(ngModel)]="model.cognome" required />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-4">
-          <label>Data di Nascita</label>
-          <input type="date" class="form-control form-control-sm" name="dataNascita" [(ngModel)]="model.dataNascita" max="{{today}}" required />
-        </div>
-        <div class="col-4">
-          <label>Città di Nascita</label>
-          <input type="text" class="form-control form-control-sm" name="cittaNascita" [(ngModel)]="model.cittaNascita" required />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-2">
-          <label>Figlio Adottivo</label>
-          <select class="custom-select custom-select-sm" name="figlioAdottivo" [(ngModel)]="model.figlioAdottivo" required>
-            <option *ngFor="let x of SiNo">{{x}}</option>
-          </select>
-        </div>
-        <div class="col-2">
-          <label>Ordine Genitura</label>
-          <input type="number" class="form-control form-control-sm" name="ordineGenitura" [(ngModel)]="model.ordineGenitura" min="1" required />
-        </div>
-        <div class="col-2">
-          <label>Numero Fratelli</label>
-          <input type="number" class="form-control form-control-sm" name="numeroFratelli" [(ngModel)]="model.numeroFratelli" min="0" required />
-        </div>
-        <div class="col-2">
-          <label>Numero Sorelle</label>
-          <input type="number" class="form-control form-control-sm" name="numeroSorelle" [(ngModel)]="model.numeroSorelle" min="0" required />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-4">
-          <label>Lavoro Padre</label>
-          <input type="text" class="form-control form-control-sm" name="lavoroPadre" [(ngModel)]="model.lavoroPadre" required />
-        </div>
-        <div class="col-4">
-          <label>Lavoro Madre</label>
-          <input type="text" class="form-control form-control-sm" name="lavoroMadre" [(ngModel)]="model.lavoroMadre" required />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-4">
-          <label>Titolo Studio Padre</label>
-          <input type="text" class="form-control form-control-sm" name="titoloStudioPadre" [(ngModel)]="model.titoloStudioPadre" required />
-        </div>
-        <div class="col-4">
-          <label>Titolo Studio Madre</label>
-          <input type="text" class="form-control form-control-sm" name="titoloStudioMadre" [(ngModel)]="model.titoloStudioMadre" required />
-        </div>
-      </div>
-
-      <div class="row mt-3">
-        <div class="col-5">
-          <button class="btn btn-primary mr-5" type="submit" [disabled]="f.form.invalid">Salva</button>
-          <button class="btn btn-primary" (click)="svuotaCampi()">Svuota campi</button>
-        </div>
-      </div>
-
-    </form>
-
+    <div class="col-4">
+      <label>Cognome</label>
+      <input type="text" class="form-control form-control-sm" name="cognome" [(ngModel)]="model.cognome" required />
+    </div>
   </div>
-</div>
+
+  <div class="row mt-3">
+    <div class="col-4">
+      <label>Data di Nascita</label>
+      <input type="date" class="form-control form-control-sm" name="dataNascita" [(ngModel)]="model.dataNascita" max="{{today}}" required />
+    </div>
+    <div class="col-4">
+      <label>Città di Nascita</label>
+      <input type="text" class="form-control form-control-sm" name="cittaNascita" [(ngModel)]="model.cittaNascita" required />
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-2">
+      <label>Figlio Adottivo</label>
+      <select class="custom-select custom-select-sm" name="figlioAdottivo" [(ngModel)]="model.figlioAdottivo" required>
+        <option *ngFor="let x of SiNo">{{x}}</option>
+      </select>
+    </div>
+    <div class="col-2">
+      <label>Ordine Genitura</label>
+      <input type="number" class="form-control form-control-sm" name="ordineGenitura" [(ngModel)]="model.ordineGenitura" min="1" required />
+    </div>
+    <div class="col-2">
+      <label>Numero Fratelli</label>
+      <input type="number" class="form-control form-control-sm" name="numeroFratelli" [(ngModel)]="model.numeroFratelli" min="0" required />
+    </div>
+    <div class="col-2">
+      <label>Numero Sorelle</label>
+      <input type="number" class="form-control form-control-sm" name="numeroSorelle" [(ngModel)]="model.numeroSorelle" min="0" required />
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-4">
+      <label>Lavoro Padre</label>
+      <input type="text" class="form-control form-control-sm" name="lavoroPadre" [(ngModel)]="model.lavoroPadre" required />
+    </div>
+    <div class="col-4">
+      <label>Lavoro Madre</label>
+      <input type="text" class="form-control form-control-sm" name="lavoroMadre" [(ngModel)]="model.lavoroMadre" required />
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-4">
+      <label>Titolo Studio Padre</label>
+      <input type="text" class="form-control form-control-sm" name="titoloStudioPadre" [(ngModel)]="model.titoloStudioPadre" required />
+    </div>
+    <div class="col-4">
+      <label>Titolo Studio Madre</label>
+      <input type="text" class="form-control form-control-sm" name="titoloStudioMadre" [(ngModel)]="model.titoloStudioMadre" required />
+    </div>
+  </div>
+
+  <div class="row mt-3">
+    <div class="col-2">
+      <button class="btn btn-primary mr-5" type="submit" [disabled]="f.form.invalid">Salva</button>
+    </div>
+    <div class="col-2">
+      <button class="btn btn-primary" (click)="svuotaCampi()">Svuota campi</button>
+    </div>
+  </div>
+
+</form>

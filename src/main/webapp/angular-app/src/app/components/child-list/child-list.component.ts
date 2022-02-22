@@ -11,7 +11,11 @@ import * as moment from 'moment'
 export class ChildListComponent implements OnInit {
 
     childList: any = []
-    bambino: any
+    bambino: any = null
+    comboItem: any = { istituto: {}, classe: {} }
+    comboList: any = { istituti: ['Rignon', 'Meucci', 'scuola piccola sant\'anna'], classi: [] }
+    combos: any = [{ label: 'Istituto scolastico', list: 'istituti', item: 'istituto' },
+        { label: 'Classe', list: 'classi', item: 'classe' }]
 
     constructor(private httpService: HttpService, private router: Router) { }
 
@@ -30,18 +34,23 @@ export class ChildListComponent implements OnInit {
     }
 
     getChildAge(dataNascita) {
-      let monthsTot = moment().diff(dataNascita, 'months')
-      let years = Math.floor(monthsTot / 12)
-      let months = monthsTot - (years * 12)
-      return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
+        let monthsTot = moment().diff(dataNascita, 'months')
+        let years = Math.floor(monthsTot / 12)
+        let months = monthsTot - (years * 12)
+        return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
     }
 
-    lookChild(child){
-      this.bambino = child
+    lookChild(child: any) {
+        this.bambino = child
     }
 
-    goToTest(childId){
-      this.router.navigate(['testBalconi', childId])
+    goToTest(childId: number) {
+        this.router.navigate(['testBalconi', childId])
     }
 
+    comboChanged(item){
+      if(item === 'istituto'){
+        this.comboList.classi = ['A', 'B', 'F']
+      }
+    }
 }
