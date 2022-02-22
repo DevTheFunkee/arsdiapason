@@ -13,8 +13,8 @@ public class TestBalconiController implements BasicController  {
     private TestBalconiService testBalconiService;
 
     @PostMapping("/getDatiSchede")
-    public DatiSchede getDatiSchede() {
-        return testBalconiService.getDatiSchede();
+    public DatiSchede getDatiSchede(Integer idBambino) {
+        return testBalconiService.getDatiSchede(idBambino);
     }
 
 }

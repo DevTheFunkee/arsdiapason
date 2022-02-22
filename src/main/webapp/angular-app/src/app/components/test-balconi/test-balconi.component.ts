@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpService } from '../../services/http.service';
-import * as _ from 'lodash';
+import { Component, OnInit } from '@angular/core'
+import { HttpService } from '../../services/http.service'
+import { ActivatedRoute } from '@angular/router'
+import * as _ from 'lodash'
+import * as moment from 'moment'
 
 @Component({
     selector: 'app-test-balconi',
@@ -11,20 +13,23 @@ export class TestBalconiComponent implements OnInit {
 
     schede: any = []
     proveSchede: any = []
+    bambino: any = null
     schedaOpen: any = null
     tabellaPunteggio: any = null
     tipiTabellaPunti: any = []
     arrayAnni: any = [5, 6, 7, 8]
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService, private activedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.getDatiSchede()
     }
 
     getDatiSchede() {
-        this.httpService.callPost('getDatiSchede', null, "Non è stato possibile reperire la lista schede").subscribe(
+        let url = 'getDatiSchede?idBambino=' + this.activedRoute.snapshot.paramMap.get("id")
+        this.httpService.callPost(url, null, "Non è stato possibile reperire i dati della pagina").subscribe(
             (data: any) => {
+                this.bambino = data.bambino
                 this.schede = data.schede
                 this.proveSchede = data.proveSchede
             },
@@ -42,13 +47,20 @@ export class TestBalconiComponent implements OnInit {
     getDatiPerAnno(eta: number, property: string, tipo: string) {
         let row: any
         if (tipo === 'null') {
-            row = _.find(this.tabellaPunteggio, function (o) { return o.anni === eta && !o.tipo })
+            row = _.find(this.tabellaPunteggio, function (o: any) { return o.anni === eta && !o.tipo })
         } else {
-            row = _.find(this.tabellaPunteggio, function (o) { return o.anni === eta && o.tipo === tipo })
+            row = _.find(this.tabellaPunteggio, function (o: any) { return o.anni === eta && o.tipo === tipo })
         }
         if (row) {
             return row[property]
         }
+    }
+
+    getChildAge(dataNascita) {
+      let monthsTot = moment().diff(dataNascita, 'months')
+      let years = Math.floor(monthsTot / 12)
+      let months = monthsTot - (years * 12)
+      return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
     }
 
 }

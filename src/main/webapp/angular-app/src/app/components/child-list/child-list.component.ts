@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { Router } from '@angular/router'
 import { HttpService } from '../../services/http.service'
 import * as moment from 'moment'
 
@@ -12,7 +13,7 @@ export class ChildListComponent implements OnInit {
     childList: any = []
     bambino: any
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService, private router: Router) { }
 
     ngOnInit(): void {
         this.childsList()
@@ -37,6 +38,10 @@ export class ChildListComponent implements OnInit {
 
     lookChild(child){
       this.bambino = child
+    }
+
+    goToTest(childId){
+      this.router.navigate(['testBalconi', childId])
     }
 
 }

@@ -12,8 +12,8 @@
   <div class="row" [hidden]="hideLogout()">
     <div class="col-12 pl-5">
       <ul class="nav nav-tabs">
-        <li class="nav-item" *ngFor="let p of pages" (click)="page = p.title" [hidden]="p.hidden">
-          <a class="nav-link" routerLink="{{p.route}}" routerLinkActive="active">{{p.title}}</a>
+        <li class="nav-item" *ngFor="let p of pages" [hidden]="p.hidden">
+          <a class="nav-link {{p.disabled}}" routerLink="{{p.route}}" routerLinkActive="active">{{p.title}}</a>
         </li>
       </ul>
     </div>

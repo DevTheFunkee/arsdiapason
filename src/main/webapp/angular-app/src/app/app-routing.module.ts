@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'createAccount', component: CreateAccountComponent },
   { path: 'childList', component: ChildListComponent, canActivate: [RouteGuardService] },
   { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
-  { path: 'testBalconi', component: TestBalconiComponent, canActivate: [RouteGuardService] },
+  { path: 'testBalconi/:id', component: TestBalconiComponent, canActivate: [RouteGuardService] },
   { path: '', redirectTo: 'childList', pathMatch: 'full', canActivate: [RouteGuardService] },
   { path: '**', redirectTo: 'childList' , pathMatch: 'full', canActivate: [RouteGuardService] }
 ]
