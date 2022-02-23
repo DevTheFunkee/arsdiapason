@@ -11,22 +11,28 @@ import * as moment from 'moment'
 })
 export class TestBalconiComponent implements OnInit {
 
+    constructor(private httpService: HttpService, private activedRoute: ActivatedRoute) { }
+
+    idBambino = this.activedRoute.snapshot.paramMap.get("id")
     schede: any = []
     proveSchede: any = []
     bambino: any = null
-    schedaOpen: any = null
-    tabellaPunteggio: any = null
-    tipiTabellaPunti: any = []
+    currentScheda: any = {}
+    tabellaPunteggio: any = {}
+    tipiTabellaPunti: any = {}
     arrayAnni: any = [5, 6, 7, 8]
-
-    constructor(private httpService: HttpService, private activedRoute: ActivatedRoute) { }
 
     ngOnInit(): void {
         this.getDatiSchede()
     }
 
     getDatiSchede() {
-        let url = 'getDatiSchede?idBambino=' + this.activedRoute.snapshot.paramMap.get("id")
+        let url
+        if (this.idBambino) {
+            url = 'getDatiSchede?idBambino=' + this.idBambino
+        } else {
+            url = 'getDatiSchede'
+        }
         this.httpService.callPost(url, null).subscribe(
             (data: any) => {
                 this.bambino = data.bambino
@@ -39,28 +45,30 @@ export class TestBalconiComponent implements OnInit {
     }
 
     showDatiScheda(scheda: any) {
-        this.schedaOpen = scheda
-        this.tabellaPunteggio = _.filter(this.proveSchede, function (o: any) { return o.numeroScheda === scheda.numero })
-        this.tipiTabellaPunti = _(this.tabellaPunteggio).groupBy(function (o: any) { return o.tipo }).keys().value()
+        this.currentScheda = scheda
+        if (!this.tabellaPunteggio[scheda.numero]) {
+            this.tabellaPunteggio[scheda.numero] = _.filter(this.proveSchede, function (o: any) { return o.numeroScheda === scheda.numero })
+            this.tipiTabellaPunti[scheda.numero] = _(this.tabellaPunteggio[scheda.numero]).groupBy(function (o: any) { return o.tipo }).keys().value()
+        }
     }
 
-    getDatiPerAnno(eta: number, property: string, tipo: string) {
+    getDatiPerAnno(numScheda: number, eta: number, property: string, tipo: string) {
         let row: any
         if (tipo === 'null') {
-            row = _.find(this.tabellaPunteggio, function (o: any) { return o.anni === eta && !o.tipo })
+            row = _.find(this.tabellaPunteggio[numScheda], function (o: any) { return o.anni === eta && !o.tipo })
         } else {
-            row = _.find(this.tabellaPunteggio, function (o: any) { return o.anni === eta && o.tipo === tipo })
+            row = _.find(this.tabellaPunteggio[numScheda], function (o: any) { return o.anni === eta && o.tipo === tipo })
         }
         if (row) {
             return row[property]
         }
     }
 
-    getChildAge(dataNascita) {
-      let monthsTot = moment().diff(dataNascita, 'months')
-      let years = Math.floor(monthsTot / 12)
-      let months = monthsTot - (years * 12)
-      return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
+    getChildAge(dataNascita: Date) {
+        let monthsTot = moment().diff(dataNascita, 'months')
+        let years = Math.floor(monthsTot / 12)
+        let months = monthsTot - (years * 12)
+        return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
     }
 
 }

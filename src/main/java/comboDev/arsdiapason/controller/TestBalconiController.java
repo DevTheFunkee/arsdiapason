@@ -4,6 +4,7 @@ import comboDev.arsdiapason.model.DatiSchede;
 import comboDev.arsdiapason.service.TestBalconiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -13,7 +14,7 @@ public class TestBalconiController implements BasicController  {
     private TestBalconiService testBalconiService;
 
     @PostMapping("/getDatiSchede")
-    public DatiSchede getDatiSchede(Integer idBambino) {
+    public DatiSchede getDatiSchede(@RequestParam(required = false) Integer idBambino) {
         return testBalconiService.getDatiSchede(idBambino);
     }
 

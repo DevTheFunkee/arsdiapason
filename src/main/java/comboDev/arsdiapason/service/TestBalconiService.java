@@ -21,7 +21,9 @@ public class TestBalconiService {
     @Transactional(readOnly = true)
     public DatiSchede getDatiSchede(Integer idBambino) {
         DatiSchede datiSchede = new DatiSchede();
-        datiSchede.setBambino(bambinoMapper.selectByPrimaryKey(idBambino));
+        if(idBambino != null) {
+            datiSchede.setBambino(bambinoMapper.selectByPrimaryKey(idBambino));
+        }
         datiSchede.setSchede(schedaMapper.selectByExample(null));
         datiSchede.setProveSchede(provaSchedaMapper.selectByExample(null));
         return datiSchede;

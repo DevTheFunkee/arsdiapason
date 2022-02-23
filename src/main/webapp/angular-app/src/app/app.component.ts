@@ -25,7 +25,7 @@ export class AppComponent {
         { title: 'Crea Account', route: '/createAccount', hidden: true },
         { title: 'Lista Bambini', route: '/childList' },
         { title: 'Inserisci Dati Bambino', route: '/insertChild' },
-        { title: 'Test Balconi', route: '/testBalconi', disabled: 'disabled' }
+        { title: 'Test Balconi', route: '/testBalconi' }
     ]
 
     ngOnInit() { }
