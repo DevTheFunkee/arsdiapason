@@ -27,7 +27,6 @@ export class BasicAuthInterceptor implements HttpInterceptor {
                     sessionStorage.removeItem('auth')
                     sessionStorage.removeItem('user')
                     this.router.navigate(['loginPage'])
-                    this.openErrorModal("Utente non più presente in sessione, è necessario riautenticarsi")
                 } else if (error.status === 504) {
                     this.openServerOffModal()
                 } else {
