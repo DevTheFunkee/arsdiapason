@@ -24,7 +24,8 @@
   <div class="row mt-3">
     <div class="col-4">
       <label>Password</label>
-      <input type="password" class="form-control form-control-sm" name="password" [(ngModel)]="model.password" required />
+      <input tooltip="Minimo 8 caratteri, massimo 20, almeno una maiuscola, una minuscola, un numero e un carattere speciale tra questi #?!@$ %^&*-"
+             type="password" class="form-control form-control-sm" name="password" [(ngModel)]="model.password" required />
     </div>
   </div>
 
@@ -38,12 +39,12 @@
 
   <div class="row mt-3">
     <div class="col-2">
+      <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Crea Account</button>
+    </div>
+    <div class="col-2">
       <button class="btn btn-primary" (click)="goToLogin()">
         Torna alla Login
       </button>
-    </div>
-    <div class="col-2">
-      <button class="btn btn-primary" type="submit" [disabled]="f.form.invalid">Crea Account</button>
     </div>
   </div>
 
