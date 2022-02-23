@@ -48,7 +48,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
     openErrorModal(cause: string) {
         const initialState = {
             title: "Si è verificato un errore",
-            text: "<strong>" + cause + "</strong>"
+            text: cause
         }
         this.modalService.show(AlertModalComponent, { initialState })
     }
@@ -56,7 +56,7 @@ export class BasicAuthInterceptor implements HttpInterceptor {
     openServerOffModal() {
         const initialState = {
             title: "Attenzione",
-            text: "<h5>Il server non risponde</h5>"
+            text: "Il server non risponde"
         }
         this.modalService.show(AlertModalComponent, { initialState })
         this.router.navigate(['loginPage'])

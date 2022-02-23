@@ -32,8 +32,9 @@ export class InsertChildComponent implements OnInit {
 
     openModal(text: string) {
         const initialState = {
-            title: "",
-            text: "<strong>" + text + "</strong>"
+            textColor: 'text-success',
+            title: "Ben fatto!",
+            text: text
         }
         this.modalService.show(AlertModalComponent, { initialState })
     }
