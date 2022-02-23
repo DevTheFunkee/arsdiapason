@@ -1,4 +1,3 @@
-
 <form name="form" (ngSubmit)="f.form.valid && insertChild()" #f="ngForm" novalidate>
 
   <div class="row mt-3">
@@ -71,7 +70,7 @@
       <button class="btn btn-primary mr-5" type="submit" [disabled]="f.form.invalid">Salva</button>
     </div>
     <div class="col-2">
-      <button class="btn btn-primary" (click)="svuotaCampi()">Svuota campi</button>
+      <button class="btn btn-primary" (click)="model = {}">Svuota campi</button>
     </div>
   </div>
 

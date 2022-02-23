@@ -25,7 +25,7 @@ public class UserController implements BasicController  {
     }
 
     @PostMapping("/createAccount")
-    public void createAccount(@RequestBody DatiRegistrazione datiRegistrazione) {
+    public void createAccount(@RequestBody DatiRegistrazione datiRegistrazione) throws Exception {
         userService.createAccount(datiRegistrazione);
     }
 

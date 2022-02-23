@@ -13,12 +13,12 @@ export class AppComponent {
         router.events.subscribe((val: any) => {
             if (val instanceof NavigationEnd) {
                 this.page = this.pages.find(function (o) { return o.route === "/" + router.url.split("/")[1] }).title
-                this.psicologo = JSON.parse(sessionStorage.getItem('psicologo')) || {}
+                this.user = JSON.parse(sessionStorage.getItem('user')) || {}
             }
         });
     }
 
-    psicologo: any = {}
+    user: any = {}
     page: string
     pages = [
         { title: 'Login', route: '/loginPage', hidden: true },
@@ -32,12 +32,12 @@ export class AppComponent {
 
     logout() {
         sessionStorage.removeItem('auth')
-        sessionStorage.removeItem('psicologo')
+        sessionStorage.removeItem('user')
         this.router.navigate(['loginPage'])
     }
 
     loggedIn() {
-        return !!sessionStorage.getItem('psicologo')
+        return !!sessionStorage.getItem('user')
     }
 
 }

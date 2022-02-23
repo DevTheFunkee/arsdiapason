@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
-import * as $ from 'jquery'
+import { BsModalService } from 'ngx-bootstrap/modal'
+import { AlertModalComponent } from '../alert-modal/alert-modal.component'
 import * as moment from 'moment'
 
 @Component({
@@ -10,35 +11,31 @@ import * as moment from 'moment'
 })
 export class InsertChildComponent implements OnInit {
 
-    msg: string
     model: any = {}
     SiNo: any = ['No', 'Si']
-    alert: string
     today: string = moment().format('YYYY-MM-DD')
 
-    constructor(private httpService: HttpService) { }
+    constructor(private httpService: HttpService, private modalService: BsModalService) { }
 
     ngOnInit(): void { }
 
     insertChild() {
-        this.httpService.callPost('insertChild', this.model, '').subscribe(
+        this.httpService.callPost('insertChild', this.model).subscribe(
             (data: any) => {
-                this.msg = "Inserimento avvenuto con successo"
-                this.alert = "alert-success"
-                setTimeout(() => {
-                    $("#alert").fadeOut(500);
-                }, 2500);
+                this.openModal("Inserimento avvenuto con successo")
+                this.model = {}
             },
-            (error: any) => {
-                this.msg = "Errore in fase di inserimento"
-                this.alert = "alert-danger"
-            },
+            (error: any) => { },
             () => { }
         )
     }
 
-    svuotaCampi() {
-        this.model = {}
+    openModal(text: string) {
+        const initialState = {
+            title: "",
+            text: "<strong>" + text + "</strong>"
+        }
+        this.modalService.show(AlertModalComponent, { initialState })
     }
 
 }

@@ -24,7 +24,7 @@ export class ChildListComponent implements OnInit {
     }
 
     childsList() {
-        this.httpService.callPost('childsList', null, "Non è stato possibile reperire la lista").subscribe(
+        this.httpService.callPost('childsList', null).subscribe(
             (data: any) => {
                 this.childList = data
             },

@@ -7,6 +7,7 @@ import comboDev.arsdiapason.mybatis.model.RelPsicologoBambino;
 import comboDev.arsdiapason.mybatis.model.RelPsicologoBambinoExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ public class ChildListService {
     @Autowired
     private RelPsicologoBambinoMapper relPsicologoBambinoMapper;
 
+    @Transactional(readOnly = true)
     public List<Bambino> childsList(Integer idPsicologo) {
 
         RelPsicologoBambinoExample relPsicologoBambinoExample = new RelPsicologoBambinoExample();

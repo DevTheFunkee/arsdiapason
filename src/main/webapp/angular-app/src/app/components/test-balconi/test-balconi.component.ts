@@ -27,7 +27,7 @@ export class TestBalconiComponent implements OnInit {
 
     getDatiSchede() {
         let url = 'getDatiSchede?idBambino=' + this.activedRoute.snapshot.paramMap.get("id")
-        this.httpService.callPost(url, null, "Non è stato possibile reperire i dati della pagina").subscribe(
+        this.httpService.callPost(url, null).subscribe(
             (data: any) => {
                 this.bambino = data.bambino
                 this.schede = data.schede

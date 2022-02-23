@@ -6,6 +6,7 @@ import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.SchedaMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class TestBalconiService {
@@ -17,6 +18,7 @@ public class TestBalconiService {
     @Autowired
     private ProvaSchedaMapper provaSchedaMapper;
 
+    @Transactional(readOnly = true)
     public DatiSchede getDatiSchede(Integer idBambino) {
         DatiSchede datiSchede = new DatiSchede();
         datiSchede.setBambino(bambinoMapper.selectByPrimaryKey(idBambino));

@@ -5,18 +5,18 @@
       <div>
         <span class="title">Arsdiapason</span> - <span class="title2">Test Balconi</span>
       </div>
-      <div class="subtitle" [hidden]="!loggedIn()">Bentornato {{psicologo.nome}}</div>
+      <div [hidden]="!loggedIn()" class="subtitle">Bentornato {{user.nome}}</div>
     </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+    <button *ngIf="loggedIn()" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup" *ngIf="loggedIn()">
+    <div *ngIf="loggedIn()" class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav mr-auto">
         <li class="nav-item" *ngFor="let p of pages" [hidden]="p.hidden">
           <a class="nav-link {{p.disabled}}" routerLink="{{p.route}}" routerLinkActive="active">{{p.title}}</a>
         </li>
       </div>
-      <span class="navbar-text" (click)="logout()" [hidden]="!loggedIn()">Logout</span>
+      <span [hidden]="!loggedIn()" class="navbar-text" (click)="logout()">Logout</span>
     </div>
   </nav>
 
