@@ -18,7 +18,7 @@ export class CreateAccountComponent implements OnInit {
 
     checkPassword() {
         if (this.model.password && this.model.password2) {
-            let pattern = /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,20}$/
+            let pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!=%*?^&+#])[A-Za-z\d@$!=%*?^&+#]{8,20}$/
             if (!this.model.password.match(pattern)) {
                 this.errMsg = 'La Password non rispetta i requisiti richiesti'
             } else if (this.model.password !== this.model.password2) {

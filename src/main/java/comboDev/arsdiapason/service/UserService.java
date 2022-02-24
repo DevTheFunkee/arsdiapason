@@ -26,7 +26,8 @@ public class UserService {
 
     @Transactional(rollbackFor = Exception.class)
     public void createAccount(DatiRegistrazione datiRegistrazione) throws Exception {
-        Pattern pattern = Pattern.compile("^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,20}$");
+        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!=%*?^&+#])[A-Za-z\\d@$!=%*?^&+#]{8,20}$";
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(datiRegistrazione.getPassword());
         if(matcher.find()) {
             Psicologo psicologo = new Psicologo();
