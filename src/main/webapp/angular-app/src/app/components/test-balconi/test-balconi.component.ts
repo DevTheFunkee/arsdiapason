@@ -52,6 +52,10 @@ export class TestBalconiComponent implements OnInit {
         }
     }
 
+    getArrayImages(images) {
+      return images ? images.split(';') : []
+    }
+
     getDatiPerAnno(numScheda: number, eta: number, property: string, tipo: string) {
         let row: any
         if (tipo === 'null') {

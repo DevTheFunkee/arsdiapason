@@ -2,7 +2,7 @@
   <div class="col-6">
     <div class="alert alert-info">
       <strong>Per fare il test è necessario cliccare sul pulsante 'Vai Al Test' sulla riga di un bambino dalla pagina
-        <a [routerLink]="[ '/childList']" routerLinkActive="active">Lista Bambini</a>
+        <a [routerLink]="['/childList']" routerLinkActive="active">Lista Bambini</a>
       </strong>
     </div>
   </div>
@@ -60,7 +60,7 @@
       </div>
     </div>
     <div class="row" [hidden]="!currentScheda.immagini">
-      <div *ngFor="let img of currentScheda.immagini.split(';')" class="{{currentScheda.immagini.split(';').length > 1 ? 'col-6': 'col-12'}}">
+      <div *ngFor="let img of getArrayImages(currentScheda.immagini)" class="{{getArrayImages(currentScheda.immagini).length > 1 ? 'col-6': 'col-12'}}">
         <img src="/assets/img/scheda{{currentScheda.numero}}{{img}}.png" class="mb-1">
       </div>
     </div>
