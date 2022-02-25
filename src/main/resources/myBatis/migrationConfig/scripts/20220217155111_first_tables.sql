@@ -19,20 +19,38 @@ CREATE TABLE psicologo (
     PRIMARY KEY(id)
 );
 
-CREATE TABLE bambino (
+CREATE TABLE istituto (
     id INT AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL,
+    regione VARCHAR(50) NOT NULL,
+    provincia VARCHAR(50) NOT NULL,
+    comune VARCHAR(50) NOT NULL,
+    indirizzo VARCHAR(50) NOT NULL,
+    data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(id)
+);
+
+CREATE TABLE bambino (
+    id INT AUTO_INCREMENT,
+    id_istituto INT,
+    classe VARCHAR(3),
+    nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
+    sesso VARCHAR(1) NOT NULL,
     data_nascita DATE NOT NULL,
-    citta_nascita VARCHAR(30) NOT NULL,
-    numero_fratelli  TINYINT(3) NOT NULL,
-    numero_sorelle TINYINT(3) NOT NULL,
-    ordine_genitura TINYINT(3) NOT NULL,
-    lavoro_padre VARCHAR(50) NOT NULL,
-    lavoro_madre VARCHAR(50) NOT NULL,
-    titolo_studio_padre  VARCHAR(50) NOT NULL,
-    titolo_studio_madre  VARCHAR(50) NOT NULL,
-    figlio_adottivo char(2) NOT NULL,
+    comune_nascita VARCHAR(30),
+    comune_residenza VARCHAR(30),
+    indirizzo_residenza VARCHAR(50),
+    numero_fratelli TINYINT(3),
+    numero_sorelle TINYINT(3),
+    ordine_genitura TINYINT(3),
+    lavoro_padre VARCHAR(50),
+    lavoro_madre VARCHAR(50),
+    titolo_studio_padre VARCHAR(50),
+    titolo_studio_madre VARCHAR(50),
+    figlio_adottivo CHAR(2),
+    note VARCHAR(200),
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
@@ -80,6 +98,7 @@ CREATE TABLE rel_bambino_scheda (
 
 DROP TABLE utente;
 DROP TABLE psicologo;
+DROP TABLE istituto;
 DROP TABLE bambino;
 DROP TABLE rel_psicologo_bambino;
 DROP TABLE scheda;
