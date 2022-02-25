@@ -21,6 +21,7 @@ CREATE TABLE psicologo (
 
 CREATE TABLE istituto (
     id INT AUTO_INCREMENT,
+    id_psicologo INT NOT NULL,
     nome VARCHAR(50) NOT NULL,
     regione VARCHAR(50) NOT NULL,
     provincia VARCHAR(50) NOT NULL,

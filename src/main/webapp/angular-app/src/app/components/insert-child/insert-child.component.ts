@@ -11,16 +11,16 @@ import * as moment from 'moment'
 })
 export class InsertChildComponent implements OnInit {
 
+    constructor(private httpService: HttpService, private modalService: BsModalService) { }
+
+    ngOnInit(): void { }
+
     model: any = {}
     siNo: any = ['No', 'Si']
     sexList: any = [{ label: 'Maschio', db: 'M' }, { label: 'Femmina', db: 'F' }]
     today: string = moment().format('YYYY-MM-DD')
     istituti: any = []
     classi: any = []
-
-    constructor(private httpService: HttpService, private modalService: BsModalService) { }
-
-    ngOnInit(): void { }
 
     insertChild() {
         this.httpService.callPost('insertChild', this.model).subscribe(

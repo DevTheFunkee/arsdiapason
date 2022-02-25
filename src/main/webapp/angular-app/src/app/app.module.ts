@@ -19,6 +19,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { InsertChildComponent } from './components/insert-child/insert-child.component';
 import { ChildListComponent } from './components/child-list/child-list.component';
 import { TestBalconiComponent } from './components/test-balconi/test-balconi.component';
+import { GestisciIstitutiComponent } from './components/gestisci-istituti/gestisci-istituti.component';
 
 registerLocaleData(localeIt);
 
@@ -29,7 +30,8 @@ registerLocaleData(localeIt);
     CreateAccountComponent,
     InsertChildComponent,
     ChildListComponent,
-    TestBalconiComponent
+    TestBalconiComponent,
+    GestisciIstitutiComponent
   ],
   imports: [
     BrowserModule,
