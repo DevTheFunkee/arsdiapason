@@ -28,4 +28,15 @@ public class GestisciIstitutiService {
         istitutoMapper.insert(istituto);
         return istituto;
     }
+
+    @Transactional(rollbackFor = Exception.class)
+    public Istituto saveModIstituto(Istituto istituto) {
+        istitutoMapper.updateByPrimaryKeySelective(istituto);
+        return istituto;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void eliminaIstituto(Integer idIstituto) {
+        istitutoMapper.deleteByPrimaryKey(idIstituto);
+    }
 }

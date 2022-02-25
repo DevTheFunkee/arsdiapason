@@ -11,3 +11,7 @@ input.ng-dirty.ng-invalid{
 .btn-sm {
   font-size: .800rem !important;
 }
+.second-title {
+  font-size: 1.2em !important;
+  font-weight: 500 !important;
+}

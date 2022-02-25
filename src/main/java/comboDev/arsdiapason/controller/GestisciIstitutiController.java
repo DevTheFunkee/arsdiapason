@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -24,6 +25,16 @@ public class GestisciIstitutiController implements BasicController  {
     @PostMapping("/inserisciIstituto")
     public Istituto inserisciIstituto(Authentication authentication, @RequestBody Istituto istituto) {
         return gestisciIstitutiService.inserisciIstituto(istituto, (Integer) authentication.getDetails());
+    }
+
+    @PostMapping("/saveModIstituto")
+    public Istituto saveModIstituto(@RequestBody Istituto istituto) {
+        return gestisciIstitutiService.saveModIstituto(istituto);
+    }
+
+    @PostMapping("/eliminaIstituto")
+    public void eliminaIstituto(@RequestParam Integer idIstituto) {
+        gestisciIstitutiService.eliminaIstituto(idIstituto);
     }
 
 }

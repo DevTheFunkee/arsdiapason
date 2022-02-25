@@ -23,7 +23,7 @@ export class AppComponent {
     pages = [
         { title: 'Login', route: '/loginPage', hidden: true },
         { title: 'Crea Account', route: '/createAccount', hidden: true },
-        { title: 'Gestisci Istituti', route: '/gestisciIstituti' },
+        { title: 'Gestione Istituti', route: '/gestisciIstituti' },
         { title: 'Lista Bambini', route: '/childList' },
         { title: 'Inserisci Dati Bambino', route: '/insertChild' },
         { title: 'Test Balconi', route: '/testBalconi' }
