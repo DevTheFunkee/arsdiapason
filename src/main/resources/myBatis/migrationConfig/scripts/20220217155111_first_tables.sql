@@ -35,7 +35,7 @@ CREATE TABLE istituto (
 CREATE TABLE bambino (
     id INT AUTO_INCREMENT,
     id_istituto INT,
-    classe VARCHAR(3),
+    sezione VARCHAR(3),
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
     sesso VARCHAR(1) NOT NULL,

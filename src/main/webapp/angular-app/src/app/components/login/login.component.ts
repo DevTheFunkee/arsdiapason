@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
             this.httpService.callGet('login').subscribe(
                 (data: any) => {
                     sessionStorage.setItem('user', JSON.stringify(data))
-                    this.router.navigate(['childList'])
+                    this.router.navigate(['gestisciIstituti'])
                 },
                 (error: any) => {
                     this.errMsg = "Username e Password non corretti"

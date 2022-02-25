@@ -13,24 +13,49 @@ export class InsertChildComponent implements OnInit {
 
     constructor(private httpService: HttpService, private modalService: BsModalService) { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void {
+        this.getListaIstituti()
+    }
 
-    model: any = {}
+    newChild: any = {}
     siNo: any = ['No', 'Si']
     sexList: any = [{ label: 'Maschio', db: 'M' }, { label: 'Femmina', db: 'F' }]
     today: string = moment().format('YYYY-MM-DD')
     istituti: any = []
-    classi: any = []
+    sezioni: any = []
 
-    insertChild() {
-        this.httpService.callPost('insertChild', this.model).subscribe(
+    getListaIstituti() {
+        this.httpService.callPost('getListaIstituti', null).subscribe(
             (data: any) => {
-                this.openModal("Inserimento avvenuto con successo")
-                this.model = {}
+                this.istituti = data
             },
             (error: any) => { },
             () => { }
         )
+    }
+
+    insertChild() {
+        this.httpService.callPost('insertChild', this.newChild).subscribe(
+            (data: any) => {
+                this.openModal("Inserimento avvenuto con successo")
+                this.newChild = {}
+            },
+            (error: any) => { },
+            () => { }
+        )
+    }
+
+    findSezioni() {
+        if (parseInt(this.newChild.idIstituto)) {
+            let url = 'findSezioni?idIstituto=' + this.newChild.idIstituto
+            this.httpService.callPost(url, null).subscribe(
+                (data: any) => {
+                    this.sezioni = data
+                },
+                (error: any) => { },
+                () => { }
+            )
+        }
     }
 
     openModal(text: string) {
