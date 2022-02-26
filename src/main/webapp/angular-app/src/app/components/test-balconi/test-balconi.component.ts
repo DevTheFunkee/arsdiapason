@@ -19,7 +19,6 @@ export class TestBalconiComponent implements OnInit {
     bambino: any = null
     currentScheda: any = {}
     tipiScheda: any = {}
-    rowsScheda: any = []
     arrayAnni: any = [5, 6, 7, 8]
 
     ngOnInit(): void {
@@ -76,12 +75,50 @@ export class TestBalconiComponent implements OnInit {
         return _.filter(rows, { 'anni': anni })
     }
 
-    checkBefore(rows: any, id: number) {
+    getTableText(rows: any, row: any, idBambino: string) {
+        if (idBambino) return row.testo
+        let r = _(rows).filter({ 'anni': row.anni }).value()
+        for (let i = 0; i < r.length; i++) {
+            if (i === 0 && r[i].id === row.id) {
+                return row.testo
+            } else {
+                return 'e/o<br>' + row.testo
+            }
+        }
+    }
+
+    checkBefore(rows: any, id: number, scheda: any) {
         for (let i = 0; i < rows.length; i++) {
             if (rows[i].id !== id) {
                 rows[i].id < id ? rows[i].checked = true : rows[i].checked = false
             }
         }
+        this.provaFinita(scheda)
+    }
+
+    provaFinita(scheda: any) {
+        let tipi = this.tipiScheda[scheda.numero]
+        if (tipi) {
+            let rs = true
+            for (var tipo in tipi) {
+                if (!_.find(tipi[tipo].rows, { 'checked': true })) {
+                    rs = false
+                    break
+                }
+            }
+            scheda.complete = rs
+        }
+    }
+
+    allSchedeComplete() {
+        let rs = true
+        for (let i = 0; i < this.schede.length; i++) {
+            if (!this.schede[i].complete) {
+                rs = false
+                break
+            }
+        }
+        return rs
     }
 
 }
