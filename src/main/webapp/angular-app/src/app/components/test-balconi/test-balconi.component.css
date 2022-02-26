@@ -5,3 +5,6 @@ img {
 .tabella-punti {
   background-color: yellowgreen;
 }
+th, td {
+  vertical-align: middle;
+}

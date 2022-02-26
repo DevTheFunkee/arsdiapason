@@ -18,8 +18,8 @@ export class TestBalconiComponent implements OnInit {
     proveSchede: any = []
     bambino: any = null
     currentScheda: any = {}
-    tabellaPunteggio: any = {}
-    tipiTabellaPunti: any = {}
+    tipiScheda: any = {}
+    rowsScheda: any = []
     arrayAnni: any = [5, 6, 7, 8]
 
     ngOnInit(): void {
@@ -27,7 +27,7 @@ export class TestBalconiComponent implements OnInit {
     }
 
     getDatiSchede() {
-        let url
+        let url: string
         if (this.idBambino) {
             url = 'getDatiSchede?idBambino=' + this.idBambino
         } else {
@@ -44,28 +44,8 @@ export class TestBalconiComponent implements OnInit {
         )
     }
 
-    showDatiScheda(scheda: any) {
-        this.currentScheda = scheda
-        if (!this.tabellaPunteggio[scheda.numero]) {
-            this.tabellaPunteggio[scheda.numero] = _.filter(this.proveSchede, function (o: any) { return o.numeroScheda === scheda.numero })
-            this.tipiTabellaPunti[scheda.numero] = _(this.tabellaPunteggio[scheda.numero]).groupBy(function (o: any) { return o.tipo }).keys().value()
-        }
-    }
-
-    getArrayImages(images) {
-      return images ? images.split(';') : []
-    }
-
-    getDatiPerAnno(numScheda: number, eta: number, property: string, tipo: string) {
-        let row: any
-        if (tipo === 'null') {
-            row = _.find(this.tabellaPunteggio[numScheda], function (o: any) { return o.anni === eta && !o.tipo })
-        } else {
-            row = _.find(this.tabellaPunteggio[numScheda], function (o: any) { return o.anni === eta && o.tipo === tipo })
-        }
-        if (row) {
-            return row[property]
-        }
+    getArrayImages(images: string) {
+        return images ? images.split(';') : []
     }
 
     getChildAge(dataNascita: Date) {
@@ -73,6 +53,35 @@ export class TestBalconiComponent implements OnInit {
         let years = Math.floor(monthsTot / 12)
         let months = monthsTot - (years * 12)
         return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
+    }
+
+    showDatiScheda(scheda: any) {
+        this.currentScheda = scheda
+        if (!this.tipiScheda[scheda.numero]) {
+            this.tipiScheda[scheda.numero] = []
+            let tipi = _(this.proveSchede).filter(['numeroScheda', scheda.numero]).groupBy('tipo').keys().value()
+            for (let i = 0; i < tipi.length; i++) {
+                if (tipi[i] === 'null') {
+                    let rows = _.filter(this.proveSchede, { 'numeroScheda': scheda.numero })
+                    this.tipiScheda[scheda.numero].push({ tipo: null, rows: rows })
+                } else {
+                    let rows = _.filter(this.proveSchede, { 'numeroScheda': scheda.numero, 'tipo': tipi[i] })
+                    this.tipiScheda[scheda.numero].push({ tipo: tipi[i], rows: rows })
+                }
+            }
+        }
+    }
+
+    getRowsByAnni(rows: any, anni: number) {
+        return _.filter(rows, { 'anni': anni })
+    }
+
+    checkBefore(rows: any, id: number) {
+        for (let i = 0; i < rows.length; i++) {
+            if (rows[i].id !== id) {
+                rows[i].id < id ? rows[i].checked = true : rows[i].checked = false
+            }
+        }
     }
 
 }
