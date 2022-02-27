@@ -1,32 +1,98 @@
-<table class="table table-sm table-striped table-bordered">
-  <thead>
-    <tr>
-      <th></th>
-      <th *ngFor="let anni of anniList" colspan="2">{{anni}}</th>
-    <tr>
-      <th>Prova</th>
-      <th *ngFor="let column of columns">{{column}}</th>
-      <th *ngFor="let column of columns">{{column}}</th>
-      <th *ngFor="let column of columns">{{column}}</th>
-      <th *ngFor="let column of columns">{{column}}</th>
-    <tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let prova of prove">
-      <th>{{prova}}</th>
-      <ng-container *ngFor="let anni of anniList">
-        <th *ngFor="let column of columns">
-          {{getDataByColumn(column, anni, prova)}}
-        </th>
-      </ng-container>
-    </tr>
-    <tr>
-      <th></th>
-      <ng-container *ngFor="let anni of anniList">
-        <th *ngFor="let column of columns">
-          {{getColumnScore(column, anni)}}
-        </th>
-      </ng-container>
-    </tr>
-  </tbody>
-</table>
+<div class="row">
+  <div class="col-3">
+    <table class="table table-sm table-striped table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Indice Sviluppo Considerato</th>
+          <th>{{getIndiceSviluppo()}}</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <table class="table table-sm table-striped table-bordered text-center">
+      <thead>
+        <tr>
+          <th style="width: 25%">Età reale</th>
+          <th>Anni</th>
+          <th>{{realChildMonths ? parseInt(realChildMonths / 12) : ''}}</th>
+          <th>Mesi</th>
+          <th>{{realChildMonths ? realChildMonths % 12 : ''}}</th>
+          <th>Totale Mesi</th>
+          <th>{{realChildMonths}}</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <table class="table table-sm table-striped table-bordered text-center">
+      <thead>
+        <tr>
+          <th style="width: 25%">Età Sviluppo Considerato</th>
+          <th>Anni</th>
+          <th>{{pointForYear['tot'] ? parseInt(pointForYear['tot'] / 12) : ''}}</th>
+          <th>Mesi</th>
+          <th>{{pointForYear['tot'] ? pointForYear['tot'] % 12 : ''}}</th>
+          <th>Totale Mesi</th>
+          <th>{{pointForYear['tot']}}</th>
+        </tr>
+      </thead>
+    </table>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-8">
+    <table class="table table-sm table-striped table-bordered text-center">
+      <thead>
+        <tr>
+          <th>Anni</th>
+          <th *ngFor="let anni of anniList" colspan="2">{{anni}}</th>
+        <tr>
+          <th>Prova</th>
+          <th *ngFor="let column of columns">{{column}}</th>
+          <th *ngFor="let column of columns">{{column}}</th>
+          <th *ngFor="let column of columns">{{column}}</th>
+          <th *ngFor="let column of columns">{{column}}</th>
+        <tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let prova of prove">
+          <th>{{prova}}</th>
+          <ng-container *ngFor="let anni of anniList">
+            <th *ngFor="let column of columns">
+              {{getDataByColumn(column, anni, prova)}}
+            </th>
+          </ng-container>
+        </tr>
+        <tr>
+          <th></th>
+          <ng-container *ngFor="let anni of anniList">
+            <th *ngFor="let column of columns">
+              <div *ngIf="column === 'Risultato'">{{pointForYear[anni] ? pointForYear[anni] : ''}}</div>
+            </th>
+          </ng-container>
+        </tr>
+        <tr>
+          <th></th>
+          <ng-container *ngFor="let anni of anniList">
+            <ng-container *ngIf="anni < 7">
+              <th *ngFor="let column of columns" [attr.colspan]="column === 'Risultato' && anni === 6 ? 5 : 1">
+                <div *ngIf="column === 'Risultato' && anni === 5">{{pointForYear[5] ? pointForYear[5] * 5 : ''}}</div>
+                <div *ngIf="column === 'Risultato' && anni === 6">
+                  {{pointForYear[6] ? pointForYear[6] + pointForYear[7] + pointForYear[8] : ''}}
+                </div>
+              </th>
+            </ng-container>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

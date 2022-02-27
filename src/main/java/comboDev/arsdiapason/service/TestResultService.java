@@ -1,9 +1,9 @@
 package comboDev.arsdiapason.service;
 
+import comboDev.arsdiapason.model.ResultChildTest;
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;
-import comboDev.arsdiapason.mybatis.mapper.SchedaMapper;
 import comboDev.arsdiapason.mybatis.model.ProvaScheda;
 import comboDev.arsdiapason.mybatis.model.RelBambinoScheda;
 import comboDev.arsdiapason.mybatis.model.RelBambinoSchedaExample;
@@ -20,14 +20,14 @@ public class TestResultService {
     @Autowired
     private BambinoMapper bambinoMapper;
     @Autowired
-    private SchedaMapper schedaMapper;
-    @Autowired
     private ProvaSchedaMapper provaSchedaMapper;
     @Autowired
     private RelBambinoSchedaMapper relBambinoSchedaMapper;
 
     @Transactional(readOnly = true)
-    public List<ProvaScheda> getResultChildTest(Integer idBambino) {
+    public ResultChildTest getResultChildTest(Integer idBambino) {
+        ResultChildTest resultChildTest = new ResultChildTest();
+        resultChildTest.setBambino(bambinoMapper.selectByPrimaryKey(idBambino));
         RelBambinoSchedaExample relBambinoSchedaExample = new RelBambinoSchedaExample();
         relBambinoSchedaExample.createCriteria().andIdBambinoEqualTo(idBambino);
         List<RelBambinoScheda> relBambinoSchedas = relBambinoSchedaMapper.selectByExample(relBambinoSchedaExample);
@@ -35,7 +35,8 @@ public class TestResultService {
         for (RelBambinoScheda relBambinoScheda: relBambinoSchedas) {
             provaSchedas.add(provaSchedaMapper.selectByPrimaryKey(relBambinoScheda.getIdProvaScheda()));
         }
-        return provaSchedas;
+        resultChildTest.setProveSchede(provaSchedas);
+        return resultChildTest;
     }
 
 }
