@@ -13,7 +13,7 @@ import java.util.List;
 public class ChildListController implements BasicController  {
 
     @Autowired
-    ChildListService childListService;
+    private ChildListService childListService;
 
     @PostMapping("/childsList")
     public List<Bambino> childsList(Authentication authentication) {

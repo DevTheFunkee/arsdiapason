@@ -1,11 +1,16 @@
 package comboDev.arsdiapason.controller;
 
 import comboDev.arsdiapason.model.DatiSchede;
+import comboDev.arsdiapason.mybatis.model.RelBambinoScheda;
 import comboDev.arsdiapason.service.TestBalconiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 
 @RestController
 public class TestBalconiController implements BasicController  {
@@ -16,6 +21,11 @@ public class TestBalconiController implements BasicController  {
     @PostMapping("/getDatiSchede")
     public DatiSchede getDatiSchede(@RequestParam(required = false) Integer idBambino) {
         return testBalconiService.getDatiSchede(idBambino);
+    }
+
+    @PostMapping("/saveTest")
+    public void saveTest(@RequestBody List<RelBambinoScheda> relBambinoSchedas) {
+        testBalconiService.saveTest(relBambinoSchedas);
     }
 
 }

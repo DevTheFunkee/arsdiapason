@@ -54,7 +54,8 @@
       </tr>
       <tr>
         <td colspan="3">
-          <button class="btn btn-success w-100 mt-1" [disabled]="true">Salva il Test</button>
+          <button class="btn btn-primary w-100 mt-1" [disabled]="!allSchedeComplete()" (click)="saveTest()">Salva
+            il Test</button>
         </td>
       </tr>
     </table>

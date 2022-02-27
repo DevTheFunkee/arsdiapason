@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
-import { ActivatedRoute } from '@angular/router'
+import { ActivatedRoute, Router } from '@angular/router'
 import * as _ from 'lodash'
 import * as moment from 'moment'
 
@@ -11,7 +11,7 @@ import * as moment from 'moment'
 })
 export class TestBalconiComponent implements OnInit {
 
-    constructor(private httpService: HttpService, private activedRoute: ActivatedRoute) { }
+    constructor(private httpService: HttpService, private activedRoute: ActivatedRoute, private router: Router) { }
 
     idBambino = this.activedRoute.snapshot.paramMap.get("id")
     schede: any = []
@@ -19,6 +19,7 @@ export class TestBalconiComponent implements OnInit {
     bambino: any = null
     currentScheda: any = {}
     tipiScheda: any = {}
+    tipiSchedaToSave: any = []
     arrayAnni: any = [5, 6, 7, 8]
 
     ngOnInit(): void {
@@ -119,6 +120,27 @@ export class TestBalconiComponent implements OnInit {
             }
         }
         return rs
+    }
+
+    saveTest() {
+        let relProvaScheda: any = []
+        for (let i = 0; i < this.schede.length; i++) {
+            let tipi = this.tipiScheda[this.schede[i].numero]
+            for (let j = 0; j < tipi.length; j++) {
+                for (let z = 0; z < tipi[j].rows.length; z++) {
+                    if (tipi[j].rows[z].checked) {
+                        relProvaScheda.push({ idBambino: this.idBambino, idProvaScheda: tipi[j].rows[z].id })
+                    }
+                }
+            }
+        }
+        this.httpService.callPost('saveTest', relProvaScheda).subscribe(
+            (data: any) => {
+                this.router.navigate(['testResult'])
+            },
+            (error: any) => { },
+            () => { }
+        )
     }
 
 }
