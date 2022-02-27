@@ -26,7 +26,8 @@ export class AppComponent {
         { title: 'Gestione Istituti', route: '/gestisciIstituti' },
         { title: 'Lista Bambini', route: '/childList' },
         { title: 'Inserisci Dati Bambino', route: '/insertChild' },
-        { title: 'Test Balconi', route: '/testBalconi' }
+        { title: 'Test Balconi', route: '/testBalconi' },
+        { title: 'Risultato del Test', route: '/testResult' }
     ]
 
     ngOnInit() { }

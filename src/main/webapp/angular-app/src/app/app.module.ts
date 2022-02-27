@@ -20,6 +20,7 @@ import { InsertChildComponent } from './components/insert-child/insert-child.com
 import { ChildListComponent } from './components/child-list/child-list.component';
 import { TestBalconiComponent } from './components/test-balconi/test-balconi.component';
 import { GestisciIstitutiComponent } from './components/gestisci-istituti/gestisci-istituti.component';
+import { TestResultComponent } from './components/test-result/test-result.component';
 
 registerLocaleData(localeIt);
 
@@ -31,7 +32,8 @@ registerLocaleData(localeIt);
     InsertChildComponent,
     ChildListComponent,
     TestBalconiComponent,
-    GestisciIstitutiComponent
+    GestisciIstitutiComponent,
+    TestResultComponent
   ],
   imports: [
     BrowserModule,
