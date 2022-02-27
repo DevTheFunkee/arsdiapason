@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'testBalconi', component: TestBalconiComponent, canActivate: [RouteGuardService] },
   { path: 'testBalconi/:id', component: TestBalconiComponent, canActivate: [RouteGuardService] },
   { path: 'gestisciIstituti', component: GestisciIstitutiComponent, canActivate: [RouteGuardService] },
-  { path: 'testResult', component: TestResultComponent, canActivate: [RouteGuardService] },
+  { path: 'testResult/:id', component: TestResultComponent, canActivate: [RouteGuardService] },
   { path: '', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
   { path: '**', redirectTo: 'gestisciIstituti' , pathMatch: 'full', canActivate: [RouteGuardService] },
 ]

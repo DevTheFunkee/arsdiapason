@@ -33,7 +33,10 @@
           <button class="btn btn-primary btn-sm" type="button" (click)="lookChild(child)" tooltip="Dettagli">
             <i class="fa fa-search"></i>
           </button>
-          <button class="btn btn-primary btn-sm ml-1" type="button" (click)="goToTest(child.id)" tooltip="Vai al Test">
+          <button class="btn btn-primary btn-sm ml-1" type="button" (click)="goToTest(child.id)" tooltip="Fai il Test">
+            <i class="fa fa-file-text-o"></i>
+          </button>
+          <button class="btn btn-success btn-sm ml-1" type="button" (click)="goToTestResult(child.id)" tooltip="Vai al Risultato del Test">
             <i class="fa fa-file-text-o"></i>
           </button>
         </td>

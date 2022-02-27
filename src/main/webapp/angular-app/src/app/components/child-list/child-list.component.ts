@@ -48,6 +48,10 @@ export class ChildListComponent implements OnInit {
         this.router.navigate(['testBalconi', childId])
     }
 
+    goToTestResult(childId: number) {
+        this.router.navigate(['testResult', childId])
+    }
+
     comboChanged(item){
       if(item === 'istituto'){
         this.comboList.classi = ['A', 'B', 'F']

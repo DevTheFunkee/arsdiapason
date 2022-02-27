@@ -1,1 +1,32 @@
-<p>test-result works!</p>
+<table class="table table-sm table-striped table-bordered">
+  <thead>
+    <tr>
+      <th></th>
+      <th *ngFor="let anni of anniList" colspan="2">{{anni}}</th>
+    <tr>
+      <th>Prova</th>
+      <th *ngFor="let column of columns">{{column}}</th>
+      <th *ngFor="let column of columns">{{column}}</th>
+      <th *ngFor="let column of columns">{{column}}</th>
+      <th *ngFor="let column of columns">{{column}}</th>
+    <tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let prova of prove">
+      <th>{{prova}}</th>
+      <ng-container *ngFor="let anni of anniList">
+        <th *ngFor="let column of columns">
+          {{getDataByColumn(column, anni, prova)}}
+        </th>
+      </ng-container>
+    </tr>
+    <tr>
+      <th></th>
+      <ng-container *ngFor="let anni of anniList">
+        <th *ngFor="let column of columns">
+          {{getColumnScore(column, anni)}}
+        </th>
+      </ng-container>
+    </tr>
+  </tbody>
+</table>

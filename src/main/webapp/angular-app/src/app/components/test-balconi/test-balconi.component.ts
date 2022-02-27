@@ -13,7 +13,7 @@ export class TestBalconiComponent implements OnInit {
 
     constructor(private httpService: HttpService, private activedRoute: ActivatedRoute, private router: Router) { }
 
-    idBambino = this.activedRoute.snapshot.paramMap.get("id")
+    idBambino: string = this.activedRoute.snapshot.paramMap.get("id")
     schede: any = []
     proveSchede: any = []
     bambino: any = null
@@ -136,7 +136,7 @@ export class TestBalconiComponent implements OnInit {
         }
         this.httpService.callPost('saveTest', relProvaScheda).subscribe(
             (data: any) => {
-                this.router.navigate(['testResult'])
+                this.router.navigate(['testResult', this.idBambino])
             },
             (error: any) => { },
             () => { }
