@@ -21,6 +21,7 @@ import { ChildListComponent } from './components/child-list/child-list.component
 import { TestBalconiComponent } from './components/test-balconi/test-balconi.component';
 import { GestisciIstitutiComponent } from './components/gestisci-istituti/gestisci-istituti.component';
 import { TestResultComponent } from './components/test-result/test-result.component';
+import { SpecchiettoBambinoComponent } from './components/specchietto-bambino/specchietto-bambino.component';
 
 registerLocaleData(localeIt);
 
@@ -33,7 +34,8 @@ registerLocaleData(localeIt);
     ChildListComponent,
     TestBalconiComponent,
     GestisciIstitutiComponent,
-    TestResultComponent
+    TestResultComponent,
+    SpecchiettoBambinoComponent
   ],
   imports: [
     BrowserModule,

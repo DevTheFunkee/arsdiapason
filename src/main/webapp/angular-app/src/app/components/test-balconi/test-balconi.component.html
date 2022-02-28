@@ -8,28 +8,7 @@
   </div>
 </div>
 
-<div *ngIf="bambino" class="row">
-  <div class="col-6">
-    <table class="table table-sm table-striped">
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>Cognome</th>
-          <th>Data Nascita</th>
-          <th>Età</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>{{bambino.nome}}</td>
-          <td>{{bambino.cognome}}</td>
-          <td>{{bambino.dataNascita | date: 'dd MMM yyyy' }}</td>
-          <td>{{getChildAge(bambino.dataNascita)}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<app-specchietto-bambino [bambino]="bambino"></app-specchietto-bambino>
 
 <div class="row">
   <div class="col-2">
