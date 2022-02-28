@@ -18,29 +18,31 @@ export class TestResultComponent implements OnInit {
     }
 
     idBambino: string = this.activedRoute.snapshot.paramMap.get("id")
-    proveSchede: any = null
+    proveSchede: any
     prove: any = [1, 2, 3, 4, 5, 6]
     anniList: any = [5, 6, 7, 8]
     columns: any = ['Area', 'Risultato']
     numColonne: number = this.columns.length * this.anniList.length
     pointForYear: any = {}
-    bambino: any = null
-    realChildMonths: number = null
+    bambino: any
+    realChildMonths: number
+    aree: any
 
     getResultChildTest() {
         this.httpService.callPost('getResultChildTest?idBambino=' + this.idBambino, null).subscribe(
             (data: any) => {
                 this.proveSchede = data.proveSchede
                 this.bambino = data.bambino
-                this.countPointsPerAnni()
+                this.countPointsForYears()
                 this.realChildMonths = moment().diff(this.bambino.dataNascita, 'months')
+                this.aree = data.areaProva
             },
             (error: any) => { },
             () => { }
         )
     }
 
-    countPointsPerAnni() {
+    countPointsForYears() {
         this.pointForYear = {}
         for (let i = 0; i < this.anniList.length; i++) {
             this.pointForYear[this.anniList[i]] = _.filter(this.proveSchede, { 'anni': this.anniList[i] }).length * 2
@@ -50,31 +52,9 @@ export class TestResultComponent implements OnInit {
 
     getDataByColumn(column: string, anni: number, prova: number) {
         if (this.proveSchede) {
-            if (column === 'Area') return 'area'
+            if (column === 'Area') return _.find(this.aree, { 'anni': anni, 'prova': prova }).testo
             if (column === 'Risultato' && _.find(this.proveSchede, { 'anni': anni, 'prova': prova })) {
                 return 'X'
-            }
-        }
-    }
-
-    getColumnScore(column: string, anni: number) {
-        if (this.proveSchede) {
-            if (column === 'Area') return null
-            if (column === 'Risultato') {
-                return _.filter(this.proveSchede, { 'anni': anni }).length * 2
-            }
-        }
-    }
-
-    getColumnScoreDef(column: string, anni: number) {
-        if (this.proveSchede) {
-            if (column === 'Area') return null
-            if (column === 'Risultato') {
-                if (anni === 5) {
-                    return _.filter(this.proveSchede, function (o) { return o.anni === anni }).length * 2 * anni
-                } else {
-                    return _.filter(this.proveSchede, function (o) { return o.anni > 5 }).length * 2
-                }
             }
         }
     }

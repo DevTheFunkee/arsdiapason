@@ -1,6 +1,7 @@
 package comboDev.arsdiapason.service;
 
 import comboDev.arsdiapason.model.ResultChildTest;
+import comboDev.arsdiapason.mybatis.mapper.AreaProvaMapper;
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;
@@ -23,6 +24,8 @@ public class TestResultService {
     private ProvaSchedaMapper provaSchedaMapper;
     @Autowired
     private RelBambinoSchedaMapper relBambinoSchedaMapper;
+    @Autowired
+    private AreaProvaMapper areaProvaMapper;
 
     @Transactional(readOnly = true)
     public ResultChildTest getResultChildTest(Integer idBambino) {
@@ -36,6 +39,7 @@ public class TestResultService {
             provaSchedas.add(provaSchedaMapper.selectByPrimaryKey(relBambinoScheda.getIdProvaScheda()));
         }
         resultChildTest.setProveSchede(provaSchedas);
+        resultChildTest.setAreaProva(areaProvaMapper.selectByExample(null));
         return resultChildTest;
     }
 

@@ -48,12 +48,12 @@
 </div>
 
 <div class="row">
-  <div class="col-8">
+  <div class="col-12">
     <table class="table table-sm table-striped table-bordered text-center">
       <thead>
         <tr>
-          <th>Anni</th>
-          <th *ngFor="let anni of anniList" colspan="2">{{anni}}</th>
+          <th></th>
+          <th *ngFor="let anni of anniList" colspan="2">{{anni}} Anni</th>
         <tr>
           <th>Prova</th>
           <th *ngFor="let column of columns">{{column}}</th>
@@ -66,7 +66,7 @@
         <tr *ngFor="let prova of prove">
           <th>{{prova}}</th>
           <ng-container *ngFor="let anni of anniList">
-            <th *ngFor="let column of columns">
+            <th *ngFor="let column of columns" style="font-size: {{column === 'Area' ? '11.5px' : ''}}">
               {{getDataByColumn(column, anni, prova)}}
             </th>
           </ng-container>
