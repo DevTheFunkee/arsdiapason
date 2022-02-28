@@ -2,7 +2,8 @@
   <div class="row mb-2" *ngFor="let combo of combos">
     <div class="col-4 form-inline" *ngIf="comboList[combo.list].length">
       <label class="font-weight-bold mr-3">{{combo.label}}</label>
-      <select class="custom-select custom-select-sm" name="{{combo.item}}" [(ngModel)]="comboItem[combo.item]" (ngModelChange)="comboChanged(combo.item)">
+      <select class="custom-select custom-select-sm" name="{{combo.item}}" [(ngModel)]="comboItem[combo.item]"
+        (ngModelChange)="comboChanged(combo.item)">
         <option *ngFor="let x of comboList[combo.list]">{{x}}</option>
       </select>
     </div>
@@ -13,34 +14,36 @@
   <div class="col-6">
     <table class="table table-sm table-striped">
       <thead>
-      <tr>
-        <th>#</th>
-        <th>Nome</th>
-        <th>Cognome</th>
-        <th>Data Nascita</th>
-        <th>Età</th>
-        <th></th>
-      </tr>
+        <tr>
+          <th>#</th>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Data Nascita</th>
+          <th>Età</th>
+          <th></th>
+        </tr>
       </thead>
       <tbody>
-      <tr *ngFor="let child of childList; let i = index">
-        <td>{{i + 1}}</td>
-        <td>{{child.nome}}</td>
-        <td>{{child.cognome}}</td>
-        <td>{{child.dataNascita | date: 'dd MMM yyyy' }}</td>
-        <td>{{getChildAge(child.dataNascita)}}</td>
-        <td class="text-right">
-          <button class="btn btn-primary btn-sm" type="button" (click)="lookChild(child)" tooltip="Dettagli">
-            <i class="fa fa-search"></i>
-          </button>
-          <button class="btn btn-primary btn-sm ml-1" type="button" (click)="goToTest(child.id)" tooltip="Fai il Test">
-            <i class="fa fa-file-text-o"></i>
-          </button>
-          <button class="btn btn-success btn-sm ml-1" type="button" (click)="goToTestResult(child.id)" tooltip="Vai al Risultato del Test">
-            <i class="fa fa-file-text-o"></i>
-          </button>
-        </td>
-      </tr>
+        <tr *ngFor="let child of childList; let i = index">
+          <td>{{i + 1}}</td>
+          <td>{{child.nome}}</td>
+          <td>{{child.cognome}}</td>
+          <td>{{child.dataNascita | date: 'dd MMM yyyy' }}</td>
+          <td>{{getChildAge(child.dataNascita)}}</td>
+          <td class="text-right">
+            <button class="btn btn-primary btn-sm" type="button" (click)="lookChild(child)" tooltip="Dettagli">
+              <i class="fa fa-search"></i>
+            </button>
+            <button class="btn btn-primary btn-sm ml-1" type="button" (click)="goToTest(child.id)"
+              tooltip="Fai il Test">
+              <i class="fa fa-file-text-o"></i>
+            </button>
+            <button class="btn btn-success btn-sm ml-1" type="button" (click)="goToTestResult(child.id)"
+              tooltip="Risultato del Test">
+              <i class="fa fa-file-text-o"></i>
+            </button>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>
@@ -48,59 +51,59 @@
   <div class="col-6">
     <table class="table table-sm table-striped" *ngIf="bambino">
       <thead>
-      <tr>
-        <th colspan="2" class="text-center">-- Dettagli Bambino --</th>
-      </tr>
+        <tr>
+          <th colspan="2" class="text-center">-- Dettagli Bambino --</th>
+        </tr>
       </thead>
       <tbody>
-      <tr>
-        <th>Nome</th>
-        <td>{{bambino.nome}}</td>
-      </tr>
-      <tr>
-        <th>Cognome</th>
-        <td>{{bambino.cognome}}</td>
-      </tr>
-      <tr>
-        <th>Data di Nascita</th>
-        <td>{{bambino.dataNascita | date: 'dd MMM yyyy'}}</td>
-      </tr>
-      <tr>
-        <th>Comune di Nascita</th>
-        <td>{{bambino.comuneNascita}}</td>
-      </tr>
-      <tr>
-        <th>Figlio Adottivo</th>
-        <td>{{bambino.figlioAdottivo}}</td>
-      </tr>
-      <tr>
-        <th>Ordine Genitura</th>
-        <td>{{bambino.ordineGenitura}}</td>
-      </tr>
-      <tr>
-        <th>Numero Fratelli</th>
-        <td>{{bambino.numeroFratelli}}</td>
-      </tr>
-      <tr>
-        <th>Numero Sorelle</th>
-        <td>{{bambino.numeroSorelle}}</td>
-      </tr>
-      <tr>
-        <th>Lavoro Padre</th>
-        <td>{{bambino.lavoroPadre}}</td>
-      </tr>
-      <tr>
-        <th>Lavoro Madre</th>
-        <td>{{bambino.lavoroMadre}}</td>
-      </tr>
-      <tr>
-        <th>Titolo Studio Padre</th>
-        <td>{{bambino.titoloStudioPadre}}</td>
-      </tr>
-      <tr>
-        <th>Titolo Studio Madre</th>
-        <td>{{bambino.titoloStudioMadre}}</td>
-      </tr>
+        <tr>
+          <th>Nome</th>
+          <td>{{bambino.nome}}</td>
+        </tr>
+        <tr>
+          <th>Cognome</th>
+          <td>{{bambino.cognome}}</td>
+        </tr>
+        <tr>
+          <th>Data di Nascita</th>
+          <td>{{bambino.dataNascita | date: 'dd MMM yyyy'}}</td>
+        </tr>
+        <tr>
+          <th>Comune di Nascita</th>
+          <td>{{bambino.comuneNascita}}</td>
+        </tr>
+        <tr>
+          <th>Figlio Adottivo</th>
+          <td>{{bambino.figlioAdottivo}}</td>
+        </tr>
+        <tr>
+          <th>Ordine Genitura</th>
+          <td>{{bambino.ordineGenitura}}</td>
+        </tr>
+        <tr>
+          <th>Numero Fratelli</th>
+          <td>{{bambino.numeroFratelli}}</td>
+        </tr>
+        <tr>
+          <th>Numero Sorelle</th>
+          <td>{{bambino.numeroSorelle}}</td>
+        </tr>
+        <tr>
+          <th>Lavoro Padre</th>
+          <td>{{bambino.lavoroPadre}}</td>
+        </tr>
+        <tr>
+          <th>Lavoro Madre</th>
+          <td>{{bambino.lavoroMadre}}</td>
+        </tr>
+        <tr>
+          <th>Titolo Studio Padre</th>
+          <td>{{bambino.titoloStudioPadre}}</td>
+        </tr>
+        <tr>
+          <th>Titolo Studio Madre</th>
+          <td>{{bambino.titoloStudioMadre}}</td>
+        </tr>
       </tbody>
     </table>
   </div>

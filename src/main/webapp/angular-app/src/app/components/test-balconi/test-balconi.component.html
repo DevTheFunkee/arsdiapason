@@ -1,7 +1,7 @@
 <div [hidden]="idBambino" class="row">
   <div class="col-6">
     <div class="alert alert-info">
-      <strong>Per fare il test è necessario cliccare sul pulsante 'Vai Al Test' sulla riga di un bambino dalla pagina
+      <strong>Per fare il test è necessario cliccare sul pulsante 'Fai il Test' sulla riga di un bambino dalla pagina
         <a [routerLink]="['/childList']" routerLinkActive="active">Lista Bambini</a>
       </strong>
     </div>
@@ -52,7 +52,7 @@
           </button>
         </td>
       </tr>
-      <tr>
+      <tr *ngIf="idBambino">
         <td colspan="3">
           <button class="btn btn-primary w-100 mt-1" [disabled]="!allSchedeComplete()" (click)="saveTest()">Salva
             il Test</button>
@@ -78,8 +78,7 @@
 
   <div class="col-6">
     <div class="col-12" *ngFor="let scheda of schede" [hidden]="scheda.numero !== currentScheda.numero">
-      <table *ngFor="let obj of tipiScheda[scheda.numero]"
-        class="table table-bordered table-striped tabella-punti text-center mb-2">
+      <table *ngFor="let obj of tipiScheda[scheda.numero]" class="table table-bordered table-striped points-table">
         <tbody>
           <tr *ngIf="obj.tipo">
             <th [attr.colspan]="arrayAnni.length + 1" class="text-center">{{obj.tipo.toUpperCase()}}</th>
@@ -90,7 +89,7 @@
           </tr>
           <tr>
             <th>ESITO</th>
-            <td *ngFor="let anni of arrayAnni">
+            <th *ngFor="let anni of arrayAnni">
               <div *ngFor="let row of obj.rows" [hidden]="row.anni !== anni">
                 <div [hidden]="!idBambino">
                   <input [(ngModel)]="row.checked" (change)="checkBefore(obj.rows, row.id, scheda)" type="checkbox"
@@ -99,16 +98,16 @@
                 <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
                   for="prova{{row.anni}}{{row.prova}}"></label>
               </div>
-            </td>
+            </th>
           </tr>
           <tr>
             <th>PROVA</th>
-            <td *ngFor="let anni of arrayAnni">
+            <th *ngFor="let anni of arrayAnni">
               <span *ngFor="let row of getRowsByAnni(obj.rows, anni); let i = index">
                 <span *ngIf="i === 0">{{row.prova}}</span>
                 <span *ngIf="i > 0"> e/o {{row.prova}}</span>
               </span>
-            </td>
+            </th>
           </tr>
         </tbody>
       </table>
