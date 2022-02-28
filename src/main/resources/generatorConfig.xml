@@ -33,8 +33,10 @@
         <table tableName="%">
             <generatedKey column="id" sqlStatement="MySql" identity="true" />
             <columnOverride column="UNSIGNED_BIGINT_FIELD" javaType="java.lang.Object" jdbcType="LONG" />
-            <columnOverride column="data_ins" isGeneratedAlways="True"></columnOverride>
-            <columnOverride column="data_mod" isGeneratedAlways="True"></columnOverride>
+            <columnOverride column="data_ins" isGeneratedAlways="True" />
+            <columnOverride column="data_mod" isGeneratedAlways="True" />
+            <ignoreColumn column="data_ins" />
+            <ignoreColumn column="data_mod" />
         </table>
 
     </context>
