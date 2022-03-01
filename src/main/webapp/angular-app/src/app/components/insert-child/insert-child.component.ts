@@ -17,12 +17,13 @@ export class InsertChildComponent implements OnInit {
         this.getListaIstituti()
     }
 
-    newChild: any = {}
+    newChild: any = {note: ''}
     siNo: any = ['No', 'Si']
     sexList: any = [{ label: 'Maschio', db: 'M' }, { label: 'Femmina', db: 'F' }]
     today: string = moment().format('YYYY-MM-DD')
     istituti: any = []
     sezioni: any = []
+    textAreaMaxLength: number = 300
 
     getListaIstituti() {
         this.httpService.callPost('getListaIstituti', null).subscribe(
@@ -38,7 +39,7 @@ export class InsertChildComponent implements OnInit {
         this.httpService.callPost('insertChild', this.newChild).subscribe(
             (data: any) => {
                 this.openModal("Inserimento avvenuto con successo")
-                this.newChild = {}
+                this.newChild = {note: ''}
             },
             (error: any) => { },
             () => { }

@@ -120,8 +120,8 @@
 
   <div class="row mb-3">
     <div class="col-8">
-      <label>Note</label>
-      <textarea class="form-control form-control-sm" rows="2" maxlength="300"></textarea>
+      <label>Note</label><span> - caratteri rimanenti: {{textAreaMaxLength - (newChild.note.length)}}</span>
+      <textarea [(ngModel)]="newChild.note" name="note" class="form-control form-control-sm" rows="2" maxlength="{{textAreaMaxLength}}"></textarea>
     </div>
   </div>
 
