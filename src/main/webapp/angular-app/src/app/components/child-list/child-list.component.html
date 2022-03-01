@@ -28,6 +28,13 @@
     </select>
   </div>
   <div class="col-2">
+    <label class="font-weight-bold">Sezioni</label>
+    <select name="comune" [(ngModel)]="searchModels.sezione" (ngModelChange)="findByCombo('sezione')"
+      [disabled]="!searchLists.sezioni.length" class="custom-select custom-select-sm">
+      <option *ngFor="let x of searchLists.sezioni" [value]="x">{{x}}</option>
+    </select>
+  </div>
+  <div class="col-2">
     <button (click)="resetCombos()" class="btn btn-primary">Reset</button>
   </div>
 </div>
@@ -55,7 +62,7 @@
           <td>{{child.dataNascita | date: 'dd MMM yyyy' }}</td>
           <td>{{getChildAge(child.dataNascita)}}</td>
           <td>{{getNomeIstituto(child.idIstituto)}}</td>
-          <td>{{child.classe}}</td>
+          <td>{{child.sezione}}</td>
           <td class="text-right">
             <button class="btn btn-primary btn-sm" type="button" (click)="goToChildPage(child.id)" tooltip="Dettagli">
               <i class="fa fa-search"></i>
