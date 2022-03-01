@@ -51,7 +51,7 @@ CREATE TABLE bambino (
     titolo_studio_padre VARCHAR(50),
     titolo_studio_madre VARCHAR(50),
     figlio_adottivo CHAR(2),
-    note VARCHAR(200),
+    note VARCHAR(300),
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY (id)
