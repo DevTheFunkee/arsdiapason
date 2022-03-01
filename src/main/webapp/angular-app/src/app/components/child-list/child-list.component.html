@@ -1,17 +1,39 @@
-<div class="my-3">
-  <div class="row mb-2" *ngFor="let combo of combos">
-    <div class="col-4 form-inline" *ngIf="comboList[combo.list].length">
-      <label class="font-weight-bold mr-3">{{combo.label}}</label>
-      <select class="custom-select custom-select-sm" name="{{combo.item}}" [(ngModel)]="comboItem[combo.item]"
-        (ngModelChange)="comboChanged(combo.item)">
-        <option *ngFor="let x of comboList[combo.list]">{{x}}</option>
-      </select>
-    </div>
+<div class="row align-items-end mb-2">
+  <div class="col-2">
+    <label class="font-weight-bold">Regione</label>
+    <select class="custom-select custom-select-sm" name="regione" [(ngModel)]="searchModels.regione"
+      (ngModelChange)="findByCombo('regione')" [disabled]="!searchLists.regioni.length">
+      <option *ngFor="let x of searchLists.regioni" [value]="x">{{x}}</option>
+    </select>
+  </div>
+  <div class="col-2">
+    <label class="font-weight-bold">Provincia</label>
+    <select class="custom-select custom-select-sm" name="provincia" [(ngModel)]="searchModels.provincia"
+      (ngModelChange)="findByCombo('provincia')" [disabled]="!searchLists.province.length">
+      <option *ngFor="let x of searchLists.province" [value]="x">{{x}}</option>
+    </select>
+  </div>
+  <div class="col-2">
+    <label class="font-weight-bold">Comune</label>
+    <select name="comune" [(ngModel)]="searchModels.comune" (ngModelChange)="findByCombo('comune')"
+      [disabled]="!searchLists.comuni.length" class="custom-select custom-select-sm">
+      <option *ngFor="let x of searchLists.comuni" [value]="x">{{x}}</option>
+    </select>
+  </div>
+  <div class="col-2" *ngIf="searchLists.istituti">
+    <label class="font-weight-bold">Istituto</label>
+    <select class="custom-select custom-select-sm" name="istituto" [(ngModel)]="searchModels.istituto"
+      [disabled]="!searchLists.istituti.length" (ngModelChange)="findByCombo('istituto')">
+      <option *ngFor="let x of searchLists.istituti" [ngValue]="x">{{x.nome}}</option>
+    </select>
+  </div>
+  <div class="col-2">
+    <button (click)="resetCombos()" class="btn btn-primary">Reset</button>
   </div>
 </div>
 
 <div class="row">
-  <div class="col-6">
+  <div class="col-12">
     <table class="table table-sm table-striped">
       <thead>
         <tr>
@@ -20,18 +42,22 @@
           <th>Cognome</th>
           <th>Data Nascita</th>
           <th>Età</th>
+          <th>Istituto</th>
+          <th>Classe</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let child of childList; let i = index">
+        <tr *ngFor="let child of listaBambini; let i = index">
           <td>{{i + 1}}</td>
           <td>{{child.nome}}</td>
           <td>{{child.cognome}}</td>
           <td>{{child.dataNascita | date: 'dd MMM yyyy' }}</td>
           <td>{{getChildAge(child.dataNascita)}}</td>
+          <td>{{getNomeIstituto(child.idIstituto)}}</td>
+          <td>{{child.classe}}</td>
           <td class="text-right">
-            <button class="btn btn-primary btn-sm" type="button" (click)="lookChild(child)" tooltip="Dettagli">
+            <button class="btn btn-primary btn-sm" type="button" (click)="goToChildPage(child.id)" tooltip="Dettagli">
               <i class="fa fa-search"></i>
             </button>
             <button class="btn btn-primary btn-sm ml-1" type="button" (click)="goToTest(child.id)"
@@ -48,6 +74,7 @@
     </table>
   </div>
 
+  <!--
   <div class="col-6">
     <table class="table table-sm table-striped" *ngIf="bambino">
       <thead>
@@ -107,5 +134,5 @@
       </tbody>
     </table>
   </div>
-
+-->
 </div>
