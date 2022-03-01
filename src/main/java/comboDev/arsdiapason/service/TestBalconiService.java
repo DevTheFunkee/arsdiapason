@@ -1,6 +1,6 @@
 package comboDev.arsdiapason.service;
 
-import comboDev.arsdiapason.model.DatiSchede;
+import comboDev.arsdiapason.dto.DatiSchede;
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;

@@ -1,6 +1,6 @@
 package comboDev.arsdiapason.controller;
 
-import comboDev.arsdiapason.model.DatiSchede;
+import comboDev.arsdiapason.dto.DatiSchede;
 import comboDev.arsdiapason.mybatis.model.RelBambinoScheda;
 import comboDev.arsdiapason.service.TestBalconiService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,6 +1,6 @@
 package comboDev.arsdiapason.controller;
 
-import comboDev.arsdiapason.model.DatiRegistrazione;
+import comboDev.arsdiapason.dto.DatiRegistrazione;
 import comboDev.arsdiapason.mybatis.mapper.PsicologoMapper;
 import comboDev.arsdiapason.mybatis.model.Psicologo;
 import comboDev.arsdiapason.service.UserService;

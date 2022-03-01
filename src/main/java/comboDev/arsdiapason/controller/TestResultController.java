@@ -1,6 +1,6 @@
 package comboDev.arsdiapason.controller;
 
-import comboDev.arsdiapason.model.ResultChildTest;
+import comboDev.arsdiapason.dto.ResultChildTest;
 import comboDev.arsdiapason.service.TestResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;

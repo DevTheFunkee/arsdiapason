@@ -28,12 +28,13 @@ public class ChildListService {
         List<RelPsicologoBambino> relations = relPsicologoBambinoMapper.selectByExample(relPsicologoBambinoExample);
 
         List<Bambino> bambini = new ArrayList<>();
-        for (RelPsicologoBambino relation: relations) {
+        for(RelPsicologoBambino relation: relations) {
             Bambino bambino = bambinoMapper.selectByPrimaryKey(relation.getIdBambino());
-            if(bambino != null){
+            if(bambino != null) {
                 bambini.add(bambino);
             }
         }
         return bambini;
     }
+
 }

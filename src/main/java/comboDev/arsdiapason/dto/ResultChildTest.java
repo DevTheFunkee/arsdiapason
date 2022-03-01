@@ -1,4 +1,4 @@
-package comboDev.arsdiapason.model;
+package comboDev.arsdiapason.dto;
 
 import comboDev.arsdiapason.mybatis.model.AreaProva;
 import comboDev.arsdiapason.mybatis.model.Bambino;

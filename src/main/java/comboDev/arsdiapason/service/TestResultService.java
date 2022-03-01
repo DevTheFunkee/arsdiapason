@@ -1,6 +1,6 @@
 package comboDev.arsdiapason.service;
 
-import comboDev.arsdiapason.model.ResultChildTest;
+import comboDev.arsdiapason.dto.ResultChildTest;
 import comboDev.arsdiapason.mybatis.mapper.AreaProvaMapper;
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
