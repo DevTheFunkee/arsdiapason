@@ -1,37 +1,9 @@
 <div class="row align-items-end mb-2">
-  <div class="col-2">
-    <label class="font-weight-bold">Regione</label>
-    <select class="custom-select custom-select-sm" name="regione" [(ngModel)]="searchModels.regione"
-      (ngModelChange)="findByCombo('regione')" [disabled]="!searchLists.regioni.length">
-      <option *ngFor="let x of searchLists.regioni" [value]="x">{{x}}</option>
-    </select>
-  </div>
-  <div class="col-2">
-    <label class="font-weight-bold">Provincia</label>
-    <select class="custom-select custom-select-sm" name="provincia" [(ngModel)]="searchModels.provincia"
-      (ngModelChange)="findByCombo('provincia')" [disabled]="!searchLists.province.length">
-      <option *ngFor="let x of searchLists.province" [value]="x">{{x}}</option>
-    </select>
-  </div>
-  <div class="col-2">
-    <label class="font-weight-bold">Comune</label>
-    <select name="comune" [(ngModel)]="searchModels.comune" (ngModelChange)="findByCombo('comune')"
-      [disabled]="!searchLists.comuni.length" class="custom-select custom-select-sm">
-      <option *ngFor="let x of searchLists.comuni" [value]="x">{{x}}</option>
-    </select>
-  </div>
-  <div class="col-2" *ngIf="searchLists.istituti">
-    <label class="font-weight-bold">Istituto</label>
-    <select class="custom-select custom-select-sm" name="istituto" [(ngModel)]="searchModels.istituto"
-      [disabled]="!searchLists.istituti.length" (ngModelChange)="findByCombo('istituto')">
-      <option *ngFor="let x of searchLists.istituti" [ngValue]="x">{{x.nome}}</option>
-    </select>
-  </div>
-  <div class="col-2">
-    <label class="font-weight-bold">Sezioni</label>
-    <select name="comune" [(ngModel)]="searchModels.sezione" (ngModelChange)="findByCombo('sezione')"
-      [disabled]="!searchLists.sezioni.length" class="custom-select custom-select-sm">
-      <option *ngFor="let x of searchLists.sezioni" [value]="x">{{x}}</option>
+  <div *ngFor="let combo of searchCombos" class="col-2">
+    <label class="font-weight-bold">{{capitalize(combo)}}</label>
+    <select class="custom-select custom-select-sm" name="{{combo}}" [(ngModel)]="searchModels[combo]"
+      (ngModelChange)="findByCombo(combo)" [disabled]="!searchLists[combo].length">
+      <option *ngFor="let x of searchLists[combo]" [ngValue]="x">{{combo === 'istituto' ? x.nome : x}}</option>
     </select>
   </div>
   <div class="col-2">
@@ -81,65 +53,4 @@
     </table>
   </div>
 
-  <!--
-  <div class="col-6">
-    <table class="table table-sm table-striped" *ngIf="bambino">
-      <thead>
-        <tr>
-          <th colspan="2" class="text-center">-- Dettagli Bambino --</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <th>Nome</th>
-          <td>{{bambino.nome}}</td>
-        </tr>
-        <tr>
-          <th>Cognome</th>
-          <td>{{bambino.cognome}}</td>
-        </tr>
-        <tr>
-          <th>Data di Nascita</th>
-          <td>{{bambino.dataNascita | date: 'dd MMM yyyy'}}</td>
-        </tr>
-        <tr>
-          <th>Comune di Nascita</th>
-          <td>{{bambino.comuneNascita}}</td>
-        </tr>
-        <tr>
-          <th>Figlio Adottivo</th>
-          <td>{{bambino.figlioAdottivo}}</td>
-        </tr>
-        <tr>
-          <th>Ordine Genitura</th>
-          <td>{{bambino.ordineGenitura}}</td>
-        </tr>
-        <tr>
-          <th>Numero Fratelli</th>
-          <td>{{bambino.numeroFratelli}}</td>
-        </tr>
-        <tr>
-          <th>Numero Sorelle</th>
-          <td>{{bambino.numeroSorelle}}</td>
-        </tr>
-        <tr>
-          <th>Lavoro Padre</th>
-          <td>{{bambino.lavoroPadre}}</td>
-        </tr>
-        <tr>
-          <th>Lavoro Madre</th>
-          <td>{{bambino.lavoroMadre}}</td>
-        </tr>
-        <tr>
-          <th>Titolo Studio Padre</th>
-          <td>{{bambino.titoloStudioPadre}}</td>
-        </tr>
-        <tr>
-          <th>Titolo Studio Madre</th>
-          <td>{{bambino.titoloStudioMadre}}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
--->
 </div>

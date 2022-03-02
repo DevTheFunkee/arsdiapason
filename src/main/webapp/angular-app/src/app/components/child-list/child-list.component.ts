@@ -14,7 +14,8 @@ export class ChildListComponent implements OnInit {
     istitutiOrigin: any
     listaBambiniOrigin: any = []
     listaBambini: any = []
-    searchLists: any = { regioni: [], province: [], comuni: [], istituti: [], sezioni: [] }
+    searchCombos: any = ['regione', 'provincia', 'comune', 'istituto', 'sezione']
+    searchLists: any = { regione: [], provincia: [], comune: [], istituto: [], sezione: [] }
     searchModels: any = { regione: {}, provincia: {}, comune: {}, istituto: {}, sezione: {} }
 
     constructor(private httpService: HttpService, private router: Router) { }
@@ -60,8 +61,7 @@ export class ChildListComponent implements OnInit {
     }
 
     goToChildPage(childId: number) {
-        //navigate to pag bambino
-        //this.bambino = child
+        //this.router.navigate(['testBalconi', childId])
     }
 
     goToTest(childId: number) {
@@ -73,14 +73,14 @@ export class ChildListComponent implements OnInit {
     }
 
     initCombos() {
-        this.searchLists.istituti = this.istitutiOrigin
-        this.searchLists.regioni = _(this.istitutiOrigin).groupBy('regione').keys().value()
-        this.searchLists.province = _(this.istitutiOrigin).groupBy('provincia').keys().value()
-        this.searchLists.comuni = _(this.istitutiOrigin).groupBy('comune').keys().value()
+        this.searchLists.istituto = this.istitutiOrigin
+        this.searchLists.regione = _(this.istitutiOrigin).groupBy('regione').keys().value()
+        this.searchLists.provincia = _(this.istitutiOrigin).groupBy('provincia').keys().value()
+        this.searchLists.comune = _(this.istitutiOrigin).groupBy('comune').keys().value()
     }
 
     initComboSezione() {
-        this.searchLists.sezioni = _(this.listaBambini).groupBy('sezione').keys().value()
+        this.searchLists.sezione = _(this.listaBambini).groupBy('sezione').keys().value()
     }
 
     resetCombos() {
@@ -94,34 +94,38 @@ export class ChildListComponent implements OnInit {
         if (combo === 'sezione') {
             let listaBambini = _(this.listaBambini).filter(['sezione', this.searchModels.sezione])
             let idIstituti = _(listaBambini).groupBy('idIstituto').keys().value()
-            this.searchLists.sezioni = _(listaBambini).groupBy('sezione').keys().value()
+            this.searchLists.sezione = _(listaBambini).groupBy('sezione').keys().value()
             for (let i = 0; i < idIstituti.length; i++) {
-                this.searchLists.istituti = _.filter(this.istitutiOrigin, ['id', parseInt(idIstituti[i])])
+                this.searchLists.istituto = _.filter(this.istitutiOrigin, ['id', parseInt(idIstituti[i])])
             }
         } else if (combo === 'istituto') {
-            this.searchLists.istituti = [this.searchModels[combo]]
+            this.searchLists.istituto = [this.searchModels[combo]]
         } else {
-            this.searchLists.istituti = _.filter(this.istitutiOrigin, [combo, this.searchModels[combo]])
+            this.searchLists.istituto = _.filter(this.istitutiOrigin, [combo, this.searchModels[combo]])
         }
-        this.searchLists.regioni = _(this.searchLists.istituti).groupBy('regione').keys().value()
-        this.searchLists.province = _(this.searchLists.istituti).groupBy('provincia').keys().value()
-        this.searchLists.comuni = _(this.searchLists.istituti).groupBy('comune').keys().value()
+        this.searchLists.regione = _(this.searchLists.istituto).groupBy('regione').keys().value()
+        this.searchLists.provincia = _(this.searchLists.istituto).groupBy('provincia').keys().value()
+        this.searchLists.comune = _(this.searchLists.istituto).groupBy('comune').keys().value()
         this.listaBambini = []
-        for (let i = 0; i < this.searchLists.istituti.length; i++) {
+        for (let i = 0; i < this.searchLists.istituto.length; i++) {
             if (_.isEmpty(this.searchModels.sezione)) {
-                this.listaBambini = this.listaBambini.concat(_.filter(this.listaBambiniOrigin, { 'idIstituto': this.searchLists.istituti[i].id }))
+                this.listaBambini = this.listaBambini.concat(_.filter(this.listaBambiniOrigin, { 'idIstituto': this.searchLists.istituto[i].id }))
             } else {
-                this.listaBambini = this.listaBambini.concat(_.filter(this.listaBambiniOrigin, { 'idIstituto': this.searchLists.istituti[i].id, 'sezione': this.searchModels.sezione }))
+                this.listaBambini = this.listaBambini.concat(_.filter(this.listaBambiniOrigin, { 'idIstituto': this.searchLists.istituto[i].id, 'sezione': this.searchModels.sezione }))
             }
         }
         if (combo !== 'sezione') {
-            this.searchLists.sezioni = _(this.listaBambini).groupBy('sezione').keys().value()
-            this.searchModels.sezione = this.searchLists.sezioni.length === 1 ? this.searchLists.sezioni[0] : {}
+            this.searchLists.sezione = _(this.listaBambini).groupBy('sezione').keys().value()
+            this.searchModels.sezione = this.searchLists.sezione.length === 1 ? this.searchLists.sezione[0] : {}
         }
-        this.searchModels.regione = this.searchLists.regioni.length === 1 ? this.searchLists.regioni[0] : {}
-        this.searchModels.provincia = this.searchLists.province.length === 1 ? this.searchLists.province[0] : {}
-        this.searchModels.comune = this.searchLists.comuni.length === 1 ? this.searchLists.comuni[0] : {}
-        this.searchModels.istituto = this.searchLists.istituti.length === 1 ? this.searchLists.istituti[0] : {}
+        this.searchModels.regione = this.searchLists.regione.length === 1 ? this.searchLists.regione[0] : {}
+        this.searchModels.provincia = this.searchLists.provincia.length === 1 ? this.searchLists.provincia[0] : {}
+        this.searchModels.comune = this.searchLists.comune.length === 1 ? this.searchLists.comune[0] : {}
+        this.searchModels.istituto = this.searchLists.istituto.length === 1 ? this.searchLists.istituto[0] : {}
+    }
+
+    capitalize(stringa: string) {
+        return stringa.charAt(0).toUpperCase() + stringa.substring(1)
     }
 
 }
