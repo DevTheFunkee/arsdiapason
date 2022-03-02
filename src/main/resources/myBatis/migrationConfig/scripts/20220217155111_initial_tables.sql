@@ -1,14 +1,4 @@
--- // create first tables
-
-CREATE TABLE utente (
-    username VARCHAR(40) NOT NULL,
-    password VARCHAR(20) NOT NULL,
-    role VARCHAR(10) NOT NULL,
-    id_psicologo INT NOT NULL,
-    data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(username, password)
-);
+-- // create initial tables
 
 CREATE TABLE psicologo (
     id INT AUTO_INCREMENT,
@@ -17,6 +7,17 @@ CREATE TABLE psicologo (
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
+);
+
+CREATE TABLE utente (
+    username VARCHAR(40) NOT NULL,
+    password VARCHAR(20) NOT NULL,
+    role VARCHAR(10) NOT NULL,
+    id_psicologo INT NOT NULL,
+    data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY(username, password),
+    CONSTRAINT FK_UT_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id)
 );
 
 CREATE TABLE istituto (
@@ -29,7 +30,8 @@ CREATE TABLE istituto (
     indirizzo VARCHAR(50) NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    CONSTRAINT FK_IST_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id)
 );
 
 CREATE TABLE bambino (
@@ -54,7 +56,8 @@ CREATE TABLE bambino (
     note VARCHAR(300),
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY (id)
+    PRIMARY KEY (id),
+    CONSTRAINT FK_BAM_istituto FOREIGN KEY (id_istituto) REFERENCES istituto(id)
 );
 
 CREATE TABLE rel_psicologo_bambino (
@@ -62,7 +65,9 @@ CREATE TABLE rel_psicologo_bambino (
     id_bambino INT NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(id_psicologo, id_bambino)
+    PRIMARY KEY(id_psicologo, id_bambino),
+    CONSTRAINT FK_RPB_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id),
+    CONSTRAINT FK_RPB_bambino FOREIGN KEY (id_bambino) REFERENCES bambino(id)
 );
 
 CREATE TABLE scheda (
@@ -84,7 +89,8 @@ CREATE TABLE prova_scheda (
     prova TINYINT(2),
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    CONSTRAINT FK_PS_numScheda FOREIGN KEY (numero_scheda) REFERENCES scheda(numero)
 );
 
 CREATE TABLE rel_bambino_scheda (
@@ -92,17 +98,19 @@ CREATE TABLE rel_bambino_scheda (
     id_prova_scheda TINYINT(3) NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(id_bambino, id_prova_scheda)
+    PRIMARY KEY(id_bambino, id_prova_scheda),
+    CONSTRAINT FK_RBS_bambino FOREIGN KEY (id_bambino) REFERENCES bambino(id),
+    CONSTRAINT FK_RBS_provaScheda FOREIGN KEY (id_prova_scheda) REFERENCES prova_scheda(id)
 );
 
 -- //@UNDO
 
+DROP TABLE rel_psicologo_bambino;
+DROP TABLE rel_bambino_scheda;
+DROP TABLE prova_scheda;
+DROP TABLE scheda;
+DROP TABLE bambino;
+DROP TABLE istituto;
 DROP TABLE utente;
 DROP TABLE psicologo;
-DROP TABLE istituto;
-DROP TABLE bambino;
-DROP TABLE rel_psicologo_bambino;
-DROP TABLE scheda;
-DROP TABLE prova_scheda;
-DROP TABLE rel_bambino_scheda;
 

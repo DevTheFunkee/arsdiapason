@@ -39,5 +39,5 @@ INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (3
 
 -- //@UNDO
 
-TRUNCATE TABLE scheda;
-TRUNCATE TABLE prova_scheda;
+DELETE FROM prova_scheda;
+DELETE FROM scheda;
