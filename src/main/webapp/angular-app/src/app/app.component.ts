@@ -25,7 +25,7 @@ export class AppComponent {
         { title: 'Crea Account', route: '/createAccount', hidden: true },
         { title: 'Gestione Istituti', route: '/gestisciIstituti' },
         { title: 'Lista Bambini', route: '/childList' },
-        { title: 'Inserisci Dati Bambino', route: '/insertChild' },
+        { title: 'Inserisci Bambino', route: '/insertChild' },
         { title: 'Test Balconi', route: '/testBalconi' },
         { title: 'Risultato del Test', route: '/testResult', class: 'disabled' },
         { title: 'Grafico', route: '/paginaGrafici' }
