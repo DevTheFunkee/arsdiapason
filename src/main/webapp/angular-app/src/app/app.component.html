@@ -16,12 +16,12 @@
           <a class="nav-link {{p.class}}" routerLink="{{p.route}}" routerLinkActive="active">{{p.title}}</a>
         </li>
       </div>
-      <span [hidden]="!loggedIn()" class="navbar-text" (click)="logout()">Logout</span>
+      <span [hidden]="!loggedIn()" class="navbar-text pr-5" (click)="logout()">Logout</span>
     </div>
   </nav>
 
   <div class="row py-3">
-    <div class="col-12 pl-5">
+    <div class="col-12 px-5">
       <h3 class="mb-3">{{page}}</h3>
       <router-outlet></router-outlet>
     </div>
