@@ -34,23 +34,13 @@ export class GestisciIstitutiComponent implements OnInit {
     )
   }
 
-  inserisciIstituto() {
-    this.httpService.callPost('inserisciIstituto', this.newIstituto).subscribe(
-      (data: any) => {
-        this.istituti.push(data)
-      },
-      (error: any) => { },
-      () => { }
-    )
-  }
-
   saveModIstituto(index: number) {
     var row = this.istitutiForm.controls.istitutiRows.controls[index].value
     this.httpService.callPost("saveModIstituto", row).subscribe(
-      data => {
+      (data: any) => {
         this.istituti[index] = data
       },
-      error => { },
+      (error: any) => { },
       () => { }
     )
   }
@@ -58,10 +48,10 @@ export class GestisciIstitutiComponent implements OnInit {
   eliminaIstituto(index: any) {
     let url = 'eliminaIstituto?idIstituto=' + this.istituti[index].id
     this.httpService.callPost(url, null).subscribe(
-      data => {
+      (data: any) => {
         this.istituti.splice(index, 1)
       },
-      error => { },
+      (error: any) => { },
       () => { }
     )
   }
@@ -80,20 +70,35 @@ export class GestisciIstitutiComponent implements OnInit {
     )
   }
 
-  cancelModIstituto(index: number) {
-    delete this.istituti[index].inModifica
-    this.fromIstitutoToFormObj(this.istituti[index], index)
+  inserisciIstituto() {
+    this.httpService.callPost('inserisciIstituto', this.newIstituto).subscribe(
+      (data: any) => {
+        this.istituti.push(data)
+        this.istitutiForm.controls.istitutiRows.push(this.formBuilder.group({
+          id: [data.id],
+          idPsicologo: [data.idPsicologo, [Validators.required]],
+          nome: [data.nome, [Validators.required]],
+          regione: [data.regione, [Validators.required]],
+          provincia: [data.provincia, [Validators.required]],
+          comune: [data.comune, [Validators.required]],
+          indirizzo: [data.indirizzo, [Validators.required]]
+        }));
+      },
+      (error: any) => { },
+      () => { }
+    )
   }
 
-  fromIstitutoToFormObj(istituto: any, index: number) {
+  cancelModIstituto(index: number) {
+    delete this.istituti[index].inModifica
     this.istitutiForm.controls.istitutiRows.controls[index].setValue({
-      id: istituto.id,
-      idPsicologo: istituto.idPsicologo,
-      nome: istituto.nome,
-      regione: istituto.regione,
-      provincia: istituto.provincia,
-      comune: istituto.comune,
-      indirizzo: istituto.indirizzo
+      id: this.istituti[index].id,
+      idPsicologo: this.istituti[index].idPsicologo,
+      nome: this.istituti[index].nome,
+      regione: this.istituti[index].regione,
+      provincia: this.istituti[index].provincia,
+      comune: this.istituti[index].comune,
+      indirizzo: this.istituti[index].indirizzo
     })
   }
 
