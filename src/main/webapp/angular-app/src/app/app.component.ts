@@ -27,7 +27,8 @@ export class AppComponent {
         { title: 'Lista Bambini', route: '/childList' },
         { title: 'Inserisci Dati Bambino', route: '/insertChild' },
         { title: 'Test Balconi', route: '/testBalconi' },
-        { title: 'Risultato del Test', route: '/testResult', class: 'disabled' }
+        { title: 'Risultato del Test', route: '/testResult', class: 'disabled' },
+        { title: 'Grafico', route: '/paginaGrafici' }
     ]
 
     ngOnInit() { }
