@@ -1,16 +1,24 @@
 <div class="row">
   <div class="col-2">
     <label class="font-weight-bold">Istituto</label>
-    <select class="custom-select custom-select-sm" name="istituto" [(ngModel)]="istituto" [disabled]="!istituti.length"
-      (ngModelChange)="chartByIstituto()">
+    <select [(ngModel)]="istituto" (ngModelChange)="getTestsByIstituto()" [disabled]="!istituti.length" name="istituto"
+      class="custom-select custom-select-sm">
       <option *ngFor="let x of istituti" [ngValue]="x">{{x.nome}}</option>
     </select>
   </div>
+  <div class="col-2">
+    <label class="font-weight-bold">Sezione</label>
+    <select [(ngModel)]="sezione" (ngModelChange)="getChartBySezione()" [disabled]="!sezioni.length" name="sezione"
+      class="custom-select custom-select-sm">
+      <option *ngFor="let x of sezioni" [ngValue]="x">{{x}}</option>
+    </select>
+  </div>
 </div>
+
 <div class="row">
   <div class="col-12" id="chart-div">
-    <google-chart #chart [type]="type" [data]="data" [columns]="columns" [options]="options" [width]="width"
-      [height]="height">
+    <google-chart #chart *ngIf="showChart" [type]="type" [data]="data" [columns]="columns" [options]="options"
+      [width]="width" [height]="height">
     </google-chart>
   </div>
 </div>

@@ -23,8 +23,93 @@ export class PaginaGraficiComponent implements OnInit {
       this.resize.unsubscribe()
    }
 
+   showChart = false
    istituti: any = []
+   sezioni: any = []
    istituto: any = {}
+   sezione: any = {}
+   provaSchedaList: any = []
+   type: string = 'ComboChart'
+   columns: any = ['Scheda', 'anni 5', 'anni 6', 'anni 7', 'anni 8', 'Media']
+   width: number
+   height: number
+   options: any = {
+      vAxis: {
+         title: 'Prova',
+         textStyle: { color: 'black', fontName: 'monospace', fontSize: '15', bold: true, italic: false },
+         titleTextStyle: { color: 'black', fontSize: '20', fontName: 'monospace', bold: true, italic: false }
+      },
+      hAxis: { textStyle: { color: 'black', fontName: 'monospace', fontSize: '15', bold: true, italic: false } },
+      seriesType: 'bars',
+      isStacked: 'percent',
+      series: { 4: { type: 'line', pointShape: 'circle' } },
+      pointSize: 8,
+      legend: { position: 'top' }
+   }
+   data: any = [
+      ["Scheda 1 (Copia)", 0, 0, 0, 0, 0],
+      ["Scheda 1 (Memoria)", 0, 0, 0, 0, 0],
+      ["Scheda 2", 0, 0, 0, 0, 0],
+      ["Scheda 3", 0, 0, 0, 0, 0],
+      ["Scheda 4", 0, 0, 0, 0, 0],
+      ["Scheda 5", 0, 0, 0, 0, 0],
+      ["Scheda 6", 0, 0, 0, 0, 0],
+      ["Scheda 7", 0, 0, 0, 0, 0],
+      ["Scheda 8", 0, 0, 0, 0, 0],
+      ["Scheda 9", 0, 0, 0, 0, 0],
+      ["Scheda 10", 0, 0, 0, 0, 0],
+      ["Scheda 11", 0, 0, 0, 0, 0]
+   ]
+   anniArray: any = [5, 6, 7, 8]
+
+   getChartBySezione() {
+      let proveScheda = []
+      if (this.istituto.id) {
+         proveScheda = _.filter(this.provaSchedaList, { 'idIstituto': this.istituto.id })
+      }
+      if (this.sezione) {
+         proveScheda = _.filter(proveScheda, { 'sezione': this.sezione })
+      }
+      if (proveScheda.length) {
+         for (let i = 0; i < 12; i++) {
+            let scheda: any
+            if (i === 0) {
+               scheda = _.filter(proveScheda, { 'numeroScheda': 1, 'tipo': 'Copia' })
+            } else if (i === 1) {
+               scheda = _.filter(proveScheda, { 'numeroScheda': 1, 'tipo': 'Memoria' })
+            } else {
+               scheda = _.filter(proveScheda, { 'numeroScheda': i - 1 })
+            }
+            if (scheda.length) {
+               for (let j = 0; j < this.anniArray.length; j++) {
+                  this.data[i][j + 1] = _.filter(scheda, { 'anni': this.anniArray[j] }).length
+               }
+            }
+         }
+      }
+      this.showChart = true
+   }
+
+   getTestsByIstituto() {
+      let param = '?idIstituto=' + this.istituto.id
+      this.httpService.callPost('getTestsByIstituto' + param, null).subscribe(
+         (data: any) => {
+            for (var i = 0; i < data.length; i++) {
+               let proveSchede = data[i].proveSchede
+               for (var j = 0; j < proveSchede.length; j++) {
+                  proveSchede[j].idIstituto = data[i].bambino.idIstituto
+                  proveSchede[j].sezione = data[i].bambino.sezione
+               }
+               this.provaSchedaList = this.provaSchedaList.concat(proveSchede)
+               if (!this.sezioni.includes(data[i].bambino.sezione)) {
+                  this.sezioni.push(data[i].bambino.sezione)
+               }
+            }
+         },
+         (error: any) => { },
+         () => { }
+      )
+   }
 
    getListaIstituti() {
       this.httpService.callPost('getListaIstituti', null).subscribe(
@@ -36,40 +121,6 @@ export class PaginaGraficiComponent implements OnInit {
       )
    }
 
-   chartByIstituto() {
-      this.istituto.id
-   }
-
-   type = 'ComboChart'
-   data = [
-      ["Scheda 1", 12, 8, 7, 4, 2.5],
-      ["Scheda 2", 11, 9, 6, 4, 2.5],
-      ["Scheda 3", 11, 10, 4, 4, 3],
-      ["Scheda 4", 10, 12, 5, 4, 6],
-      ["Scheda 5", 10, 11, 5, 4, 3],
-      ["Scheda 6", 11, 9, 5, 4, 2.5],
-      ["Scheda 7", 12, 10, 5, 4, 2.5],
-      ["Scheda 8", 10, 7, 5, 4, 3],
-      ["Scheda 9", 11, 11, 5, 4, 6],
-      ["Scheda 10", 11, 12, 5, 4, 3],
-      ["Scheda 11", 12, 8, 5, 4, 3]
-   ]
-   columns = ['Scheda', 'anni 5', 'anni 6', 'anni 7', 'anni 8', 'Media']
-   options = {
-      vAxis: {
-         title: 'Prova',
-         textStyle: { color: 'black', fontName: 'monospace', fontSize: '15', bold: true, italic: false },
-         titleTextStyle: { color: 'black', fontSize: '20', fontName: 'monospace', bold: true, italic: false }
-      },
-      hAxis: { textStyle: { color: 'black', fontName: 'monospace', fontSize: '15', bold: true, italic: false } },
-      seriesType: 'bars',
-      series: { 4: { type: 'line', pointShape: 'circle' } },
-      pointSize: 8,
-      legend: { position: 'top' }
-   }
-   width: number
-   height: number
-
    resize = fromEvent(window, 'resize').pipe(debounceTime(500)).subscribe(() => {
       this.resizeChart()
    })
@@ -77,7 +128,7 @@ export class PaginaGraficiComponent implements OnInit {
    resizeChart() {
       let w = $("#chart-div").width()
       let h = $("#chart-div").width() / 3
-      this.options['chartArea'] = { left: w / 100 * 5, right: w / 100 * 5, top: h / 100 * 10, bottom: h / 100 * 5, width: '100%', height: '100%' }
+      this.options['chartArea'] = { left: w / 100 * 5, right: w / 100 * 5, top: h / 100 * 10, bottom: h / 100 * 8, width: '100%', height: '100%' }
       this.width = w
       this.height = h
    }
