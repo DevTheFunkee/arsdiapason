@@ -30,16 +30,14 @@ export class PaginaGraficiComponent implements OnInit {
    sezione: any = {}
    provaSchedaList: any = []
    type: string = 'ComboChart'
-   columns: any = ['Scheda', 'anni 5', 'anni 6', 'anni 7', 'anni 8', 'Media']
+   columns: any = ['Scheda', 'anni 5', 'anni 6', 'anni 7', 'anni 8']
    width: number
    height: number
    options: any = {
       vAxis: {
-         title: 'Prova',
-         textStyle: { color: 'black', fontName: 'monospace', fontSize: '15', bold: true, italic: false },
-         titleTextStyle: { color: 'black', fontSize: '20', fontName: 'monospace', bold: true, italic: false }
+         textStyle: { color: 'black', fontSize: '15', bold: true, italic: false },
       },
-      hAxis: { textStyle: { color: 'black', fontName: 'monospace', fontSize: '15', bold: true, italic: false } },
+      hAxis: { textStyle: { color: 'black', fontSize: '15', bold: true, italic: false } },
       seriesType: 'bars',
       isStacked: 'percent',
       series: { 4: { type: 'line', pointShape: 'circle' } },
@@ -47,18 +45,18 @@ export class PaginaGraficiComponent implements OnInit {
       legend: { position: 'top' }
    }
    data: any = [
-      ["Scheda 1 (Copia)", 0, 0, 0, 0, 0],
-      ["Scheda 1 (Memoria)", 0, 0, 0, 0, 0],
-      ["Scheda 2", 0, 0, 0, 0, 0],
-      ["Scheda 3", 0, 0, 0, 0, 0],
-      ["Scheda 4", 0, 0, 0, 0, 0],
-      ["Scheda 5", 0, 0, 0, 0, 0],
-      ["Scheda 6", 0, 0, 0, 0, 0],
-      ["Scheda 7", 0, 0, 0, 0, 0],
-      ["Scheda 8", 0, 0, 0, 0, 0],
-      ["Scheda 9", 0, 0, 0, 0, 0],
-      ["Scheda 10", 0, 0, 0, 0, 0],
-      ["Scheda 11", 0, 0, 0, 0, 0]
+      ["Scheda 1 (Copia)", 0, 0, 0, 0],
+      ["Scheda 1 (Memoria)", 0, 0, 0, 0],
+      ["Scheda 2", 0, 0, 0, 0],
+      ["Scheda 3", 0, 0, 0, 0],
+      ["Scheda 4", 0, 0, 0, 0],
+      ["Scheda 5", 0, 0, 0, 0],
+      ["Scheda 6", 0, 0, 0, 0],
+      ["Scheda 7", 0, 0, 0, 0],
+      ["Scheda 8", 0, 0, 0, 0],
+      ["Scheda 9", 0, 0, 0, 0],
+      ["Scheda 10", 0, 0, 0, 0],
+      ["Scheda 11", 0, 0, 0, 0]
    ]
    anniArray: any = [5, 6, 7, 8]
 
@@ -74,11 +72,11 @@ export class PaginaGraficiComponent implements OnInit {
          for (let i = 0; i < 12; i++) {
             let scheda: any
             if (i === 0) {
-               scheda = _.filter(proveScheda, { 'numeroScheda': 1, 'tipo': 'Copia' })
+               scheda = _.filter(proveScheda, { 'numeroScheda': i + 1, 'tipo': 'Copia' })
             } else if (i === 1) {
-               scheda = _.filter(proveScheda, { 'numeroScheda': 1, 'tipo': 'Memoria' })
+               scheda = _.filter(proveScheda, { 'numeroScheda': i, 'tipo': 'Memoria' })
             } else {
-               scheda = _.filter(proveScheda, { 'numeroScheda': i - 1 })
+               scheda = _.filter(proveScheda, { 'numeroScheda': i })
             }
             if (scheda.length) {
                for (let j = 0; j < this.anniArray.length; j++) {
