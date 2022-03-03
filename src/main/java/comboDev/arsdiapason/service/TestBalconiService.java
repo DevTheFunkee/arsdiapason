@@ -5,7 +5,9 @@ import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.SchedaMapper;
+import comboDev.arsdiapason.mybatis.model.Bambino;
 import comboDev.arsdiapason.mybatis.model.RelBambinoScheda;
+import comboDev.arsdiapason.mybatis.model.RelBambinoSchedaExample;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,9 +39,16 @@ public class TestBalconiService {
 
     @Transactional(rollbackFor = Exception.class)
     public void saveTest(List<RelBambinoScheda> relBambinoSchedas) {
+        RelBambinoSchedaExample relBambinoSchedaExample = new RelBambinoSchedaExample();
+        relBambinoSchedaExample.createCriteria().andIdBambinoEqualTo(relBambinoSchedas.get(0).getIdBambino());
+        relBambinoSchedaMapper.deleteByExample(relBambinoSchedaExample);
         for (RelBambinoScheda relBambinoScheda: relBambinoSchedas) {
             relBambinoSchedaMapper.insertSelective(relBambinoScheda);
         }
+        Bambino bambino = new Bambino();
+        bambino.setId(relBambinoSchedas.get(0).getIdBambino());
+        bambino.setTestFinito(true);
+        bambinoMapper.updateByPrimaryKeySelective(bambino);
     }
 
 }

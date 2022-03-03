@@ -68,7 +68,7 @@
           </tr>
           <tr>
             <th>ESITO</th>
-            <th *ngFor="let anni of arrayAnni">
+            <th *ngFor="let anni of arrayAnni" style="font-weight: 600;">
               <div *ngFor="let row of obj.rows" [hidden]="row.anni !== anni">
                 <div [hidden]="!idBambino">
                   <input [(ngModel)]="row.checked" (change)="checkBefore(obj.rows, row.id, scheda)" type="checkbox"
@@ -81,7 +81,7 @@
           </tr>
           <tr>
             <th>PROVA</th>
-            <th *ngFor="let anni of arrayAnni">
+            <th *ngFor="let anni of arrayAnni" style="font-weight: 600;">
               <span *ngFor="let row of getRowsByAnni(obj.rows, anni); let i = index">
                 <span *ngIf="i === 0">{{row.prova}}</span>
                 <span *ngIf="i > 0"> e/o {{row.prova}}</span>
