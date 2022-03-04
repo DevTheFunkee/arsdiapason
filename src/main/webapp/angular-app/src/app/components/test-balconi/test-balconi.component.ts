@@ -16,10 +16,10 @@ export class TestBalconiComponent implements OnInit {
     idBambino: string = this.activedRoute.snapshot.paramMap.get("id")
     schede: any = []
     proveSchede: any = []
+    relBambinoSchede: any = []
     bambino: any = null
     currentScheda: any = {}
     tipiScheda: any = {}
-    tipiSchedaToSave: any = []
     arrayAnni: any = [5, 6, 7, 8]
 
     ngOnInit(): void {
@@ -38,6 +38,7 @@ export class TestBalconiComponent implements OnInit {
                 this.bambino = data.bambino
                 this.schede = data.schede
                 this.proveSchede = data.proveSchede
+                this.relBambinoSchede = data.relBambinoSchede
             },
             (error: any) => { },
             () => { }
@@ -56,9 +57,15 @@ export class TestBalconiComponent implements OnInit {
             for (let i = 0; i < tipi.length; i++) {
                 if (tipi[i] === 'null') {
                     let rows = _.filter(this.proveSchede, { 'numeroScheda': scheda.numero })
+                    for (let j = 0; j < rows.length; j++) {
+                        rows[j].checked = !!_.find(this.relBambinoSchede, { 'idProvaScheda': rows[j].id })
+                    }
                     this.tipiScheda[scheda.numero].push({ tipo: null, rows: rows })
                 } else {
                     let rows = _.filter(this.proveSchede, { 'numeroScheda': scheda.numero, 'tipo': tipi[i] })
+                    for (let j = 0; j < rows.length; j++) {
+                        rows[j].checked = !!_.find(this.relBambinoSchede, { 'idProvaScheda': rows[j].id })
+                    }
                     this.tipiScheda[scheda.numero].push({ tipo: tipi[i], rows: rows })
                 }
             }

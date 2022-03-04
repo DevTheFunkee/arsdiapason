@@ -31,6 +31,9 @@ public class TestBalconiService {
         DatiSchede datiSchede = new DatiSchede();
         if(idBambino != null) {
             datiSchede.setBambino(bambinoMapper.selectByPrimaryKey(idBambino));
+            RelBambinoSchedaExample relBambinoSchedaExample = new RelBambinoSchedaExample();
+            relBambinoSchedaExample.createCriteria().andIdBambinoEqualTo(idBambino);
+            datiSchede.setRelBambinoSchede(relBambinoSchedaMapper.selectByExample(relBambinoSchedaExample));
         }
         datiSchede.setSchede(schedaMapper.selectByExample(null));
         datiSchede.setProveSchede(provaSchedaMapper.selectByExample(null));
@@ -39,9 +42,6 @@ public class TestBalconiService {
 
     @Transactional(rollbackFor = Exception.class)
     public void saveTest(List<RelBambinoScheda> relBambinoSchedas) {
-        RelBambinoSchedaExample relBambinoSchedaExample = new RelBambinoSchedaExample();
-        relBambinoSchedaExample.createCriteria().andIdBambinoEqualTo(relBambinoSchedas.get(0).getIdBambino());
-        relBambinoSchedaMapper.deleteByExample(relBambinoSchedaExample);
         for (RelBambinoScheda relBambinoScheda: relBambinoSchedas) {
             relBambinoSchedaMapper.insertSelective(relBambinoScheda);
         }

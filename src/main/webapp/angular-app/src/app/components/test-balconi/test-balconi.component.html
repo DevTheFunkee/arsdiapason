@@ -16,7 +16,7 @@
       <tr *ngFor="let scheda of schede">
         <td>
           <button class="btn btn-primary w-100" (click)="showDatiScheda(scheda)"
-            [ngClass]="{'btn-success': scheda.complete}">
+            [ngClass]="{'btn-success': scheda.complete || bambino.testFinito}">
             Scheda {{scheda.numero}}
           </button>
         </td>
@@ -31,7 +31,7 @@
           </button>
         </td>
       </tr>
-      <tr *ngIf="idBambino">
+      <tr *ngIf="idBambino && bambino && !bambino.testFinito">
         <td colspan="3">
           <button class="btn btn-primary w-100 mt-1" [disabled]="!allSchedeComplete()" (click)="saveTest()">Salva
             il Test</button>
@@ -71,8 +71,9 @@
             <th *ngFor="let anni of arrayAnni" style="font-weight: 600;">
               <div *ngFor="let row of obj.rows" [hidden]="row.anni !== anni">
                 <div [hidden]="!idBambino">
-                  <input [(ngModel)]="row.checked" (change)="checkBefore(obj.rows, row.id, scheda)" type="checkbox"
-                    id="prova{{row.anni}}{{row.prova}}" name="prova{{row.anni}}{{row.prova}}">
+                  <input [(ngModel)]="row.checked" (change)="checkBefore(obj.rows, row.id, scheda)"
+                    [disabled]="bambino.testFinito" type="checkbox" id="prova{{row.anni}}{{row.prova}}"
+                    name="prova{{row.anni}}{{row.prova}}">
                 </div>
                 <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
                   for="prova{{row.anni}}{{row.prova}}"></label>
