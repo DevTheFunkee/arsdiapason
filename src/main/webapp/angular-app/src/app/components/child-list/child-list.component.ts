@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { HttpService } from '../../services/http.service'
-import * as moment from 'moment'
 import * as _ from 'lodash'
 
 @Component({
@@ -51,13 +50,6 @@ export class ChildListComponent implements OnInit {
     getNomeIstituto(idIstituto: number) {
         let inst = _.find(this.istitutiOrigin, ['id', idIstituto])
         if (inst) return inst.nome
-    }
-
-    getChildAge(dataNascita: Date) {
-        let monthsTot = moment().diff(dataNascita, 'months')
-        let years = Math.floor(monthsTot / 12)
-        let months = monthsTot - (years * 12)
-        return years + ' anni ' + (months > 0 ? ' e ' + months + ' mesi ' : '')
     }
 
     goToChildPage(childId: number) {

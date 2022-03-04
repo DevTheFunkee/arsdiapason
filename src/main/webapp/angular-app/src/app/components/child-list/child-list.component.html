@@ -34,9 +34,9 @@
           <td>{{i + 1}}</td>
           <td>{{child.nome}}</td>
           <td>{{child.cognome}}</td>
-          <td>{{child.dataNascita | date: 'dd MMM yyyy' }}</td>
-          <td>{{getChildAge(child.dataNascita)}}</td>
-          <td>{{child.sesso}}</td>
+          <td>{{child.dataNascita | date: 'dd MMM yyyy'}}</td>
+          <td>{{child.dataNascita | eta}}</td>
+          <td>{{child.sesso | sesso}}</td>
           <td>{{child.comuneResidenza}}</td>
           <td>{{child.figlioAdottivo}}</td>
           <td>{{getNomeIstituto(child.idIstituto)}}</td>
@@ -45,8 +45,8 @@
             <button class="btn btn-primary btn-sm" type="button" (click)="goToChildPage(child.id)" tooltip="Dettagli">
               <i class="fa fa-search"></i>
             </button>
-            <button *ngIf="!child.testFinito" (click)="goToTest(child.id)" class="btn btn-primary btn-sm ml-1"
-              tooltip="Fai il Test">
+            <button (click)="goToTest(child.id)" class="btn btn-primary btn-sm ml-1"
+              tooltip="{{child.testFinito ? 'Guarda le risposte' : 'Fai il Test'}}">
               <i class="fa fa-file-text-o"></i>
             </button>
             <button *ngIf="child.testFinito" (click)="goToTestResult(child.id)" class="btn btn-success btn-sm ml-1"

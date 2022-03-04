@@ -1,20 +1,25 @@
 <div *ngIf="bambino" class="row">
-  <div class="col-6">
-    <table class="table table-sm table-striped">
+  <div class="col-7">
+    <table class="table table-sm table-striped"
+      [ngStyle]="{'background-color': bambino.sesso === 'M' ? 'powderblue' : 'lightpink' }">
       <thead>
         <tr>
           <th>Nome</th>
           <th>Cognome</th>
           <th>Data Nascita</th>
           <th>Età</th>
+          <th>Sesso</th>
+          <th>Test Completato</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>{{bambino.nome}}</td>
           <td>{{bambino.cognome}}</td>
-          <td>{{bambino.dataNascita | date: 'dd MMM yyyy' }}</td>
-          <td>{{getChildAge(bambino.dataNascita)}}</td>
+          <td>{{bambino.dataNascita | date: 'dd MMM yyyy'}}</td>
+          <td>{{bambino.dataNascita | eta}}</td>
+          <td>{{bambino.sesso | sesso}}</td>
+          <td>{{bambino.testFinito | testFinito}}</td>
         </tr>
       </tbody>
     </table>
