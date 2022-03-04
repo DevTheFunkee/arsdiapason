@@ -23,6 +23,9 @@ import { GestisciIstitutiComponent } from './components/gestisci-istituti/gestis
 import { TestResultComponent } from './components/test-result/test-result.component';
 import { SpecchiettoBambinoComponent } from './components/specchietto-bambino/specchietto-bambino.component';
 import { PaginaGraficiComponent } from './components/pagina-grafici/pagina-grafici.component';
+import { SessoPipe } from './pipes/sesso.pipe';
+import { EtaPipe } from './pipes/eta.pipe';
+import { TestFinitoPipe } from './pipes/test-finito.pipe';
 
 registerLocaleData(localeIt);
 
@@ -37,7 +40,10 @@ registerLocaleData(localeIt);
     GestisciIstitutiComponent,
     TestResultComponent,
     SpecchiettoBambinoComponent,
-    PaginaGraficiComponent
+    PaginaGraficiComponent,
+    SessoPipe,
+    EtaPipe,
+    TestFinitoPipe
   ],
   imports: [
     BrowserModule,
