@@ -41,16 +41,20 @@
           <td>{{child.figlioAdottivo}}</td>
           <td>{{getNomeIstituto(child.idIstituto)}}</td>
           <td>{{child.sezione}}</td>
-          <td class="text-right">
-            <button class="btn btn-primary btn-sm" type="button" (click)="goToChildPage(child.id)" tooltip="Dettagli">
+          <td style="width: 0">
+            <button (click)="goToChildPage(child.id)" class="btn btn-primary btn-sm" tooltip="Dettagli">
               <i class="fa fa-search"></i>
             </button>
-            <button (click)="goToTest(child.id)" class="btn btn-primary btn-sm ml-1"
+          </td>
+          <td style="width: 0">
+            <button (click)="goToTest(child.id)" class="btn btn-primary btn-sm"
               tooltip="{{child.testFinito ? 'Guarda le risposte' : 'Fai il Test'}}">
               <i class="fa fa-file-text-o"></i>
             </button>
-            <button *ngIf="child.testFinito" (click)="goToTestResult(child.id)" class="btn btn-success btn-sm ml-1"
-              tooltip="Risultato del Test">
+          </td>
+          <td style="width: 0">
+            <button *ngIf="child.testFinito" (click)="goToTestResult(child.id)" class="btn btn-success btn-sm"
+              tooltip="Risultato del Test" placement="left">
               <i class="fa fa-file-text-o"></i>
             </button>
           </td>
