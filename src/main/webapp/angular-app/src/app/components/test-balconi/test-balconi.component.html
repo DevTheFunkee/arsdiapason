@@ -1,5 +1,5 @@
 <div [hidden]="idBambino" class="row">
-  <div class="col-6">
+  <div class="col-8">
     <div class="alert alert-info">
       <strong>Per fare il test è necessario cliccare sul pulsante 'Fai il Test' sulla riga di un bambino dalla pagina
         <a [routerLink]="['/childList']" routerLinkActive="active">Lista Bambini</a>
@@ -75,8 +75,8 @@
                     [disabled]="bambino && bambino.testFinito" type="checkbox" id="prova{{row.anni}}{{row.prova}}"
                     name="prova{{row.anni}}{{row.prova}}">
                 </div>
-                <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
-                  for="prova{{row.anni}}{{row.prova}}"></label>
+                <label [innerHTML]="getTableText(obj.rows, row, idBambino)" for="prova{{row.anni}}{{row.prova}}"
+                  style="margin-bottom: 0"></label>
               </div>
             </th>
           </tr>

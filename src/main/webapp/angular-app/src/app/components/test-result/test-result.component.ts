@@ -64,8 +64,10 @@ export class TestResultComponent implements OnInit {
     }
 
     getIndiceSviluppo() {
-        if (this.pointForYear['tot'] && this.realChildMonths)
+        if (this.pointForYear['tot'] && this.realChildMonths) {
             return (this.pointForYear['tot'] / this.realChildMonths).toFixed(2)
+        }
+        return 0
     }
 
 }

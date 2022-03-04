@@ -4,3 +4,21 @@ table {
 .area {
   font-size: 11px;
 }
+th {
+  vertical-align: middle;
+}
+.table-points {
+  width: auto;
+}
+.table-points .title {
+  width: 250px;
+}
+.table-points .width2 {
+  width: 100px;
+}
+.table-points .width3 {
+  width: 150px;
+}
+.table-points .width4 {
+  width: 60px;
+}
