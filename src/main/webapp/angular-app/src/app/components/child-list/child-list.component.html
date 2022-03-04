@@ -1,6 +1,6 @@
 <div class="row align-items-end mb-2">
   <div *ngFor="let combo of searchCombos" class="col-2">
-    <label class="font-weight-bold">{{capitalize(combo)}}</label>
+    <label class="font-weight-bold">{{combo | capitalize}}</label>
     <select class="custom-select custom-select-sm" name="{{combo}}" [(ngModel)]="searchModels[combo]"
       (ngModelChange)="findByCombo(combo)" [disabled]="!searchLists[combo].length">
       <option *ngFor="let x of searchLists[combo]" [ngValue]="x">{{combo === 'istituto' ? x.nome : x}}</option>

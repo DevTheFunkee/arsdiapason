@@ -116,8 +116,4 @@ export class ChildListComponent implements OnInit {
         this.searchModels.istituto = this.searchLists.istituto.length === 1 ? this.searchLists.istituto[0] : {}
     }
 
-    capitalize(stringa: string) {
-        return stringa.charAt(0).toUpperCase() + stringa.substring(1)
-    }
-
 }

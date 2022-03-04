@@ -26,6 +26,7 @@ import { PaginaGraficiComponent } from './components/pagina-grafici/pagina-grafi
 import { SessoPipe } from './pipes/sesso.pipe';
 import { EtaPipe } from './pipes/eta.pipe';
 import { TestFinitoPipe } from './pipes/test-finito.pipe';
+import { CapitalizePipe } from './pipes/capitalize.pipe';
 
 registerLocaleData(localeIt);
 
@@ -43,7 +44,8 @@ registerLocaleData(localeIt);
     PaginaGraficiComponent,
     SessoPipe,
     EtaPipe,
-    TestFinitoPipe
+    TestFinitoPipe,
+    CapitalizePipe
   ],
   imports: [
     BrowserModule,
