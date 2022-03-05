@@ -33,7 +33,7 @@ public class GestisciIstitutiController implements BasicController  {
     }
 
     @PostMapping("/eliminaIstituto")
-    public void eliminaIstituto(@RequestParam Integer idIstituto) {
+    public void eliminaIstituto(@RequestParam Integer idIstituto) throws Exception {
         gestisciIstitutiService.eliminaIstituto(idIstituto);
     }
 

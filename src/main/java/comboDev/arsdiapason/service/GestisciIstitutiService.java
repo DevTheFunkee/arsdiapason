@@ -4,6 +4,7 @@ import comboDev.arsdiapason.mybatis.mapper.IstitutoMapper;
 import comboDev.arsdiapason.mybatis.model.Istituto;
 import comboDev.arsdiapason.mybatis.model.IstitutoExample;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,7 +37,11 @@ public class GestisciIstitutiService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void eliminaIstituto(Integer idIstituto) {
-        istitutoMapper.deleteByPrimaryKey(idIstituto);
+    public void eliminaIstituto(Integer idIstituto) throws Exception {
+        try {
+            istitutoMapper.deleteByPrimaryKey(idIstituto);
+        } catch (DataIntegrityViolationException e) {
+            throw new Exception("", new Throwable("Non è possibile eliminare l'istituto in quanto collegato a dei bambini"));
+        }
     }
 }
