@@ -31,7 +31,7 @@ public class InsertChildService {
         if (bambino.getSezione() != null) {
             bambino.setSezione(bambino.getSezione().toUpperCase());
         }
-        bambinoMapper.insert(bambino);
+        bambinoMapper.insertSelective(bambino);
         RelPsicologoBambino relPsicologoBambino = new RelPsicologoBambino();
         relPsicologoBambino.setIdBambino(bambino.getId());
         relPsicologoBambino.setIdPsicologo(idPsicologo);
