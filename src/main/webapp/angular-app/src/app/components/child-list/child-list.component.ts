@@ -116,8 +116,8 @@ export class ChildListComponent implements OnInit {
         this.searchModels.istituto = this.searchLists.istituto.length === 1 ? this.searchLists.istituto[0] : {}
     }
 
-    comboDisabled(combo: string){
-        return combo === 'sezione' ? _.isEmpty(this.searchModels.istituto) : !this.searchLists[combo].length
+    comboDisabled(combo: string) {
+        return combo === 'sezione' ? _.isEmpty(this.searchModels.istituto) || !this.searchLists[combo].length : !this.searchLists[combo].length
     }
 
 }
