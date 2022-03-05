@@ -85,7 +85,7 @@ export class PaginaGraficiComponent implements OnInit {
    }
 
    comboDisabled(combo: string) {
-      return combo === 'sezione' ? _.isEmpty(this.searchModels.istituto) : !this.searchLists[combo].length
+      return combo === 'sezione' ? _.isEmpty(this.searchModels.istituto) || !this.searchLists[combo].length : !this.searchLists[combo].length
    }
 
    createChartData() {
@@ -146,22 +146,26 @@ export class PaginaGraficiComponent implements OnInit {
    }
 
    createChart(data: any) {
-      this.data = data
-      this.type = 'ComboChart'
-      this.columns = ['Scheda', 'anni 5', 'anni 6', 'anni 7', 'anni 8']
-      this.options = {
-         vAxis: {
-            textStyle: { color: 'black', fontSize: '15', bold: true, italic: false },
-         },
-         hAxis: { textStyle: { color: 'black', fontSize: '15', bold: true, italic: false } },
-         seriesType: 'bars',
-         isStacked: 'percent',
-         series: { 4: { type: 'line', pointShape: 'circle' } },
-         pointSize: 8,
-         legend: { position: 'top' }
+      if (data.length) {
+         this.data = data
+         this.type = 'ComboChart'
+         this.columns = ['Scheda', 'anni 5', 'anni 6', 'anni 7', 'anni 8']
+         this.options = {
+            vAxis: {
+               textStyle: { color: 'black', fontSize: '15', bold: true, italic: false },
+            },
+            hAxis: { textStyle: { color: 'black', fontSize: '15', bold: true, italic: false } },
+            seriesType: 'bars',
+            isStacked: 'true', //percent
+            //series: { 4: { type: 'line', pointShape: 'circle' } },
+            //pointSize: 8,
+            legend: { position: 'top' }
+         }
+         this.showChart = true
+         this.resizeChart()
+      } else {
+         this.data = []
       }
-      this.showChart = true
-      this.resizeChart()
    }
 
    resize = fromEvent(window, 'resize').pipe(debounceTime(500)).subscribe(() => {

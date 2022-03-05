@@ -11,9 +11,17 @@
   </div>
 </div>
 
+<div class="row" [hidden]="!showChart || data.length">
+  <div class="col-3 offset-4 pt-5">
+    <div class="alert alert-info text-center">
+      <strong>Non sono presenti dati</strong>
+    </div>
+  </div>
+</div>
+
 <div class="row">
   <div class="col-12" id="chart-div">
-    <google-chart #chart *ngIf="showChart" [type]="type" [data]="data" [columns]="columns" [options]="options"
+    <google-chart #chart *ngIf="data.length" [type]="type" [data]="data" [columns]="columns" [options]="options"
       [width]="width" [height]="height">
     </google-chart>
   </div>
