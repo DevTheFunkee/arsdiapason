@@ -2,8 +2,10 @@
     padding: 10px;
     margin: 10px
 }
-input.ng-dirty.ng-invalid{
- /* border:1px solid red;*/
+form input.ng-invalid,
+form select.ng-invalid,
+form textarea.ng-invalid {
+  border: 1px solid green;
 }
 .c-pointer {
   cursor: pointer;
