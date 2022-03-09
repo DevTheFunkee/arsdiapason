@@ -1,7 +1,8 @@
-<div class="row">
+<div class="row" *ngIf="!istituti.length">
   <div class="col-6">
     <div class="alert alert-info">
-      <strong>E' possibile inserire, modificare o eliminare un istituto dalla pagina
+      <strong>Non è possibile inserire un nuovo bambino in quanto non è presente nessun istituto al quale collegarlo. E'
+        possibile censire un nuovo istituto dala pagina
         <a [routerLink]="['/gestisciIstituto']" routerLinkActive="active">Gestione Istituti</a>
       </strong>
     </div>
@@ -35,15 +36,18 @@
   <div class="row mb-3">
     <div class="col-2">
       <label>Nome</label>
-      <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="newChild.nome" required />
+      <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="newChild.nome"
+        [disabled]="!newChild.idIstituto" required />
     </div>
     <div class="col-2">
       <label>Cognome</label>
-      <input type="text" class="form-control form-control-sm" name="cognome" [(ngModel)]="newChild.cognome" required />
+      <input type="text" class="form-control form-control-sm" name="cognome" [(ngModel)]="newChild.cognome"
+        [disabled]="!newChild.idIstituto" required />
     </div>
     <div class="col-2">
       <label>Sesso</label>
-      <select class="custom-select custom-select-sm" name="sesso" [(ngModel)]="newChild.sesso" required>
+      <select class="custom-select custom-select-sm" name="sesso" [(ngModel)]="newChild.sesso"
+        [disabled]="!newChild.idIstituto" required>
         <option *ngFor="let x of sexList" value="{{x.db}}">{{x.label}}</option>
       </select>
     </div>
@@ -53,45 +57,46 @@
     <div class="col-2">
       <label>Data di Nascita</label>
       <input type="date" class="form-control form-control-sm" name="dataNascita" [(ngModel)]="newChild.dataNascita"
-        max="{{today}}" required />
+        [disabled]="!newChild.idIstituto" max="{{today}}" required />
     </div>
     <div class="col-2">
       <label>Comune di Nascita</label>
-      <input type="text" class="form-control form-control-sm" name="comuneNascita"
+      <input type="text" class="form-control form-control-sm" name="comuneNascita" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.comuneNascita" />
     </div>
     <div class="col-2">
       <label>Comune di Residenza</label>
-      <input type="text" class="form-control form-control-sm" name="comuneResidenza"
+      <input type="text" class="form-control form-control-sm" name="comuneResidenza" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.comuneResidenza" />
     </div>
     <div class="col-2">
       <label>Indirizzo di Residenza</label>
       <input type="text" class="form-control form-control-sm" name="indirizzoResidenza"
-        [(ngModel)]="newChild.indirizzoResidenza" />
+        [disabled]="!newChild.idIstituto" [(ngModel)]="newChild.indirizzoResidenza" />
     </div>
   </div>
 
   <div class="row mb-3">
     <div class="col-2">
       <label>Figlio Adottivo</label>
-      <select class="custom-select custom-select-sm" name="figlioAdottivo" [(ngModel)]="newChild.figlioAdottivo">
+      <select class="custom-select custom-select-sm" name="figlioAdottivo" [(ngModel)]="newChild.figlioAdottivo"
+        [disabled]="!newChild.idIstituto">
         <option *ngFor="let x of siNo">{{x}}</option>
       </select>
     </div>
     <div class="col-2">
       <label>Ordine Genitura</label>
-      <input type="number" class="form-control form-control-sm" name="ordineGenitura"
+      <input type="number" class="form-control form-control-sm" name="ordineGenitura" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.ordineGenitura" min="1" />
     </div>
     <div class="col-2">
       <label>Numero Fratelli</label>
-      <input type="number" class="form-control form-control-sm" name="numeroFratelli"
+      <input type="number" class="form-control form-control-sm" name="numeroFratelli" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.numeroFratelli" min="0" />
     </div>
     <div class="col-2">
       <label>Numero Sorelle</label>
-      <input type="number" class="form-control form-control-sm" name="numeroSorelle"
+      <input type="number" class="form-control form-control-sm" name="numeroSorelle" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.numeroSorelle" min="0" />
     </div>
   </div>
@@ -99,20 +104,22 @@
   <div class="row mb-3">
     <div class="col-2">
       <label>Lavoro Padre</label>
-      <input type="text" class="form-control form-control-sm" name="lavoroPadre" [(ngModel)]="newChild.lavoroPadre" />
+      <input type="text" class="form-control form-control-sm" name="lavoroPadre" [(ngModel)]="newChild.lavoroPadre"
+        [disabled]="!newChild.idIstituto" />
     </div>
     <div class="col-2">
       <label>Lavoro Madre</label>
-      <input type="text" class="form-control form-control-sm" name="lavoroMadre" [(ngModel)]="newChild.lavoroMadre" />
+      <input type="text" class="form-control form-control-sm" name="lavoroMadre" [(ngModel)]="newChild.lavoroMadre"
+        [disabled]="!newChild.idIstituto" />
     </div>
     <div class="col-2">
       <label>Titolo di Studio Padre</label>
-      <input type="text" class="form-control form-control-sm" name="titoloStudioPadre"
+      <input type="text" class="form-control form-control-sm" name="titoloStudioPadre" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.titoloStudioPadre" />
     </div>
     <div class="col-2">
       <label>Titolo di Studio Madre</label>
-      <input type="text" class="form-control form-control-sm" name="titoloStudioMadre"
+      <input type="text" class="form-control form-control-sm" name="titoloStudioMadre" [disabled]="!newChild.idIstituto"
         [(ngModel)]="newChild.titoloStudioMadre" />
     </div>
   </div>
@@ -121,7 +128,7 @@
     <div class="col-8">
       <label>Note</label><span> - caratteri rimanenti: {{textAreaMaxLength - (newChild.note.length)}}</span>
       <textarea [(ngModel)]="newChild.note" name="note" class="form-control form-control-sm" rows="2"
-        maxlength="{{textAreaMaxLength}}"></textarea>
+        maxlength="{{textAreaMaxLength}}" [disabled]="!newChild.idIstituto"></textarea>
     </div>
   </div>
 
