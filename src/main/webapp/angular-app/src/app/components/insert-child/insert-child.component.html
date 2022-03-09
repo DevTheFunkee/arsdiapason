@@ -57,13 +57,13 @@
     </div>
     <div class="col-2">
       <label>Comune di Nascita</label>
-      <input type="text" class="form-control form-control-sm" name="comuneNascita" [(ngModel)]="newChild.comuneNascita"
-        required />
+      <input type="text" class="form-control form-control-sm" name="comuneNascita"
+        [(ngModel)]="newChild.comuneNascita" />
     </div>
     <div class="col-2">
       <label>Comune di Residenza</label>
       <input type="text" class="form-control form-control-sm" name="comuneResidenza"
-        [(ngModel)]="newChild.comuneResidenza" required />
+        [(ngModel)]="newChild.comuneResidenza" />
     </div>
     <div class="col-2">
       <label>Indirizzo di Residenza</label>
@@ -75,25 +75,24 @@
   <div class="row mb-3">
     <div class="col-2">
       <label>Figlio Adottivo</label>
-      <select class="custom-select custom-select-sm" name="figlioAdottivo" [(ngModel)]="newChild.figlioAdottivo"
-        required>
+      <select class="custom-select custom-select-sm" name="figlioAdottivo" [(ngModel)]="newChild.figlioAdottivo">
         <option *ngFor="let x of siNo">{{x}}</option>
       </select>
     </div>
     <div class="col-2">
       <label>Ordine Genitura</label>
       <input type="number" class="form-control form-control-sm" name="ordineGenitura"
-        [(ngModel)]="newChild.ordineGenitura" min="1" required />
+        [(ngModel)]="newChild.ordineGenitura" min="1" />
     </div>
     <div class="col-2">
       <label>Numero Fratelli</label>
       <input type="number" class="form-control form-control-sm" name="numeroFratelli"
-        [(ngModel)]="newChild.numeroFratelli" min="0" required />
+        [(ngModel)]="newChild.numeroFratelli" min="0" />
     </div>
     <div class="col-2">
       <label>Numero Sorelle</label>
       <input type="number" class="form-control form-control-sm" name="numeroSorelle"
-        [(ngModel)]="newChild.numeroSorelle" min="0" required />
+        [(ngModel)]="newChild.numeroSorelle" min="0" />
     </div>
   </div>
 

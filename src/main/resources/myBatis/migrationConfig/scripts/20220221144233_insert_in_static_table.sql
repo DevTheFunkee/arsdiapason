@@ -39,5 +39,7 @@ INSERT INTO prova_scheda (id, numero_scheda, tipo, testo, anni, prova) VALUES (3
 
 -- //@UNDO
 
+SET FOREIGN_KEY_CHECKS=0;
 DELETE FROM prova_scheda;
 DELETE FROM scheda;
+SET FOREIGN_KEY_CHECKS=1;
