@@ -21,15 +21,15 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
+        String email = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        if (username != null && password != null) {
-            Utente utente = userService.login(username, password);
+        if (email != null && password != null) {
+            Utente utente = userService.login(email, password);
             if(utente != null) {
                 List<SimpleGrantedAuthority> authorities = new ArrayList<>();
                 authorities.add(new SimpleGrantedAuthority(utente.getRole()));
-                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(username, password, authorities);
+                UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(email, password, authorities);
                 token.setDetails(utente.getIdPsicologo());
                 return token;
             }

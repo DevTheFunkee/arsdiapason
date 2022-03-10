@@ -10,13 +10,13 @@ CREATE TABLE psicologo (
 );
 
 CREATE TABLE utente (
-    username VARCHAR(40) NOT NULL,
+    email VARCHAR(40) NOT NULL,
     password VARCHAR(20) NOT NULL,
     role VARCHAR(10) NOT NULL,
     id_psicologo INT NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(username, password),
+    PRIMARY KEY(email, password),
     CONSTRAINT FK_UT_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id)
 );
 

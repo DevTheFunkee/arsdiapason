@@ -36,7 +36,7 @@ public class UserService {
             psicologoMapper.insert(psicologo);
             Utente utente = new Utente();
             utente.setIdPsicologo(psicologo.getId());
-            utente.setUsername(datiRegistrazione.getUsername());
+            utente.setEmail(datiRegistrazione.getEmail());
             utente.setPassword(datiRegistrazione.getPassword());
             utente.setRole("USER");
             utenteMapper.insert(utente);

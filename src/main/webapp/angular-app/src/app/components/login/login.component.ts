@@ -17,15 +17,15 @@ export class LoginComponent implements OnInit {
     ngOnInit(): void { }
 
     login() {
-        if (this.model.username && this.model.password) {
-            sessionStorage.setItem('auth', window.btoa(this.model.username + ":" + this.model.password))
+        if (this.model.email && this.model.password) {
+            sessionStorage.setItem('auth', window.btoa(this.model.email + ":" + this.model.password))
             this.httpService.callGet('login').subscribe(
                 (data: any) => {
                     sessionStorage.setItem('user', JSON.stringify(data))
                     this.router.navigate(['gestisciIstituti'])
                 },
                 (error: any) => {
-                    this.errMsg = "Username e Password non corretti"
+                    this.errMsg = "Email e Password non corretti"
                 },
                 () => { }
             )
