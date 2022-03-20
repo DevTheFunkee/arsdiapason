@@ -11,6 +11,13 @@
   </div>
 </div>
 
+<div class="row align-items-end mb-2">
+  <div class="col-5 form-inline">
+    <label class="mr-3">Cerca per cognome:</label>
+    <input [(ngModel)]="searchCognome" (keyup)="searchChild()" type="text" class="form-control form-control-sm">
+  </div>
+</div>
+
 <div class="row">
   <div class="col-12">
     <table class="table table-sm">
@@ -30,7 +37,7 @@
         </tr>
       </thead>
       <tbody>
-        <ng-container *ngFor="let child of listaBambini; let i = index">
+        <ng-container *ngFor="let child of listaBambiniSearch || listaBambini; let i = index">
           <tr>
             <td>{{i + 1}}</td>
             <td>{{child.nome}}</td>

@@ -13,9 +13,11 @@ export class ChildListComponent implements OnInit {
     istitutiOrigin: any
     listaBambiniOrigin: any = []
     listaBambini: any = []
+    listaBambiniSearch: any = null
     searchCombos: any = ['regione', 'provincia', 'comune', 'istituto', 'sezione']
     searchLists: any = { regione: [], provincia: [], comune: [], istituto: [], sezione: [] }
     searchModels: any = { regione: {}, provincia: {}, comune: {}, istituto: {}, sezione: {} }
+    searchCognome: string
 
     constructor(private httpService: HttpService, private router: Router) { }
 
@@ -52,8 +54,15 @@ export class ChildListComponent implements OnInit {
         if (inst) return inst.nome
     }
 
-    goToChildPage(childId: number) {
-        //this.router.navigate(['testBalconi', childId])
+    searchChild() {
+        let that = this
+        if (that.searchCognome) {
+            this.listaBambiniSearch = _.filter(this.listaBambini, function (o) {
+                return o.cognome && o.cognome.toLowerCase().startsWith(that.searchCognome.toLowerCase())
+            })
+        } else {
+            this.listaBambiniSearch = null
+        }
     }
 
     goToTest(childId: number) {
