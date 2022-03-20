@@ -13,7 +13,7 @@
 
 <div class="row">
   <div class="col-12">
-    <table class="table table-sm table-striped">
+    <table class="table table-sm">
       <thead>
         <tr>
           <th>#</th>
@@ -22,43 +22,83 @@
           <th>Data Nascita</th>
           <th>Età</th>
           <th>Sesso</th>
-          <th>Comune di Residenza</th>
-          <th>Figlio Adottivo</th>
           <th>Istituto</th>
           <th>Sezione</th>
+          <th>Data Test</th>
+          <th>Test Effettuato</th>
           <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let child of listaBambini; let i = index">
-          <td>{{i + 1}}</td>
-          <td>{{child.nome}}</td>
-          <td>{{child.cognome}}</td>
-          <td>{{child.dataNascita | date: 'dd MMM yyyy'}}</td>
-          <td>{{child.dataNascita | eta}}</td>
-          <td>{{child.sesso | sesso}}</td>
-          <td>{{child.comuneResidenza}}</td>
-          <td>{{child.figlioAdottivo}}</td>
-          <td>{{getNomeIstituto(child.idIstituto)}}</td>
-          <td>{{child.sezione}}</td>
-          <td style="width: 0">
-            <button (click)="goToChildPage(child.id)" class="btn btn-primary btn-sm" tooltip="Dettagli">
-              <i class="fa fa-search"></i>
-            </button>
-          </td>
-          <td style="width: 0">
-            <button (click)="goToTest(child.id)" class="btn btn-primary btn-sm"
-              tooltip="{{child.testFinito ? 'Guarda le risposte' : 'Fai il Test'}}">
-              <i class="fa fa-file-text-o"></i>
-            </button>
-          </td>
-          <td style="width: 0">
-            <button *ngIf="child.testFinito" (click)="goToTestResult(child.id)" class="btn btn-success btn-sm"
-              tooltip="Risultato del Test" placement="left">
-              <i class="fa fa-file-text-o"></i>
-            </button>
-          </td>
-        </tr>
+        <ng-container *ngFor="let child of listaBambini; let i = index">
+          <tr>
+            <td>{{i + 1}}</td>
+            <td>{{child.nome}}</td>
+            <td>{{child.cognome}}</td>
+            <td>{{child.dataNascita | date: 'dd MMM yyyy'}}</td>
+            <td>{{child.dataNascita | eta}}</td>
+            <td>{{child.sesso | sesso}}</td>
+            <td>{{getNomeIstituto(child.idIstituto)}}</td>
+            <td>{{child.sezione}}</td>
+            <td>{{child.dataTest || 'N.D.'}}</td>
+            <td>{{child.testFinito | testFinito}}</td>
+            <td style="width: 0">
+              <button (click)="child.showDetail = !child.showDetail" class="btn btn-primary btn-sm" tooltip="Dettagli">
+                <i class="fa" [ngClass]="{'fa-plus': !child.showDetail, 'fa-minus': child.showDetail}"></i>
+              </button>
+            </td>
+            <td style="width: 0">
+              <button (click)="goToTest(child.id)" class="btn btn-primary btn-sm"
+                tooltip="{{child.testFinito ? 'Guarda le risposte' : 'Fai il Test'}}">
+                <i class="fa fa-file-text-o"></i>
+              </button>
+            </td>
+            <td style="width: 0">
+              <button *ngIf="child.testFinito" (click)="goToTestResult(child.id)" class="btn btn-success btn-sm"
+                tooltip="Risultato del Test" placement="left">
+                <i class="fa fa-file-text-o"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="child.showDetail">
+            <td colspan="20">
+              <table class="table table-sm table-info sub-table table-borderless">
+                <tr>
+                  <th>Comune di Nascita</th>
+                  <td>{{child.comuneNascita}}</td>
+                  <th>Comune di Residenza</th>
+                  <td>{{child.comuneResidenza}}</td>
+                  <th>Indirizzo di Residenza</th>
+                  <td colspan="3">{{child.indirizzoResidenza}}</td>
+                </tr>
+                <tr>
+                  <th>Figlio Adottivo</th>
+                  <td>{{child.figlioAdottivo}}</td>
+                  <th>Ordine Genitura</th>
+                  <td>{{child.ordineGenitura}}</td>
+                  <th>Numero Fratelli</th>
+                  <td>{{child.numeroFratelli}}</td>
+                  <th>Numero Sorelle</th>
+                  <td>{{child.numeroSorelle}}</td>
+                </tr>
+                <tr>
+                  <th>Titolo Studio Padre</th>
+                  <td>{{child.titoloStudioPadre}}</td>
+                  <th>Titolo Studio Madre</th>
+                  <td>{{child.titoloStudioMadre}}</td>
+                  <th>Lavoro Padre</th>
+                  <td>{{child.lavoroPadre}}</td>
+                  <th>Lavoro Madre</th>
+                  <td>{{child.lavoroMadre}}</td>
+                </tr>
+                <tr>
+                  <th>Note</th>
+                  <td colspan="20">{{child.note}}</td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </ng-container>
       </tbody>
     </table>
   </div>
