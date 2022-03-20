@@ -27,6 +27,7 @@ import { SessoPipe } from './pipes/sesso.pipe';
 import { EtaPipe } from './pipes/eta.pipe';
 import { TestFinitoPipe } from './pipes/test-finito.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
+import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component';
 
 registerLocaleData(localeIt);
 
@@ -45,7 +46,8 @@ registerLocaleData(localeIt);
     SessoPipe,
     EtaPipe,
     TestFinitoPipe,
-    CapitalizePipe
+    CapitalizePipe,
+    ConfirmAccountComponent
   ],
   imports: [
     BrowserModule,

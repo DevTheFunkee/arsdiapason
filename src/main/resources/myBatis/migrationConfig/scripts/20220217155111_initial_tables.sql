@@ -11,12 +11,13 @@ CREATE TABLE psicologo (
 
 CREATE TABLE utente (
     email VARCHAR(40) NOT NULL,
-    password VARCHAR(20) NOT NULL,
+    password VARCHAR(75) NOT NULL,
+    active TINYINT(1) NOT NULL DEFAULT 0,
     role VARCHAR(10) NOT NULL,
     id_psicologo INT NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(email, password),
+    PRIMARY KEY(email),
     CONSTRAINT FK_UT_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id)
 );
 
@@ -45,9 +46,9 @@ CREATE TABLE bambino (
     comune_nascita VARCHAR(30),
     comune_residenza VARCHAR(30),
     indirizzo_residenza VARCHAR(50),
-    numero_fratelli TINYINT(3),
-    numero_sorelle TINYINT(3),
-    ordine_genitura TINYINT(3),
+    numero_fratelli TINYINT(2),
+    numero_sorelle TINYINT(2),
+    ordine_genitura TINYINT(2),
     lavoro_padre VARCHAR(50),
     lavoro_madre VARCHAR(50),
     titolo_studio_padre VARCHAR(50),
@@ -95,7 +96,7 @@ CREATE TABLE prova_scheda (
 
 CREATE TABLE rel_bambino_scheda (
     id_bambino INT NOT NULL,
-    id_prova_scheda TINYINT(3) NOT NULL,
+    id_prova_scheda TINYINT(2) NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     PRIMARY KEY(id_bambino, id_prova_scheda),
