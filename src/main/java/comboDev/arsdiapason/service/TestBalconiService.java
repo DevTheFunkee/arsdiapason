@@ -41,12 +41,15 @@ public class TestBalconiService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveTest(List<RelBambinoScheda> relBambinoSchedas) {
-        for (RelBambinoScheda relBambinoScheda: relBambinoSchedas) {
+    public void saveTest(List<Byte> idsProvaSceda, Integer idBambino) {
+        for (Byte idProvaScheda: idsProvaSceda) {
+            RelBambinoScheda relBambinoScheda = new RelBambinoScheda();
+            relBambinoScheda.setIdBambino(idBambino);
+            relBambinoScheda.setIdProvaScheda(idProvaScheda);
             relBambinoSchedaMapper.insertSelective(relBambinoScheda);
         }
         Bambino bambino = new Bambino();
-        bambino.setId(relBambinoSchedas.get(0).getIdBambino());
+        bambino.setId(idBambino);
         bambino.setTestFinito(true);
         bambinoMapper.updateByPrimaryKeySelective(bambino);
     }

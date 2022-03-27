@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import * as _ from 'lodash'
-import * as moment from 'moment'
 
 @Component({
     selector: 'app-test-balconi',
@@ -88,21 +87,31 @@ export class TestBalconiComponent implements OnInit {
         }
     }
 
-    checkBefore(rows: any, id: number, scheda: any) {
-        for (let i = 0; i < rows.length; i++) {
-            if (rows[i].id !== id) {
-                rows[i].id < id ? rows[i].checked = true : rows[i].checked = false
+    checkBefore(obj: any, id: number, scheda: any) {
+        for (let i = 0; i < obj.rows.length; i++) {
+            if (obj.rows[i].id !== id) {
+                obj.rows[i].id < id ? obj.rows[i].checked = true : obj.rows[i].checked = false
             }
+        }
+        obj.noResult = false
+        this.provaFinita(scheda)
+    }
+
+    uncheckAll(obj: any, scheda: any) {
+        for (let i = 0; i < obj.rows.length; i++) {
+            obj.rows[i].checked = false
         }
         this.provaFinita(scheda)
     }
 
     provaFinita(scheda: any) {
-        let tipi = this.tipiScheda[scheda.numero]
-        if (tipi) {
+        let objects = this.tipiScheda[scheda.numero]
+        if (objects) {
             let rs = true
-            for (var tipo in tipi) {
-                if (!_.find(tipi[tipo].rows, { 'checked': true })) {
+            for (var tipo in objects) {
+                if (objects[tipo].noResult) {
+                    rs = true
+                } else if (!_.find(objects[tipo].rows, { 'checked': true })) {
                     rs = false
                     break
                 }
@@ -123,18 +132,18 @@ export class TestBalconiComponent implements OnInit {
     }
 
     saveTest() {
-        let relProvaScheda: any = []
+        let idsProvaSceda: any = []
         for (let i = 0; i < this.schede.length; i++) {
             let tipi = this.tipiScheda[this.schede[i].numero]
             for (let j = 0; j < tipi.length; j++) {
                 for (let z = 0; z < tipi[j].rows.length; z++) {
                     if (tipi[j].rows[z].checked) {
-                        relProvaScheda.push({ idBambino: this.idBambino, idProvaScheda: tipi[j].rows[z].id })
+                        idsProvaSceda.push(tipi[j].rows[z].id)
                     }
                 }
             }
         }
-        this.httpService.callPost('saveTest', relProvaScheda).subscribe(
+        this.httpService.callPost('saveTest?idBambino=' + this.idBambino, idsProvaSceda).subscribe(
             (data: any) => {
                 this.router.navigate(['testResult', this.idBambino])
             },

@@ -8,6 +8,13 @@ img {
   text-align: center;
   margin-bottom: 0.5rem;
 }
+.points-table th {
+  width: 16%;
+}
 th, td {
   vertical-align: middle;
+}
+label {
+  font-weight: 600;
+  margin-bottom: 0;
 }

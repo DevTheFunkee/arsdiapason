@@ -1,4 +1,51 @@
 <div class="row">
+
+  <div class="col-5">
+    <form name="form" (ngSubmit)="f.form.valid && inserisciIstituto()" #f="ngForm" novalidate>
+      <fieldset>
+        <legend class="second-title">Inserisci Nuovo Istituto</legend>
+
+        <div class="row mb-3">
+          <div class="col-6">
+            <label>Nome</label>
+            <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="newIstituto.nome"
+              required />
+          </div>
+          <div class="col-6">
+            <label>Regione</label>
+            <input type="text" class="form-control form-control-sm" name="regione" [(ngModel)]="newIstituto.regione"
+              required />
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-6">
+            <label>Provincia</label>
+            <input type="text" class="form-control form-control-sm" name="provincia" [(ngModel)]="newIstituto.provincia"
+              required />
+          </div>
+          <div class="col-6">
+            <label>Comune</label>
+            <input type="text" class="form-control form-control-sm" name="comune" [(ngModel)]="newIstituto.comune"
+              required />
+          </div>
+        </div>
+
+        <div class="row align-items-end">
+          <div class="col-6">
+            <label>Indirizzo</label>
+            <input type="text" class="form-control form-control-sm" name="indirizzo" [(ngModel)]="newIstituto.indirizzo"
+              required />
+          </div>
+          <div class="col-6" style="text-align: right">
+            <button class="btn btn-primary mr-3" type="submit" [disabled]="f.form.invalid">Salva</button>
+            <button class="btn btn-primary" (click)="newIstituto = {}">Svuota Campi</button>
+          </div>
+        </div>
+      </fieldset>
+    </form>
+  </div>
+
   <div class="col-7" *ngIf="istituti.length">
     <form [formGroup]="istitutiForm">
       <div class="text-center second-title mb-1">Lista Istituti Inseriti</div>
@@ -49,52 +96,6 @@
           </tr>
         </tbody>
       </table>
-    </form>
-  </div>
-
-  <div class="col-5">
-    <form name="form" (ngSubmit)="f.form.valid && inserisciIstituto()" #f="ngForm" novalidate>
-      <fieldset>
-        <legend class="second-title">Inserisci Nuovo Istituto</legend>
-
-        <div class="row mb-3">
-          <div class="col-6">
-            <label>Nome</label>
-            <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="newIstituto.nome"
-              required />
-          </div>
-          <div class="col-6">
-            <label>Regione</label>
-            <input type="text" class="form-control form-control-sm" name="regione" [(ngModel)]="newIstituto.regione"
-              required />
-          </div>
-        </div>
-
-        <div class="row mb-3">
-          <div class="col-6">
-            <label>Provincia</label>
-            <input type="text" class="form-control form-control-sm" name="provincia" [(ngModel)]="newIstituto.provincia"
-              required />
-          </div>
-          <div class="col-6">
-            <label>Comune</label>
-            <input type="text" class="form-control form-control-sm" name="comune" [(ngModel)]="newIstituto.comune"
-              required />
-          </div>
-        </div>
-
-        <div class="row align-items-end">
-          <div class="col-6">
-            <label>Indirizzo</label>
-            <input type="text" class="form-control form-control-sm" name="indirizzo" [(ngModel)]="newIstituto.indirizzo"
-              required />
-          </div>
-          <div class="col-6" style="text-align: right">
-            <button class="btn btn-primary mr-3" type="submit" [disabled]="f.form.invalid">Salva</button>
-            <button class="btn btn-primary" (click)="newIstituto = {}">Svuota Campi</button>
-          </div>
-        </div>
-      </fieldset>
     </form>
   </div>
 
