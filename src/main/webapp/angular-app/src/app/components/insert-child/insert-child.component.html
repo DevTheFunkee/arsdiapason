@@ -21,13 +21,13 @@
     </div>
     <div class="col-1">
       <label>Sezione</label>
-      <input [(ngModel)]="newChild.sezione" [disabled]="!newChild.idIstituto" name="sezione" type="text"
-        class="form-control form-control-sm" required
+      <input [(ngModel)]="newChild.sezione" [disabled]="!newChild.idIstituto || newChild.idIstituto == 1" name="sezione"
+        type="text" class="form-control form-control-sm" required
         tooltip="E' possibile inserire una nuova Sezione oppure sceglierne una dalla lista a fianco se presente" />
     </div>
     <div class="col-1">
-      <select [(ngModel)]="newChild.sezione" [disabled]="!newChild.idIstituto || !sezioni.length" name="sezioneSelect"
-        class="custom-select custom-select-sm" required>
+      <select [(ngModel)]="newChild.sezione" class="custom-select custom-select-sm" required
+        [disabled]="!newChild.idIstituto || newChild.idIstituto == 1 || !sezioni.length" name="sezioneSelect">
         <option *ngFor="let x of sezioni" value="{{x}}">{{x}}</option>
       </select>
     </div>

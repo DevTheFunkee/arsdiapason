@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import { FormBuilder, Validators } from '@angular/forms'
+import * as _ from 'lodash'
 
 @Component({
   selector: 'app-gestisci-istituti',
@@ -26,7 +27,7 @@ export class GestisciIstitutiComponent implements OnInit {
   getListaIstituti() {
     this.httpService.callPost('getListaIstituti', null).subscribe(
       (data: any) => {
-        this.istituti = data
+        this.istituti = _.filter(data, function (o) { return o.id !== 1 })
         this.createIstitutiForm()
       },
       (error: any) => { },

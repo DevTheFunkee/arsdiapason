@@ -8,6 +8,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -19,7 +20,8 @@ public class GestisciIstitutiService {
     @Transactional(readOnly = true)
     public List<Istituto> getListaIstituti(Integer idPsicologo) {
         IstitutoExample istitutoExample = new IstitutoExample();
-        istitutoExample.createCriteria().andIdPsicologoEqualTo(idPsicologo);
+        List ids = Arrays.asList(new Integer[] { idPsicologo, 0 });
+        istitutoExample.createCriteria().andIdPsicologoIn(ids);
         return istitutoMapper.selectByExample(istitutoExample);
     }
 

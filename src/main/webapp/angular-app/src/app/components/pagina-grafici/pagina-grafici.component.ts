@@ -113,8 +113,10 @@ export class PaginaGraficiComponent implements OnInit {
          for (let i = 0; i < istituti.length; i++) {
             proveScheda = proveScheda.concat(_.filter(this.provaSchedaList, { 'idIstituto': istituti[i].id }))
          }
-         this.searchLists.sezione = _(proveScheda).groupBy('sezione').keys().value()
-         this.searchModels.sezione = this.searchLists.sezione.length === 1 ? this.searchLists.sezione[0] : {}
+         this.searchLists.sezione = _(proveScheda).filter(function (o) { return o.sezione !== null }).groupBy('sezione').keys().value()
+         if (_.isEmpty(this.searchModels.sezione)) {
+            this.searchModels.sezione = this.searchLists.sezione.length === 1 ? this.searchLists.sezione[0] : {}
+         }
       }
       if (!_.isEmpty(this.searchModels.sezione)) {
          proveScheda = _.filter(proveScheda, { 'sezione': this.searchModels.sezione })

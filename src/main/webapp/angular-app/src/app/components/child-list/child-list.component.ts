@@ -31,7 +31,7 @@ export class ChildListComponent implements OnInit {
             (data: any) => {
                 this.listaBambini = data
                 this.listaBambiniOrigin = data
-                this.initComboSezione()
+                this.searchLists.sezione = this.initComboSezione(this.listaBambini)
             },
             (error: any) => { },
             () => { }
@@ -80,22 +80,22 @@ export class ChildListComponent implements OnInit {
         this.searchLists.comune = _(this.istitutiOrigin).groupBy('comune').keys().value()
     }
 
-    initComboSezione() {
-        this.searchLists.sezione = _(this.listaBambini).groupBy('sezione').keys().value()
+    initComboSezione(listaBambini: any) {
+        return _(listaBambini).filter(function (o) { return o.sezione !== null }).groupBy('sezione').keys().value()
     }
 
     resetCombos() {
         this.searchModels = { regione: {}, provincia: {}, comune: {}, istituto: {}, sezione: {} }
         this.listaBambini = this.listaBambiniOrigin
         this.initCombos()
-        this.initComboSezione()
+        this.searchLists.sezione = this.initComboSezione(this.listaBambini)
     }
 
     findByCombo(combo: string) {
         if (combo === 'sezione') {
             let listaBambini = _(this.listaBambini).filter(['sezione', this.searchModels.sezione])
             let idIstituti = _(listaBambini).groupBy('idIstituto').keys().value()
-            this.searchLists.sezione = _(listaBambini).groupBy('sezione').keys().value()
+            this.searchLists.sezione = this.initComboSezione(listaBambini)
             for (let i = 0; i < idIstituti.length; i++) {
                 this.searchLists.istituto = _.filter(this.istitutiOrigin, ['id', parseInt(idIstituti[i])])
             }
@@ -116,7 +116,7 @@ export class ChildListComponent implements OnInit {
             }
         }
         if (combo !== 'sezione') {
-            this.searchLists.sezione = _(this.listaBambini).groupBy('sezione').keys().value()
+            this.searchLists.sezione = this.initComboSezione(this.listaBambini)
             this.searchModels.sezione = this.searchLists.sezione.length === 1 ? this.searchLists.sezione[0] : {}
         }
         this.searchModels.regione = this.searchLists.regione.length === 1 ? this.searchLists.regione[0] : {}

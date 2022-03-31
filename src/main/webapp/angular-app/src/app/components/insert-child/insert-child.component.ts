@@ -47,7 +47,7 @@ export class InsertChildComponent implements OnInit {
     }
 
     findSezioni() {
-        if (parseInt(this.newChild.idIstituto)) {
+        if (this.newChild.idIstituto && this.newChild.idIstituto != 1) {
             let url = 'findSezioni?idIstituto=' + this.newChild.idIstituto
             this.httpService.callPost(url, null).subscribe(
                 (data: any) => {
