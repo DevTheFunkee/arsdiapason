@@ -11,10 +11,14 @@ import { GestisciIstitutiComponent } from './components/gestisci-istituti/gestis
 import { TestResultComponent } from './components/test-result/test-result.component'
 import { PaginaGraficiComponent } from './components/pagina-grafici/pagina-grafici.component'
 import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component'
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component'
+import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component'
 
 const routes: Routes = [
   { path: 'loginPage', component: LoginComponent },
   { path: 'confirmAccount/:email/:temporaryCode', component: ConfirmAccountComponent },
+  { path: 'mailResetPassword', component: MailResetPasswordComponent },
+  { path: 'resetPassword/:email/:temporaryCode', component: ResetPasswordComponent },
   { path: 'createAccount', component: CreateAccountComponent },
   { path: 'childList', component: ChildListComponent, canActivate: [RouteGuardService] },
   { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
@@ -24,7 +28,7 @@ const routes: Routes = [
   { path: 'testResult/:id', component: TestResultComponent, canActivate: [RouteGuardService] },
   { path: 'paginaGrafici', component: PaginaGraficiComponent, canActivate: [RouteGuardService] },
   { path: '', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
-  { path: '**', redirectTo: 'gestisciIstituti' , pathMatch: 'full', canActivate: [RouteGuardService] },
+  { path: '**', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
 ]
 
 @NgModule({

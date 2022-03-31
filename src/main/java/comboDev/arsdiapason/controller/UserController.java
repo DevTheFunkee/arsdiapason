@@ -1,11 +1,9 @@
 package comboDev.arsdiapason.controller;
 
-import comboDev.arsdiapason.dto.ConfirmAccount;
-import comboDev.arsdiapason.dto.DatiRegistrazione;
+import comboDev.arsdiapason.dto.DatiUtente;
 import comboDev.arsdiapason.mybatis.mapper.PsicologoMapper;
 import comboDev.arsdiapason.mybatis.model.Psicologo;
 import comboDev.arsdiapason.mybatis.model.Utente;
-import comboDev.arsdiapason.service.MailService;
 import comboDev.arsdiapason.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -14,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.concurrent.ThreadLocalRandom;
-
 @RestController
 public class UserController implements BasicController  {
 
@@ -23,8 +19,6 @@ public class UserController implements BasicController  {
     private UserService userService;
     @Autowired
     private PsicologoMapper psicologoMapper;
-    @Autowired
-    private MailService mailService;
 
     @GetMapping("/login")
     public Psicologo login(Authentication authentication) {
@@ -32,15 +26,23 @@ public class UserController implements BasicController  {
     }
 
     @PostMapping("/createAccount")
-    public void createAccount(@RequestBody DatiRegistrazione datiRegistrazione) throws Exception {
-        int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
-        userService.createAccount(datiRegistrazione, temporaryCode);
-        mailService.sendAuthenticationEmail(datiRegistrazione, temporaryCode);
+    public void createAccount(@RequestBody DatiUtente datiUtente) throws Exception {
+        userService.createAccount(datiUtente);
     }
 
     @PostMapping("/confirmAccount")
-    public Utente confirmAccount(@RequestBody ConfirmAccount confirmAccount) throws Exception {
-        return userService.confirmAccount(confirmAccount);
+    public Utente confirmAccount(@RequestBody DatiUtente datiUtente) throws Exception {
+        return userService.confirmAccount(datiUtente);
+    }
+
+    @PostMapping("/sendResetPasswordEmail")
+    public void sendResetPasswordEmail(@RequestBody DatiUtente datiUtente) throws Exception {
+        userService.sendResetPasswordEmail(datiUtente);
+    }
+
+    @PostMapping("/resetPassword")
+    public void resetPassword(@RequestBody DatiUtente datiUtente) throws Exception {
+        userService.resetPassword(datiUtente);
     }
 
 }

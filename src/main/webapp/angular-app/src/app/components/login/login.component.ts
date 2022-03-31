@@ -11,6 +11,7 @@ export class LoginComponent implements OnInit {
 
     errMsg: string = ""
     model: any = {}
+    patternEmail = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
 
     constructor(private httpService: HttpService, private router: Router) { }
 
@@ -36,6 +37,10 @@ export class LoginComponent implements OnInit {
 
     goToRegister() {
         this.router.navigate(['createAccount'])
+    }
+
+    goToResetPassword() {
+        this.router.navigate(['mailResetPassword'])
     }
 
 }

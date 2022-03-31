@@ -1,4 +1,4 @@
-<form name="form" (ngSubmit)="confirmAccount()" #f="ngForm" novalidate>
+<form name="form" (ngSubmit)="f.form.valid && confirmAccount()" #f="ngForm" novalidate>
 
   <div class="row mt-3">
     <div class="col-3">

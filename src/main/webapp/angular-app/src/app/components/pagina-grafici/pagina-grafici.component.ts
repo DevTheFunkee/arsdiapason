@@ -156,7 +156,7 @@ export class PaginaGraficiComponent implements OnInit {
             },
             hAxis: { textStyle: { color: 'black', fontSize: '15', bold: true, italic: false } },
             seriesType: 'bars',
-            isStacked: 'true', //percent
+            isStacked: 'percent', //true
             //series: { 4: { type: 'line', pointShape: 'circle' } },
             //pointSize: 8,
             legend: { position: 'top' }

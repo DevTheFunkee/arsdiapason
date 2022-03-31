@@ -28,6 +28,8 @@ import { EtaPipe } from './pipes/eta.pipe';
 import { TestFinitoPipe } from './pipes/test-finito.pipe';
 import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component';
+import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
+import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component';
 
 registerLocaleData(localeIt);
 
@@ -47,7 +49,9 @@ registerLocaleData(localeIt);
     EtaPipe,
     TestFinitoPipe,
     CapitalizePipe,
-    ConfirmAccountComponent
+    ConfirmAccountComponent,
+    ResetPasswordComponent,
+    MailResetPasswordComponent
   ],
   imports: [
     BrowserModule,
@@ -63,9 +67,9 @@ registerLocaleData(localeIt);
     NgxSpinnerModule
   ],
   providers: [
-     { provide: LocationStrategy, useClass: HashLocationStrategy },
-     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-     { provide: LOCALE_ID, useValue: 'it-IT' }
+    { provide: LocationStrategy, useClass: HashLocationStrategy },
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'it-IT' }
   ],
   bootstrap: [AppComponent]
 })
