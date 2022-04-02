@@ -123,7 +123,7 @@ export class TestBalconiComponent implements OnInit {
 
     allSchedeComplete() {
         let rs = true
-        if (!this.bambino.dataTest) {
+        if (!this.bambino || !this.bambino.dataTest) {
             return false
         }
         for (let i = 0; i < this.schede.length; i++) {
@@ -136,7 +136,7 @@ export class TestBalconiComponent implements OnInit {
     }
 
     saveTest() {
-        if (this.bambino.dataTest) {
+        if (this.bambino.dataTest && this.allSchedeComplete()) {
             let idsProvaSceda: any = []
             for (let i = 0; i < this.schede.length; i++) {
                 let tipi = this.tipiScheda[this.schede[i].numero]

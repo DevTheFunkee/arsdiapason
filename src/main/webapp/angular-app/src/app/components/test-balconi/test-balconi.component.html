@@ -14,111 +14,106 @@
   </div>
 </div>
 
-<form name="form" (ngSubmit)="f.form.valid && allSchedeComplete() && saveTest()" #f="ngForm" novalidate>
+<div *ngIf="bambino && !bambino.testFinito" class="row mb-2">
+  <div class="col-4 form-inline">
+    <label class="mr-2">Data Test</label>
+    <input [(ngModel)]="bambino.dataTest" type="date" name="dataTest" max="{{today | date:'yyyy-MM-dd'}}"
+      class="form-control form-control-sm" required>
+  </div>
+</div>
 
-  <div *ngIf="idBambino && bambino && !bambino.testFinito" class="row mb-2">
-    <div class="col-4 form-inline">
-      <label class="mr-2">Data Test</label>
-      <input [(ngModel)]="bambino.dataTest" type="date" name="dataTest" max="{{today | date:'yyyy-MM-dd'}}"
-        class="form-control form-control-sm" required>
+<div class="row">
+  <div class="col-2">
+    <table>
+      <tr *ngFor="let scheda of schede">
+        <td>
+          <button class="btn btn-primary w-100" (click)="showDatiScheda(scheda)"
+            [ngClass]="{'btn-success': scheda.complete || (bambino && bambino.testFinito)}">
+            Scheda {{scheda.numero}}
+          </button>
+        </td>
+        <td>
+          <button class="btn btn-primary ml-2" tooltip="Scarica immagine">
+            <i class="fa fa-download"></i>
+          </button>
+        </td>
+        <td [hidden]="!bambino">
+          <button class="btn btn-primary ml-2" tooltip="Carica test competato">
+            <i class="fa fa-upload"></i>
+          </button>
+        </td>
+      </tr>
+      <tr [hidden]="!bambino || bambino.testFinito">
+        <td colspan="3">
+          <button class="btn btn-primary w-100 mt-1" type="submit" [disabled]="!allSchedeComplete()"
+            (click)="saveTest()">Salva il Test</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <div class="col-4 text-center" *ngIf="currentScheda.titolo">
+    <div class="row">
+      <div class="col-12">
+        <h4>{{currentScheda.numero}} - {{currentScheda.titolo}}</h4>
+        <h6>{{currentScheda.obbiettivo}}</h6>
+      </div>
+    </div>
+    <div class="row" [hidden]="!currentScheda.immagini">
+      <div *ngFor="let img of getArrayImages(currentScheda.immagini)"
+        class="{{getArrayImages(currentScheda.immagini).length > 1 ? 'col-6': 'col-12'}}">
+        <img src="/assets/img/scheda{{currentScheda.numero}}{{img}}.png" class="mb-1">
+      </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-2">
-      <table>
-        <tr *ngFor="let scheda of schede">
-          <td>
-            <button class="btn btn-primary w-100" (click)="showDatiScheda(scheda)"
-              [ngClass]="{'btn-success': scheda.complete || (bambino && bambino.testFinito)}">
-              Scheda {{scheda.numero}}
-            </button>
-          </td>
-          <td>
-            <button class="btn btn-primary ml-2" tooltip="Scarica immagine">
-              <i class="fa fa-download"></i>
-            </button>
-          </td>
-          <td [hidden]="!idBambino">
-            <button class="btn btn-primary ml-2" tooltip="Carica test competato">
-              <i class="fa fa-upload"></i>
-            </button>
-          </td>
-        </tr>
-        <tr *ngIf="idBambino && bambino && !bambino.testFinito">
-          <td colspan="3">
-            <button class="btn btn-primary w-100 mt-1" type="submit" [disabled]="!allSchedeComplete()">
-              Salva il Test
-            </button>
-          </td>
-        </tr>
+  <div class="col-6">
+    <div class="col-12" *ngFor="let scheda of schede" [hidden]="scheda.numero !== currentScheda.numero">
+      <table *ngFor="let obj of tipiScheda[scheda.numero]" class="table table-bordered table-striped points-table">
+        <tbody>
+          <tr *ngIf="obj.tipo">
+            <th [attr.colspan]="arrayAnni.length + 2" class="text-center">{{obj.tipo.toUpperCase()}}</th>
+          </tr>
+          <tr>
+            <th>ANNI</th>
+            <th></th>
+            <th *ngFor="let anni of arrayAnni">{{anni}}</th>
+          </tr>
+          <tr>
+            <th>ESITO</th>
+            <th>
+              <div [hidden]="!bambino">
+                <input [(ngModel)]="obj.noResult" (change)="uncheckAll(obj, scheda)"
+                  [disabled]="bambino && bambino.testFinito" type="checkbox" id="scheda{{scheda.numero}}{{obj.tipo}}"
+                  name="scheda{{scheda.numero}}{{obj.tipo}}">
+              </div>
+              <label for="scheda{{scheda.numero}}{{obj.tipo}}">Requisiti minimi non soddisfatti</label>
+            </th>
+            <th *ngFor="let anni of arrayAnni">
+              <div *ngFor="let row of obj.rows" [hidden]="row.anni !== anni">
+                <div *ngIf="bambino">
+                  <input [(ngModel)]="row.checked" (change)="checkBefore(obj, row.id, scheda)"
+                    [disabled]="bambino && bambino.testFinito" type="checkbox"
+                    id="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"
+                    name="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}">
+                </div>
+                <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
+                  for="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"></label>
+              </div>
+            </th>
+          </tr>
+          <tr>
+            <th>PROVA</th>
+            <th></th>
+            <th *ngFor="let anni of arrayAnni">
+              <span *ngFor="let row of getRowsByAnni(obj.rows, anni); let i = index">
+                <span *ngIf="i === 0">{{row.prova}}</span>
+                <span *ngIf="i > 0"> e/o {{row.prova}}</span>
+              </span>
+            </th>
+          </tr>
+        </tbody>
       </table>
     </div>
-
-    <div class="col-4 text-center" *ngIf="currentScheda.titolo">
-      <div class="row">
-        <div class="col-12">
-          <h4>{{currentScheda.numero}} - {{currentScheda.titolo}}</h4>
-          <h6>{{currentScheda.obbiettivo}}</h6>
-        </div>
-      </div>
-      <div class="row" [hidden]="!currentScheda.immagini">
-        <div *ngFor="let img of getArrayImages(currentScheda.immagini)"
-          class="{{getArrayImages(currentScheda.immagini).length > 1 ? 'col-6': 'col-12'}}">
-          <img src="/assets/img/scheda{{currentScheda.numero}}{{img}}.png" class="mb-1">
-        </div>
-      </div>
-    </div>
-
-    <div class="col-6">
-      <div class="col-12" *ngFor="let scheda of schede" [hidden]="scheda.numero !== currentScheda.numero">
-        <table *ngFor="let obj of tipiScheda[scheda.numero]" class="table table-bordered table-striped points-table">
-          <tbody>
-            <tr *ngIf="obj.tipo">
-              <th [attr.colspan]="arrayAnni.length + 2" class="text-center">{{obj.tipo.toUpperCase()}}</th>
-            </tr>
-            <tr>
-              <th>ANNI</th>
-              <th></th>
-              <th *ngFor="let anni of arrayAnni">{{anni}}</th>
-            </tr>
-            <tr>
-              <th>ESITO</th>
-              <th>
-                <div [hidden]="!idBambino">
-                  <input [(ngModel)]="obj.noResult" (change)="uncheckAll(obj, scheda)"
-                    [disabled]="bambino && bambino.testFinito" type="checkbox" id="prova{{scheda.numero}}{{obj.tipo}}"
-                    name="prova{{scheda.numero}}{{obj.tipo}}">
-                </div>
-                <label for="prova{{scheda.numero}}{{obj.tipo}}">Requisiti minimi non soddisfatti</label>
-              </th>
-              <th *ngFor="let anni of arrayAnni">
-                <div *ngFor="let row of obj.rows" [hidden]="row.anni !== anni">
-                  <div [hidden]="!idBambino">
-                    <input [(ngModel)]="row.checked" (change)="checkBefore(obj, row.id, scheda)"
-                      [disabled]="bambino && bambino.testFinito" type="checkbox"
-                      id="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"
-                      name="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}">
-                  </div>
-                  <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
-                    for="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"></label>
-                </div>
-              </th>
-            </tr>
-            <tr>
-              <th>PROVA</th>
-              <th></th>
-              <th *ngFor="let anni of arrayAnni">
-                <span *ngFor="let row of getRowsByAnni(obj.rows, anni); let i = index">
-                  <span *ngIf="i === 0">{{row.prova}}</span>
-                  <span *ngIf="i > 0"> e/o {{row.prova}}</span>
-                </span>
-              </th>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
   </div>
-
-</form>
+</div>
