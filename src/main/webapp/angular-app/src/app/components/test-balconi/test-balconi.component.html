@@ -16,7 +16,7 @@
 
 <form name="form" (ngSubmit)="f.form.valid && allSchedeComplete() && saveTest()" #f="ngForm" novalidate>
 
-  <div *ngIf="bambino" class="row mb-2">
+  <div *ngIf="idBambino && bambino && !bambino.testFinito" class="row mb-2">
     <div class="col-4 form-inline">
       <label class="mr-2">Data Test</label>
       <input [(ngModel)]="bambino.dataTest" type="date" name="dataTest" max="{{today | date:'yyyy-MM-dd'}}"
