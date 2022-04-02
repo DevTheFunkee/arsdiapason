@@ -53,7 +53,7 @@ public class UserService {
             utente.setIdPsicologo(psicologo.getId());
             utente.setEmail(datiUtente.getEmail());
             utente.setPassword(BCrypt.hashpw(datiUtente.getPassword(), BCrypt.gensalt()));
-            utente.setRole("USER");
+            utente.setRole("PSICOLOGO");
             utenteMapper.insertSelective(utente);
         } else {
             throw new Exception("", new Throwable("La password non rispetta i requisiti richiesti"));

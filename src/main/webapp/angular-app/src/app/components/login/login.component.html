@@ -17,19 +17,19 @@
   </div>
 
   <div class="row mt-3">
-    <div class="col-1">
-      <button class="btn btn-primary" (click)="goToRegister()">Registrati</button>
-    </div>
-    <div class="col-1 offset-1">
-      <button class="btn btn-primary pull-right" type="submit" [disabled]="f.form.invalid">Login</button>
+    <div class="col-3">
+      <button class="btn btn-primary pull-right" type="submit" [disabled]="f.form.invalid">Log In</button>
     </div>
   </div>
 
 </form>
 
 <div class="row mt-3">
-  <div class="col-3">
-    <button class="btn btn-primary" (click)="goToResetPassword()">Password dimenticata?</button>
+  <div class="col-1">
+    <button class="btn btn-primary pull-right" (click)="goToRegister()">Registrati</button>
+  </div>
+  <div class="col-2">
+    <button class="btn btn-primary pull-right" (click)="goToResetPassword()">Password dimenticata?</button>
   </div>
 </div>
 
