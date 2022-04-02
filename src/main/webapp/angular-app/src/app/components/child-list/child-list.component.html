@@ -46,8 +46,8 @@
             <td>{{child.dataNascita | eta}}</td>
             <td>{{child.sesso | sesso}}</td>
             <td>{{getNomeIstituto(child.idIstituto)}}</td>
-            <td>{{child.sezione}}</td>
-            <td>{{child.dataTest || 'N.D.'}}</td>
+            <td>{{child.sezione || 'N.P.'}}</td>
+            <td>{{child.dataTest ? (child.dataTest | date: 'dd MMM yyyy') : 'N.P.'}}</td>
             <td>{{child.testFinito | testFinito}}</td>
             <td style="width: 0">
               <button (click)="child.showDetail = !child.showDetail" class="btn btn-primary btn-sm" tooltip="Dettagli">

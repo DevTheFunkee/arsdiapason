@@ -1,6 +1,7 @@
 package comboDev.arsdiapason.controller;
 
 import comboDev.arsdiapason.dto.DatiSchede;
+import comboDev.arsdiapason.dto.TestBalconi;
 import comboDev.arsdiapason.service.TestBalconiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -23,8 +25,8 @@ public class TestBalconiController implements BasicController  {
     }
 
     @PostMapping("/saveTest")
-    public void saveTest(@RequestParam(required = false) Integer idBambino, @RequestBody List<Byte> idsProvaSceda) {
-        testBalconiService.saveTest(idsProvaSceda, idBambino);
+    public void saveTest(@RequestBody TestBalconi testBalconi) {
+        testBalconiService.saveTest(testBalconi);
     }
 
 }

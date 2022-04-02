@@ -20,6 +20,7 @@ export class TestBalconiComponent implements OnInit {
     currentScheda: any = {}
     tipiScheda: any = {}
     arrayAnni: any = [5, 6, 7, 8]
+    today: Date = new Date()
 
     ngOnInit(): void {
         this.getDatiSchede()
@@ -122,6 +123,9 @@ export class TestBalconiComponent implements OnInit {
 
     allSchedeComplete() {
         let rs = true
+        if (!this.bambino.dataTest) {
+            return false
+        }
         for (let i = 0; i < this.schede.length; i++) {
             if (!this.schede[i].complete) {
                 rs = false
@@ -132,24 +136,26 @@ export class TestBalconiComponent implements OnInit {
     }
 
     saveTest() {
-        let idsProvaSceda: any = []
-        for (let i = 0; i < this.schede.length; i++) {
-            let tipi = this.tipiScheda[this.schede[i].numero]
-            for (let j = 0; j < tipi.length; j++) {
-                for (let z = 0; z < tipi[j].rows.length; z++) {
-                    if (tipi[j].rows[z].checked) {
-                        idsProvaSceda.push(tipi[j].rows[z].id)
+        if (this.bambino.dataTest) {
+            let idsProvaSceda: any = []
+            for (let i = 0; i < this.schede.length; i++) {
+                let tipi = this.tipiScheda[this.schede[i].numero]
+                for (let j = 0; j < tipi.length; j++) {
+                    for (let z = 0; z < tipi[j].rows.length; z++) {
+                        if (tipi[j].rows[z].checked) {
+                            idsProvaSceda.push(tipi[j].rows[z].id)
+                        }
                     }
                 }
             }
+            this.httpService.callPost('saveTest', { idsProvaSceda: idsProvaSceda, bambino: this.bambino }).subscribe(
+                (data: any) => {
+                    this.router.navigate(['testResult', this.idBambino])
+                },
+                (error: any) => { },
+                () => { }
+            )
         }
-        this.httpService.callPost('saveTest?idBambino=' + this.idBambino, idsProvaSceda).subscribe(
-            (data: any) => {
-                this.router.navigate(['testResult', this.idBambino])
-            },
-            (error: any) => { },
-            () => { }
-        )
     }
 
 }

@@ -1,6 +1,7 @@
 package comboDev.arsdiapason.service;
 
 import comboDev.arsdiapason.dto.DatiSchede;
+import comboDev.arsdiapason.dto.TestBalconi;
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -41,17 +43,18 @@ public class TestBalconiService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void saveTest(List<Byte> idsProvaSceda, Integer idBambino) {
-        for (Byte idProvaScheda: idsProvaSceda) {
+    public void saveTest(TestBalconi testBalconi) {
+        for (Byte idProvaScheda: testBalconi.getIdsProvaSceda()) {
             RelBambinoScheda relBambinoScheda = new RelBambinoScheda();
-            relBambinoScheda.setIdBambino(idBambino);
+            relBambinoScheda.setIdBambino(testBalconi.getBambino().getId());
             relBambinoScheda.setIdProvaScheda(idProvaScheda);
             relBambinoSchedaMapper.insertSelective(relBambinoScheda);
         }
-        Bambino bambino = new Bambino();
-        bambino.setId(idBambino);
+        Bambino bambino = testBalconi.getBambino();
+        bambino.setDataTest(testBalconi.getBambino().getDataTest());
+        bambino.setId(testBalconi.getBambino().getId());
         bambino.setTestFinito(true);
-        bambinoMapper.updateByPrimaryKeySelective(bambino);
+        bambinoMapper.updateByPrimaryKey(bambino);
     }
 
 }
