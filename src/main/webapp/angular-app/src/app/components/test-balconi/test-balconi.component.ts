@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import { ActivatedRoute, Router } from '@angular/router'
+import { saveAs } from 'file-saver'
 import * as _ from 'lodash'
 
 @Component({
@@ -43,10 +44,6 @@ export class TestBalconiComponent implements OnInit {
             (error: any) => { },
             () => { }
         )
-    }
-
-    getArrayImages(images: string) {
-        return images ? images.split(';') : []
     }
 
     showDatiScheda(scheda: any) {
@@ -155,6 +152,17 @@ export class TestBalconiComponent implements OnInit {
                 (error: any) => { },
                 () => { }
             )
+        }
+    }
+
+    getArrayImages(images: string) {
+        return images ? images.split(';') : []
+    }
+
+    downloadImg(scheda: any) {
+        let imgs = this.getArrayImages(scheda.immagini)
+        for (var i = 0; i < imgs.length; i++) {
+            saveAs('/assets/img/scheda' + scheda.numero + imgs[i] + '.png', 'scheda' + scheda.numero + imgs[i] + '.png');
         }
     }
 
