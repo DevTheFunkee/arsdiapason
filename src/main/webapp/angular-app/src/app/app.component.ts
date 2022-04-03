@@ -15,7 +15,7 @@ export class AppComponent {
                 this.page = this.pages.find(function (o) { return o.route === "/" + router.url.split("/")[1] }).title
                 this.user = JSON.parse(sessionStorage.getItem('user')) || {}
             }
-        });
+        })
     }
 
     user: any = {}

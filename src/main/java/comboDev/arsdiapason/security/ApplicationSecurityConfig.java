@@ -45,6 +45,7 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/");
         web.ignoring().antMatchers("/*.js");
         web.ignoring().antMatchers("/favicon.ico");
+        web.ignoring().antMatchers("/api/getRegex");
         web.ignoring().antMatchers("/api/createAccount");
         web.ignoring().antMatchers("/api/confirmAccount");
         web.ignoring().antMatchers("/api/sendResetPasswordEmail");

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
+import { MemoService } from '../../services/memo.service'
 import { Router } from '@angular/router'
 
 @Component({
@@ -9,11 +10,11 @@ import { Router } from '@angular/router'
 })
 export class MailResetPasswordComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private router: Router) { }
+  constructor(private httpService: HttpService, private memoService: MemoService, private router: Router) { }
 
   ngOnInit(): void { }
 
-  patternEmail = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
+  patternEmail: string = this.memoService.emailRegex
   model: any = {}
   successMsg: string
 

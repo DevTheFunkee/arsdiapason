@@ -38,9 +38,8 @@ public class UserService {
     }
 
     @Transactional(rollbackFor = Exception.class)
-    public void createAccount(DatiUtente datiUtente) throws Exception {
-        String regex = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!=%*?^&+#])[A-Za-z\\d@$!=%*?^&+#]{8,20}$";
-        Pattern pattern = Pattern.compile(regex);
+    public void createAccount(DatiUtente datiUtente, String regexPassword) throws Exception {
+        Pattern pattern = Pattern.compile(regexPassword);
         Matcher matcher = pattern.matcher(datiUtente.getPassword());
         int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
         if(matcher.find()) {

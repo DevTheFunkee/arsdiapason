@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router'
 import { HttpService } from '../../services/http.service'
+import { MemoService } from '../../services/memo.service'
 
 @Component({
     selector: 'app-create-account',
@@ -9,13 +10,13 @@ import { HttpService } from '../../services/http.service'
 })
 export class CreateAccountComponent implements OnInit {
 
-    constructor(private httpService: HttpService, private router: Router) { }
+    constructor(private httpService: HttpService, private memoService: MemoService, private router: Router) { }
 
     errMsg: string = ''
     model: any = {}
     showSuccessMsg: boolean = false
-    patternEmail = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
-    patternPassword = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!=%*?^&+#])[A-Za-z0-9@$!=%*?^&+#]{8,20}$'
+    patternEmail = this.memoService.emailRegex
+    patternPassword = this.memoService.passwordRegex
 
     ngOnInit(): void { }
 

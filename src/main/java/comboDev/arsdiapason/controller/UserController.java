@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 public class UserController implements BasicController  {
 
@@ -20,6 +23,17 @@ public class UserController implements BasicController  {
     @Autowired
     private PsicologoMapper psicologoMapper;
 
+    private final String regexEmail = "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+    private final String regexPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!=%*?^&+#])[A-Za-z0-9@$!=%*?^&+#]{8,20}$";
+
+    @GetMapping("/getRegex")
+    public Map<String, String> getRegex() {
+        Map<String, String> regex = new HashMap<>();
+        regex.put("email", regexEmail);
+        regex.put("password", regexPassword);
+        return regex;
+    }
+
     @GetMapping("/login")
     public Psicologo login(Authentication authentication) {
         return psicologoMapper.selectByPrimaryKey((Integer) authentication.getDetails());
@@ -27,7 +41,7 @@ public class UserController implements BasicController  {
 
     @PostMapping("/createAccount")
     public void createAccount(@RequestBody DatiUtente datiUtente) throws Exception {
-        userService.createAccount(datiUtente);
+        userService.createAccount(datiUtente, regexPassword);
     }
 
     @PostMapping("/confirmAccount")

@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, APP_INITIALIZER } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { registerLocaleData, DatePipe } from '@angular/common';
 import localeIt from '@angular/common/locales/it';
 import { LoginComponent } from './components/login/login.component';
 import { BasicAuthInterceptor } from './services/basic-auth.interceptor';
+import { MemoService } from './services/memo.service';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { CreateAccountComponent } from './components/create-account/create-account.component';
@@ -69,7 +70,8 @@ registerLocaleData(localeIt);
   providers: [
     { provide: LocationStrategy, useClass: HashLocationStrategy },
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: LOCALE_ID, useValue: 'it-IT' }
+    { provide: LOCALE_ID, useValue: 'it-IT' },
+    { provide: APP_INITIALIZER, multi: true, deps: [MemoService], useFactory: (memoService: MemoService) => () => memoService.initRegex() }
   ],
   bootstrap: [AppComponent]
 })

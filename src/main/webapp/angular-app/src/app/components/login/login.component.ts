@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { HttpService } from '../../services/http.service'
+import { MemoService } from '../../services/memo.service'
 
 @Component({
     selector: 'app-login',
@@ -9,12 +10,11 @@ import { HttpService } from '../../services/http.service'
 })
 export class LoginComponent implements OnInit {
 
+    constructor(private httpService: HttpService, private memoService: MemoService, private router: Router) { }
+
     errMsg: string = ""
     model: any = {}
-    patternEmail = '^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$'
-
-    constructor(private httpService: HttpService, private router: Router) { }
-
+    patternEmail: string = this.memoService.emailRegex
     ngOnInit(): void { }
 
     login() {

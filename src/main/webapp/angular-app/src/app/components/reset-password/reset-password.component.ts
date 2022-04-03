@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
+import { MemoService } from '../../services/memo.service'
 import { ActivatedRoute, Router } from '@angular/router'
 
 @Component({
@@ -9,7 +10,7 @@ import { ActivatedRoute, Router } from '@angular/router'
 })
 export class ResetPasswordComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private router: Router, private activedRoute: ActivatedRoute) { }
+  constructor(private httpService: HttpService, private memoService: MemoService, private router: Router, private activedRoute: ActivatedRoute) { }
 
   ngOnInit(): void { }
 
@@ -19,7 +20,7 @@ export class ResetPasswordComponent implements OnInit {
   password2: string
   successMsg: string
   errMsg: string
-  patternPassword = '^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[@$!=%*?^&+#])[A-Za-z0-9@$!=%*?^&+#]{8,20}$'
+  patternPassword: string = this.memoService.passwordRegex
 
   resetPassword() {
     let payload = { email: this.email, password: this.password, temporaryCode: this.temporaryCode }
