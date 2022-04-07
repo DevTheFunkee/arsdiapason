@@ -31,6 +31,7 @@ import { CapitalizePipe } from './pipes/capitalize.pipe';
 import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component';
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component';
+import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
 
 registerLocaleData(localeIt);
 
@@ -52,7 +53,8 @@ registerLocaleData(localeIt);
     CapitalizePipe,
     ConfirmAccountComponent,
     ResetPasswordComponent,
-    MailResetPasswordComponent
+    MailResetPasswordComponent,
+    ExcelBambiniComponent
   ],
   imports: [
     BrowserModule,

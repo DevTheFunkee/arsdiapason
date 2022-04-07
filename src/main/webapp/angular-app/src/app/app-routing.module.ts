@@ -13,6 +13,7 @@ import { PaginaGraficiComponent } from './components/pagina-grafici/pagina-grafi
 import { ConfirmAccountComponent } from './components/confirm-account/confirm-account.component'
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component'
 import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component'
+import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
 
 const routes: Routes = [
   { path: 'loginPage', component: LoginComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'gestisciIstituti', component: GestisciIstitutiComponent, canActivate: [RouteGuardService] },
   { path: 'testResult/:id', component: TestResultComponent, canActivate: [RouteGuardService] },
   { path: 'paginaGrafici', component: PaginaGraficiComponent, canActivate: [RouteGuardService] },
+  { path: 'excelBambini', component: ExcelBambiniComponent, canActivate: [RouteGuardService] },
   { path: '', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
   { path: '**', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
 ]
