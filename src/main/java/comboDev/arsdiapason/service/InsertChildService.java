@@ -38,4 +38,18 @@ public class InsertChildService {
         relPsicologoBambinoMapper.insert(relPsicologoBambino);
     }
 
+    @Transactional(rollbackFor = Exception.class)
+    public void insertChilds(List<Bambino> bambini, Integer idPsicologo) {
+        for (Bambino bambino: bambini) {
+            if (bambino.getSezione() != null) {
+                bambino.setSezione(bambino.getSezione().toUpperCase());
+            }
+            bambinoMapper.insertSelective(bambino);
+            RelPsicologoBambino relPsicologoBambino = new RelPsicologoBambino();
+            relPsicologoBambino.setIdBambino(bambino.getId());
+            relPsicologoBambino.setIdPsicologo(idPsicologo);
+            relPsicologoBambinoMapper.insert(relPsicologoBambino);
+        }
+    }
+
 }

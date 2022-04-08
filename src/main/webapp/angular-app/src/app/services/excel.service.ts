@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core'
-import { Workbook } from 'exceljs'
-import * as fs from 'file-saver'
-import * as Excel from 'exceljs/dist/exceljs.min.js'
+import { saveAs } from 'file-saver'
+import * as ExcelJS from 'exceljs/dist/exceljs.min.js'
 
 @Injectable({
   providedIn: 'root'
@@ -10,16 +9,17 @@ export class ExcelService {
 
   constructor() { }
 
-  createExcel(excelData) {
+  createExcel(excelData: any) {
 
     let title = excelData.title
-    let header = excelData.headers
+    let headers = excelData.headers
+    let widths = excelData.widths
     let data = excelData.data
 
-    let workbook = new Excel.Workbook()
+    let workbook = new ExcelJS.Workbook()
     let worksheet = workbook.addWorksheet('Sheet1')
 
-    worksheet.mergeCells('A1', String.fromCharCode(97 + header.length - 1).toUpperCase() + '2')
+    worksheet.mergeCells('A1', 'E2')
     let titleRow = worksheet.getCell('A1')
     titleRow.value = title
     titleRow.font = {
@@ -30,36 +30,38 @@ export class ExcelService {
     }
     titleRow.alignment = { vertical: 'middle', horizontal: 'center' }
 
-    let headerRow = worksheet.addRow(header)
-    headerRow.eachCell((cell, number) => {
-      cell.fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: '4167B8' },
-        bgColor: { argb: '' }
-      }
-      cell.font = {
-        bold: true,
-        color: { argb: 'FFFFFF' },
-        size: 12
-      }
-    })
+    for (let i = 0; i < headers.length; i++) {
+      let headerRow = worksheet.addRow(headers[i])
+      headerRow.eachCell((cell: any) => {
+        cell.fill = {
+          type: 'pattern',
+          pattern: 'solid',
+          fgColor: { argb: '4167B8' },
+          bgColor: { argb: '' }
+        }
+        cell.font = {
+          bold: true,
+          color: { argb: 'FFFFFF' },
+          size: 12
+        }
+      })
+    }
 
-    data.forEach(d => {
+    data.forEach((d: any) => {
       worksheet.addRow(d)
     })
 
-    for (let i = 0; i < header.length; i++) {
-      worksheet.columns[i].width = header[i].length * 1.5
+    for (let i = 0; i < widths.length; i++) {
+      worksheet.columns[i].width = widths[i]
     }
 
     return workbook
   }
 
-  generateExcel(workbook, title) {
-    return workbook.xlsx.writeBuffer().then((data) => {
+  generateExcel(workbook: any, title: string) {
+    return workbook.xlsx.writeBuffer().then((data: any) => {
       let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
-      fs.saveAs(blob, title + '.xlsx')
+      saveAs(blob, title + '.xlsx')
     })
   }
 

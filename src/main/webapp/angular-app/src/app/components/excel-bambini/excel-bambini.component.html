@@ -1,0 +1,63 @@
+<div class="row align-items-end">
+    <div class="col-3">
+        <label class="font-weight-bold">Istituto</label>
+        <select [(ngModel)]="istituo" [disabled]="!istituti.length" name="istituto"
+            class="custom-select custom-select-sm">
+            <option *ngFor="let istituto of istituti" [ngValue]="istituto">{{istituto.nome}}</option>
+        </select>
+    </div>
+    <div class="col-2">
+        <button class="btn btn-sm btn-success" type="button" (click)="createExcel()" [disabled]="!istituo">
+            <i class="fa fa-file-excel-o"></i>
+            <span class="ml-2">Scarica Excel</span>
+        </button>
+    </div>
+</div>
+
+<div class="row mt-3">
+    <div class="col-6">
+        <input type="file" (change)="fileChange($event)" placeholder="Upload file" accept=".xlsx">
+    </div>
+</div>
+
+<div class="row mt-3" [hidden]="!caricamentoOk">
+    <div class="col-4">
+        <div class="alert alert-success">
+            <strong>Caricamento avvenuto con successo</strong>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-3" [hidden]="!istituoFromExcel.nome">
+    <div class="col-12">
+        <h4>Istituto: {{istituoFromExcel.nome}}</h4>
+        <button (click)="saveData()" class="btn btn-primary">Salva tutti i bambini</button>
+    </div>
+</div>
+
+<div class="row mt-3" [hidden]="!childs.length">
+    <div class="col-12">
+        <table class="table table-sm">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Nome</th>
+                    <th>Cognome</th>
+                    <th>Sesso</th>
+                    <th>Data Nascita</th>
+                    <th>Sezione</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tr *ngFor="let child of childs; let i = index">
+                <td>{{i + 1}}</td>
+                <td *ngFor="let field of fields">
+                    <span *ngIf="field.property !== 'dataNascita'">{{child[field.property]}}</span>
+                    <span *ngIf="field.property === 'dataNascita'">{{child[field.property] | date: 'dd MMM
+                        yyyy'}}</span>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    </div>
+</div>
