@@ -68,14 +68,22 @@
               <td>{{istituto.provincia}}</td>
               <td>{{istituto.comune}}</td>
               <td>{{istituto.indirizzo}}</td>
-              <td class="buttons">
+              <td class="buttons" style="width: 0">
                 <button class="btn btn-primary btn-sm" (click)="istituto.inModifica = true" tooltip="Modifica">
                   <i class="fa fa-pencil"></i>
                 </button>
-                <button class="btn btn-primary btn-sm ml-1" (click)="eliminaIstituto(i)" tooltip="Elimina">
+                </td>
+                 <td class="buttons" style="width: 0">
+                <button class="btn btn-primary btn-sm" (click)="eliminaIstituto(i)" tooltip="Elimina">
                   <i class="fa fa-trash-o"></i>
                 </button>
-              </td>
+                  </td>
+                 <td class="buttons" style="width: 0">
+                <button class="btn btn-primary btn-sm" (click)="inviaMail(i)" tooltip="Mail">
+                  <i class="fa fa-envelope-open-o"></i>
+                </button>
+                  </td>
+              
             </ng-container>
             <ng-container *ngIf="istituto.inModifica" [formGroupName]="i">
               <td><input type="text" formControlName="nome" class="form-control form-control-sm"></td>

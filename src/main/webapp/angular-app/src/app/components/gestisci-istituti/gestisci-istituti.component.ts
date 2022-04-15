@@ -56,6 +56,16 @@ export class GestisciIstitutiComponent implements OnInit {
       () => { }
     )
   }
+  inviaMail(index: any) {
+    let url = 'eliminaIstituto?idIstituto=' + this.istituti[index].id
+    this.httpService.callPost(url, null).subscribe(
+      (data: any) => {
+        this.istituti.splice(index, 1)
+      },
+      (error: any) => { },
+      () => { }
+    )
+  }
 
   createIstitutiForm() {
     this.istitutiForm.controls.istitutiRows = this.formBuilder.array(
