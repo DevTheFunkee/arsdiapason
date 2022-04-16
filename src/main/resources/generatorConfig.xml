@@ -30,7 +30,7 @@
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
 
-        <table tableName="%">
+        <table tableName="rel_psicologo_istituto">
             <generatedKey column="id" sqlStatement="MySql" identity="true" />
             <columnOverride column="UNSIGNED_BIGINT_FIELD" javaType="java.lang.Object" jdbcType="LONG" />
             <columnOverride column="data_ins" isGeneratedAlways="True" />

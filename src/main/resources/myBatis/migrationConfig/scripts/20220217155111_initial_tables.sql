@@ -23,7 +23,6 @@ CREATE TABLE utente (
 
 CREATE TABLE istituto (
     id INT AUTO_INCREMENT,
-    id_psicologo INT NOT NULL,
     nome VARCHAR(50) NOT NULL,
     regione VARCHAR(50) NOT NULL,
     provincia VARCHAR(50) NOT NULL,
@@ -31,8 +30,7 @@ CREATE TABLE istituto (
     indirizzo VARCHAR(50) NOT NULL,
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    PRIMARY KEY(id),
-    CONSTRAINT FK_IST_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id)
+    PRIMARY KEY(id)
 );
 
 CREATE TABLE bambino (
@@ -69,6 +67,18 @@ CREATE TABLE rel_psicologo_bambino (
     PRIMARY KEY(id_psicologo, id_bambino),
     CONSTRAINT FK_RPB_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id),
     CONSTRAINT FK_RPB_bambino FOREIGN KEY (id_bambino) REFERENCES bambino(id)
+);
+
+CREATE TABLE rel_psicologo_istituto (
+    id_psicologo INT NOT NULL,
+    id_istituto INT NOT NULL,
+    data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    caricato VARCHAR(1),
+    codice VARCHAR(40),
+    PRIMARY KEY(id_psicologo, id_istituto),
+    CONSTRAINT FK_RPI_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id),
+    CONSTRAINT FK_RPI_istituto FOREIGN KEY (id_istituto) REFERENCES istituto(id)
 );
 
 CREATE TABLE scheda (
