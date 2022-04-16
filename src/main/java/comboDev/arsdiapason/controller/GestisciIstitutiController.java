@@ -36,5 +36,11 @@ public class GestisciIstitutiController implements BasicController {
 	public void eliminaIstituto(@RequestParam Integer idIstituto) throws Exception {
 		gestisciIstitutiService.eliminaIstituto(idIstituto);
 	}
+	
+
+	@PostMapping("/inviaMailIstituto")
+	public void inviaMailIstituto(@RequestBody Istituto istituto) throws Exception {
+		gestisciIstitutiService.inviaMail(istituto);
+	}
 
 }

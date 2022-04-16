@@ -42,4 +42,14 @@ public class GestisciIstitutiService {
 					new Throwable("Non è possibile eliminare l'istituto in quanto collegato a dei bambini"));
 		}
 	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void inviaMail(Istituto istituto) throws Exception {
+		try {
+			
+		} catch (Exception e) {
+			throw new Exception("",
+					new Throwable("Non è possibile inviare la mail all'istituo scelto"));
+		}
+	}
 }

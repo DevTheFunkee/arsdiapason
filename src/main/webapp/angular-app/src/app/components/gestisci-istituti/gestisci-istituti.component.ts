@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import { FormBuilder, Validators } from '@angular/forms'
+import { BsModalService } from 'ngx-bootstrap/modal'
+import { AlertModalComponent } from '../alert-modal/alert-modal.component'
 import * as _ from 'lodash'
 
 @Component({
@@ -10,7 +12,7 @@ import * as _ from 'lodash'
 })
 export class GestisciIstitutiComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private formBuilder: FormBuilder) {
+  constructor(private httpService: HttpService, private formBuilder: FormBuilder, private modalService: BsModalService) {
     this.istitutiForm = this.formBuilder.group({
       istitutiRows: this.formBuilder.array([])
     })
@@ -57,10 +59,10 @@ export class GestisciIstitutiComponent implements OnInit {
     )
   }
   inviaMail(index: any) {
-    let url = 'eliminaIstituto?idIstituto=' + this.istituti[index].id
-    this.httpService.callPost(url, null).subscribe(
+	var row = this.istitutiForm.controls.istitutiRows.controls[index].value
+    this.httpService.callPost('inviaMailIstituto', row).subscribe(
       (data: any) => {
-        this.istituti.splice(index, 1)
+ 		this.openModal("Mail Inviata")
       },
       (error: any) => { },
       () => { }
@@ -117,5 +119,11 @@ export class GestisciIstitutiComponent implements OnInit {
     return this.istitutiForm.controls.istitutiRows.controls[index].pristine ||
       this.istitutiForm.controls.istitutiRows.controls[index].status === 'INVALID'
   }
-
+    openModal(text: string) {
+        const initialState = {
+            textColor: 'text-success',
+            text: text
+        }
+        this.modalService.show(AlertModalComponent, { initialState })
+    }
 }
