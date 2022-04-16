@@ -1,12 +1,14 @@
 package comboDev.arsdiapason.service;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import comboDev.arsdiapason.dto.DatiIstituto;
 import comboDev.arsdiapason.mybatis.mapper.IstitutoMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelPsicologoIstitutoMapper;
 import comboDev.arsdiapason.mybatis.model.Istituto;
@@ -20,6 +22,9 @@ public class GestisciIstitutiService {
 
 	@Autowired
 	private RelPsicologoIstitutoMapper relPsicologoIstitutoMapper;
+	
+	@Autowired
+	private MailService mailService;
 
 	@Transactional(readOnly = true)
 	public List<Istituto> getListaIstituti() {
@@ -28,10 +33,12 @@ public class GestisciIstitutiService {
 
 	@Transactional(rollbackFor = Exception.class)
 	public Istituto inserisciIstituto(Istituto istituto, Integer idPsicologo) {
+		int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
 		istitutoMapper.insert(istituto);
 		RelPsicologoIstituto relPsicologoIstituto = new RelPsicologoIstituto();
 		relPsicologoIstituto.setIdIstituto(istituto.getId());
 		relPsicologoIstituto.setIdPsicologo(idPsicologo);
+		relPsicologoIstituto.setCodice(temporaryCode);
 		relPsicologoIstitutoMapper.insert(relPsicologoIstituto);
 		return istituto;
 	}
@@ -50,5 +57,21 @@ public class GestisciIstitutiService {
 			throw new Exception("",
 					new Throwable("Non è possibile eliminare l'istituto in quanto collegato a dei bambini"));
 		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void inviaMail(DatiIstituto istituto) throws Exception {
+		int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
+		try {
+			mailService.sendIstitutoEmail(istituto,temporaryCode);
+		} catch (Exception e) {
+			throw new Exception("",
+					new Throwable("Non è possibile inviare la mail all'istituo scelto"));
+		}
+	}
+
+	public Integer getCodice(Integer idIstituto, Integer idPsicologo) {
+		RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idIstituto, idPsicologo);
+		return istituto.getCodice();
 	}
 }

@@ -75,7 +75,7 @@ CREATE TABLE rel_psicologo_istituto (
     data_ins TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     data_mod TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     caricato VARCHAR(1),
-    codice VARCHAR(40),
+    codice INT NOT NULL,
     PRIMARY KEY(id_psicologo, id_istituto),
     CONSTRAINT FK_RPI_psico FOREIGN KEY (id_psicologo) REFERENCES psicologo(id),
     CONSTRAINT FK_RPI_istituto FOREIGN KEY (id_istituto) REFERENCES istituto(id)

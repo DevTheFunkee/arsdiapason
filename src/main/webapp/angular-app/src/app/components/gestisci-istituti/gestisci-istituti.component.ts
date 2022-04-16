@@ -39,6 +39,7 @@ export class GestisciIstitutiComponent implements OnInit {
 
   saveModIstituto(index: number) {
     var row = this.istitutiForm.controls.istitutiRows.controls[index].value
+    row.appUrl = window.location.origin
     this.httpService.callPost("saveModIstituto", row).subscribe(
       (data: any) => {
         this.istituti[index] = data

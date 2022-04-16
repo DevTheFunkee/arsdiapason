@@ -1,5 +1,6 @@
 package comboDev.arsdiapason.controller;
 
+import comboDev.arsdiapason.dto.DatiIstituto;
 import comboDev.arsdiapason.mybatis.model.Istituto;
 import comboDev.arsdiapason.service.GestisciIstitutiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,5 +37,19 @@ public class GestisciIstitutiController implements BasicController  {
     public void eliminaIstituto(@RequestParam Integer idIstituto) throws Exception {
         gestisciIstitutiService.eliminaIstituto(idIstituto);
     }
-
+    
+    @PostMapping("/inviaMailIstituto")
+    public void inviaMail(@RequestParam Integer idIstituto) throws Exception {
+        gestisciIstitutiService.eliminaIstituto(idIstituto);
+    }
+    
+	@PostMapping("/inviaMailIstituto")
+	public void inviaMailIstituto(@RequestBody DatiIstituto istituto) throws Exception {
+		gestisciIstitutiService.inviaMail(istituto);
+	}
+	
+	@PostMapping("/getCode")
+	public Integer getCodice(Authentication authentication, @RequestParam Integer idIstituto) throws Exception {
+		return gestisciIstitutiService.getCodice(idIstituto, (Integer) authentication.getDetails());
+	}
 }

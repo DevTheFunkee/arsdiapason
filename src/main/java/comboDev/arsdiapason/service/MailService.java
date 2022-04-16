@@ -1,6 +1,9 @@
 package comboDev.arsdiapason.service;
 
+import comboDev.arsdiapason.dto.DatiIstituto;
 import comboDev.arsdiapason.dto.DatiUtente;
+import comboDev.arsdiapason.mybatis.model.Istituto;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -28,6 +31,21 @@ public class MailService {
         msg.setTo(datiUtente.getEmail());
         msg.setSubject("Arsdiapason - Conferma registrazione");
         msg.setText("Ciao\nPer terminare la registrazione clicca qui: " + link);
+        javaMailSender.send(msg);
+    }
+    
+    public void sendIstitutoEmail(DatiIstituto istituto, int temporaryCode) {
+        String email;
+        try {
+            email = URLEncoder.encode(istituto.getMail(), StandardCharsets.UTF_8.toString());
+        } catch (UnsupportedEncodingException e) {
+            throw new RuntimeException(e.getCause());
+        }
+        String link = istituto.getAppUrl() + "/#/caricaExcel/" + email + "/" + temporaryCode;
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(istituto.getMail());
+        msg.setSubject("Arsdiapason - Carica Excel Bambini");
+        msg.setText("Ciao\nPer caricare l'excel clicca qui: " + link);
         javaMailSender.send(msg);
     }
 
