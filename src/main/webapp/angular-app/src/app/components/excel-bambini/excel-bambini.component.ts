@@ -30,7 +30,7 @@ export class ExcelBambiniComponent implements OnInit {
   { label: 'Sezione', property: 'sezione', width: 20 }]
 
   getListaIstituti() {
-    this.httpService.callPost('getListaIstituti', null).subscribe(
+    this.httpService.callPost('getListaIstitutiForExcel', null).subscribe(
       (data: any) => {
         this.istituti = _.filter(data, function (o) { return o.id !== 1 })
       },
@@ -105,7 +105,7 @@ export class ExcelBambiniComponent implements OnInit {
     for (let i = 0; i < this.childs.length; i++) {
       this.childs[i].idIstituto = this.istituoFromExcel.id
     }
-    this.httpService.callPost('insertChilds', this.childs).subscribe(
+    this.httpService.callPost('insertChildsForExcel', this.childs).subscribe(
       (data: any) => {
         this.caricamentoOk = true
         this.istituoFromExcel = {}

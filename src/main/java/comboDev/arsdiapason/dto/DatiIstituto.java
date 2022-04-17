@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class DatiIstituto {
+	private Integer id;
 	private String nome;
 	private String regione;
 	private String provincia;

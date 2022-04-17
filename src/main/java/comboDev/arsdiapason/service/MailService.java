@@ -2,7 +2,9 @@ package comboDev.arsdiapason.service;
 
 import comboDev.arsdiapason.dto.DatiIstituto;
 import comboDev.arsdiapason.dto.DatiUtente;
+import comboDev.arsdiapason.mybatis.mapper.RelPsicologoIstitutoMapper;
 import comboDev.arsdiapason.mybatis.model.Istituto;
+import comboDev.arsdiapason.mybatis.model.RelPsicologoIstituto;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
@@ -18,6 +20,9 @@ public class MailService {
 
     @Autowired
     private JavaMailSender javaMailSender;
+    
+    @Autowired
+	private RelPsicologoIstitutoMapper relPsicologoIstitutoMapper;
 
     public void sendAuthenticationEmail(DatiUtente datiUtente, int temporaryCode) {
         String email;
@@ -34,14 +39,9 @@ public class MailService {
         javaMailSender.send(msg);
     }
     
-    public void sendIstitutoEmail(DatiIstituto istituto, int temporaryCode) {
-        String email;
-        try {
-            email = URLEncoder.encode(istituto.getMail(), StandardCharsets.UTF_8.toString());
-        } catch (UnsupportedEncodingException e) {
-            throw new RuntimeException(e.getCause());
-        }
-        String link = istituto.getAppUrl() + "/#/caricaExcel/" + email + "/" + temporaryCode;
+    public void sendIstitutoEmail(DatiIstituto istituto, int idPsicologo) {
+    	RelPsicologoIstituto temporaryCode = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, istituto.getId());
+        String link = istituto.getAppUrl() + "/#/excelBambini/" + temporaryCode.getCodice() + "/" +istituto.getId() +"/" +idPsicologo;
         SimpleMailMessage msg = new SimpleMailMessage();
         msg.setTo(istituto.getMail());
         msg.setSubject("Arsdiapason - Carica Excel Bambini");

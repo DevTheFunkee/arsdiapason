@@ -50,6 +50,11 @@ public class ApplicationSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring().antMatchers("/api/confirmAccount");
         web.ignoring().antMatchers("/api/sendResetPasswordEmail");
         web.ignoring().antMatchers("/api/resetPassword");
+        web.ignoring().antMatchers("/api/excelBambini");
+        web.ignoring().antMatchers("/api/getCode");
+        web.ignoring().antMatchers("/api/getListaIstitutiForExcel");
+        web.ignoring().antMatchers("/api/insertChildsForExcel");
+        
     }
 
 }

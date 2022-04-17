@@ -26,7 +26,11 @@ public class InsertChildController implements BasicController  {
     public void insertChild(Authentication authentication, @RequestBody Bambino bambino) {
         insertChildService.insertChild(bambino, (Integer) authentication.getDetails());
     }
-
+    @PostMapping("/insertChildsForExcel")
+    public void insertChildsForExcel(Authentication authentication, @RequestBody Bambino bambino) {
+        insertChildService.insertChild(bambino, (Integer) authentication.getDetails());
+    }
+    
     @PostMapping("/insertChilds")
     public void insertChilds(Authentication authentication, @RequestBody List<Bambino> bambini) {
         insertChildService.insertChilds(bambini, (Integer) authentication.getDetails());

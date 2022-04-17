@@ -22,6 +22,11 @@ public class GestisciIstitutiController implements BasicController  {
     public List<Istituto> getListaIstituti() {
         return gestisciIstitutiService.getListaIstituti();
     }
+    
+    @PostMapping("/getListaIstitutiForExcel")
+    public List<Istituto> getListaIstitutiExcel() {
+        return gestisciIstitutiService.getListaIstituti();
+    }
 
     @PostMapping("/inserisciIstituto")
     public Istituto inserisciIstituto(Authentication authentication, @RequestBody Istituto istituto) {
@@ -34,22 +39,17 @@ public class GestisciIstitutiController implements BasicController  {
     }
 
     @PostMapping("/eliminaIstituto")
-    public void eliminaIstituto(@RequestParam Integer idIstituto) throws Exception {
-        gestisciIstitutiService.eliminaIstituto(idIstituto);
-    }
-    
-    @PostMapping("/inviaMailIstituto")
-    public void inviaMail(@RequestParam Integer idIstituto) throws Exception {
-        gestisciIstitutiService.eliminaIstituto(idIstituto);
+    public void eliminaIstituto(Authentication authentication, @RequestParam Integer idIstituto) throws Exception {
+        gestisciIstitutiService.eliminaIstituto(idIstituto,(Integer) authentication.getDetails());
     }
     
 	@PostMapping("/inviaMailIstituto")
-	public void inviaMailIstituto(@RequestBody DatiIstituto istituto) throws Exception {
-		gestisciIstitutiService.inviaMail(istituto);
+	public void inviaMailIstituto(Authentication authentication, @RequestBody DatiIstituto istituto) throws Exception {
+		gestisciIstitutiService.inviaMail(istituto,(Integer) authentication.getDetails());
 	}
 	
 	@PostMapping("/getCode")
-	public Integer getCodice(Authentication authentication, @RequestParam Integer idIstituto) throws Exception {
-		return gestisciIstitutiService.getCodice(idIstituto, (Integer) authentication.getDetails());
+	public Integer getCodice(@RequestParam Integer idIstituto, @RequestParam Integer idPsicologo) throws Exception {
+		return gestisciIstitutiService.getCodice(idIstituto, idPsicologo);
 	}
 }

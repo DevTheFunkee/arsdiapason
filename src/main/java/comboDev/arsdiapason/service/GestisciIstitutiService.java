@@ -22,7 +22,7 @@ public class GestisciIstitutiService {
 
 	@Autowired
 	private RelPsicologoIstitutoMapper relPsicologoIstitutoMapper;
-	
+
 	@Autowired
 	private MailService mailService;
 
@@ -50,28 +50,28 @@ public class GestisciIstitutiService {
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void eliminaIstituto(Integer idIstituto) throws Exception {
+	public void eliminaIstituto(Integer idIstituto, Integer idPsicologo) throws Exception {
 		try {
+			relPsicologoIstitutoMapper.deleteByPrimaryKey(idPsicologo, idIstituto);
 			istitutoMapper.deleteByPrimaryKey(idIstituto);
 		} catch (DataIntegrityViolationException e) {
 			throw new Exception("",
 					new Throwable("Non è possibile eliminare l'istituto in quanto collegato a dei bambini"));
 		}
 	}
-	
+
 	@Transactional(rollbackFor = Exception.class)
-	public void inviaMail(DatiIstituto istituto) throws Exception {
-		int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
+	public void inviaMail(DatiIstituto istituto, Integer idPsicologo) throws Exception {
 		try {
-			mailService.sendIstitutoEmail(istituto,temporaryCode);
+			mailService.sendIstitutoEmail(istituto, idPsicologo);
 		} catch (Exception e) {
 			throw new Exception("",
-					new Throwable("Non è possibile inviare la mail all'istituo scelto"));
+					new Throwable("Non è possibile inviare la mail all'istituo scelto: " + e.getMessage()));
 		}
 	}
 
 	public Integer getCodice(Integer idIstituto, Integer idPsicologo) {
-		RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idIstituto, idPsicologo);
+		RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, idIstituto);
 		return istituto.getCodice();
 	}
 }
