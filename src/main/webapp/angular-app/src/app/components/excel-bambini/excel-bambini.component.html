@@ -1,13 +1,11 @@
 <div class="row align-items-end">
     <div class="col-3">
         <label class="font-weight-bold">Istituto</label>
-        <select [(ngModel)]="istituo" [disabled]="!istituti.length" name="istituto"
-            class="custom-select custom-select-sm">
-            <option *ngFor="let istituto of istituti" [ngValue]="istituto">{{istituto.nome}}</option>
-        </select>
+         <h1>{{istituto.nome}}</h1>
+      
     </div>
     <div class="col-2">
-        <button class="btn btn-sm btn-success" type="button" (click)="createExcel()" [disabled]="!istituo">
+        <button class="btn btn-sm btn-success" type="button" (click)="createExcel()" >
             <i class="fa fa-file-excel-o"></i>
             <span class="ml-2">Scarica Excel</span>
         </button>

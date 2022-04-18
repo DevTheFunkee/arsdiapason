@@ -1,13 +1,12 @@
 import { Injectable } from '@angular/core'
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
-import { ActivatedRoute } from '@angular/router';
 import { HttpClient } from "@angular/common/http";
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 @Injectable()
 export class RouteGuardInstituteService implements CanActivate {
 
-	constructor(private router: Router, private route: ActivatedRoute, private http: HttpClient) { }
+	constructor(private router: Router, private http: HttpClient) { }
 
 
 
@@ -23,8 +22,8 @@ export class RouteGuardInstituteService implements CanActivate {
 			.pipe(map((data: any) => {
 
 				console.log("code: " + code);
-				console.log("data: " + data);
-				if (code == data) {
+				console.log("data: " + data.codice);
+				if (code == data.codice && 'N' == data.caricato) {
 					console.log("dentro al true");
 					return true;
 				} else {

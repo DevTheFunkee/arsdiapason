@@ -2,6 +2,7 @@ package comboDev.arsdiapason.controller;
 
 import comboDev.arsdiapason.dto.DatiIstituto;
 import comboDev.arsdiapason.mybatis.model.Istituto;
+import comboDev.arsdiapason.mybatis.model.RelPsicologoIstituto;
 import comboDev.arsdiapason.service.GestisciIstitutiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -23,9 +24,9 @@ public class GestisciIstitutiController implements BasicController  {
         return gestisciIstitutiService.getListaIstituti();
     }
     
-    @PostMapping("/getListaIstitutiForExcel")
-    public List<Istituto> getListaIstitutiExcel() {
-        return gestisciIstitutiService.getListaIstituti();
+    @PostMapping("/getIstitutoForExcel")
+    public Istituto getListaIstitutiExcel(@RequestParam Integer idIstituto) {
+        return gestisciIstitutiService.getIstituto(idIstituto);
     }
 
     @PostMapping("/inserisciIstituto")
@@ -49,7 +50,7 @@ public class GestisciIstitutiController implements BasicController  {
 	}
 	
 	@PostMapping("/getCode")
-	public Integer getCodice(@RequestParam Integer idIstituto, @RequestParam Integer idPsicologo) throws Exception {
+	public RelPsicologoIstituto getCodice(@RequestParam Integer idIstituto, @RequestParam Integer idPsicologo) throws Exception {
 		return gestisciIstitutiService.getCodice(idIstituto, idPsicologo);
 	}
 }

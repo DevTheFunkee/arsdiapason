@@ -30,7 +30,10 @@ public class GestisciIstitutiService {
 	public List<Istituto> getListaIstituti() {
 		return istitutoMapper.findAll();
 	}
-
+	@Transactional(readOnly = true)
+	public Istituto getIstituto(Integer idIstituto) {
+		return istitutoMapper.selectByPrimaryKey(idIstituto);
+	}
 	@Transactional(rollbackFor = Exception.class)
 	public Istituto inserisciIstituto(Istituto istituto, Integer idPsicologo) {
 		int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
@@ -39,6 +42,7 @@ public class GestisciIstitutiService {
 		relPsicologoIstituto.setIdIstituto(istituto.getId());
 		relPsicologoIstituto.setIdPsicologo(idPsicologo);
 		relPsicologoIstituto.setCodice(temporaryCode);
+		relPsicologoIstituto.setCaricato("N");
 		relPsicologoIstitutoMapper.insert(relPsicologoIstituto);
 		return istituto;
 	}
@@ -70,8 +74,8 @@ public class GestisciIstitutiService {
 		}
 	}
 
-	public Integer getCodice(Integer idIstituto, Integer idPsicologo) {
+	public RelPsicologoIstituto getCodice(Integer idIstituto, Integer idPsicologo) {
 		RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, idIstituto);
-		return istituto.getCodice();
+		return istituto;
 	}
 }

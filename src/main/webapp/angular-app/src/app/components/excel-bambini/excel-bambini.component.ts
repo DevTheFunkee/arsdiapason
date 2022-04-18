@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import { ExcelService } from '../../services/excel.service'
 import * as ExcelJS from 'exceljs/dist/exceljs.min.js'
+import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash'
 
 @Component({
@@ -11,16 +12,20 @@ import * as _ from 'lodash'
 })
 export class ExcelBambiniComponent implements OnInit {
 
-  constructor(private httpService: HttpService, private excelService: ExcelService) { }
-
+  constructor(private httpService: HttpService, private excelService: ExcelService, private route: ActivatedRoute) { }
+  idPsicologo: string = ''
   ngOnInit(): void {
-    this.getListaIstituti()
+	
+	this.idPsicologo= this.route.snapshot.paramMap.get('idPsicologo');
+	let idIstituto = this.route.snapshot.paramMap.get('idIstituto');
+    this.getIstituto(idIstituto)
   }
 
   caricamentoOk = false
   istitutoLabel: string = 'istituto'
   istituoFromExcel: any = {}
   istituo: any
+  istituto: any
   istituti: any[] = []
   childs: any[] = []
   fields: any[] = [{ label: 'Nome', property: 'nome', width: 25 },
@@ -29,10 +34,11 @@ export class ExcelBambiniComponent implements OnInit {
   { label: 'Data di Nascita (gg/mm/aaaa)', property: 'dataNascita', width: 30 },
   { label: 'Sezione', property: 'sezione', width: 20 }]
 
-  getListaIstituti() {
-    this.httpService.callPost('getListaIstitutiForExcel', null).subscribe(
+  getIstituto(idIstituto: string) {
+	let url = 'getIstitutoForExcel?idIstituto='+idIstituto
+    this.httpService.callPost(url, null).subscribe(
       (data: any) => {
-        this.istituti = _.filter(data, function (o) { return o.id !== 1 })
+        this.istituto = data;
       },
       (error: any) => { },
       () => { }
@@ -40,7 +46,7 @@ export class ExcelBambiniComponent implements OnInit {
   }
 
   createExcel() {
-    let datiIstituo = [this.istitutoLabel, this.istituo.nome, this.istituo.id]
+    let datiIstituo = [this.istitutoLabel, this.istituto.nome, this.istituto.id]
     let headers = []
     let widths = []
     for (let i = 0; i < this.fields.length; i++) {
@@ -105,7 +111,8 @@ export class ExcelBambiniComponent implements OnInit {
     for (let i = 0; i < this.childs.length; i++) {
       this.childs[i].idIstituto = this.istituoFromExcel.id
     }
-    this.httpService.callPost('insertChildsForExcel', this.childs).subscribe(
+    let url = 'insertChildsForExcel?idPsicologo=' + this.idPsicologo
+    this.httpService.callPost(url, this.childs).subscribe(
       (data: any) => {
         this.caricamentoOk = true
         this.istituoFromExcel = {}
