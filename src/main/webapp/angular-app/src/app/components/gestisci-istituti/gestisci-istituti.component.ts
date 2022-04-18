@@ -124,6 +124,7 @@ export class GestisciIstitutiComponent implements OnInit {
 	openModal(text: string) {
 		const initialState = {
 			textColor: 'text-success',
+			title: "Ben fatto!",
 			text: text
 		}
 		this.modalService.show(AlertModalComponent, { initialState })
