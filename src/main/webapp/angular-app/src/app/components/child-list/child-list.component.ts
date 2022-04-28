@@ -90,7 +90,15 @@ export class ChildListComponent implements OnInit {
         this.initCombos()
         this.searchLists.sezione = this.initComboSezione(this.listaBambini)
     }
-
+  deleteBimbo(childId: number,index: any){
+	  this.httpService.callPost('deleteChild?idBambino='+childId, null).subscribe(
+            (data: any) => {
+              this.listaBambini.splice(index, 1)
+            },
+            (error: any) => { },
+            () => { }
+        )
+}
     findByCombo(combo: string) {
         if (combo === 'sezione') {
             let listaBambini = _(this.listaBambini).filter(['sezione', this.searchModels.sezione])

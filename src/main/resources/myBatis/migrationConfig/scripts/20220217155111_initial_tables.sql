@@ -118,6 +118,7 @@ CREATE TABLE rel_bambino_scheda (
 
 DROP TABLE rel_psicologo_bambino;
 DROP TABLE rel_bambino_scheda;
+DROP TABLE rel_psicologo_istituto;
 DROP TABLE prova_scheda;
 DROP TABLE scheda;
 DROP TABLE bambino;

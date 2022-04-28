@@ -49,6 +49,11 @@
             <td>{{child.sezione || 'N.P.'}}</td>
             <td>{{child.dataTest ? (child.dataTest | date: 'dd MMM yyyy') : 'N.P.'}}</td>
             <td>{{child.testFinito | testFinito}}</td>
+              <td style="width: 0">
+              <button (click)="deleteBimbo(child.id,i)" class="btn btn-primary btn-sm" tooltip="Elimina Bambino">
+                <i class="fa fa-trash-o" ></i>
+              </button>
+            </td>
             <td style="width: 0">
               <button (click)="child.showDetail = !child.showDetail" class="btn btn-primary btn-sm" tooltip="Dettagli">
                 <i class="fa" [ngClass]="{'fa-plus': !child.showDetail, 'fa-minus': child.showDetail}"></i>

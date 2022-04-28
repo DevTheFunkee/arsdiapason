@@ -30,10 +30,12 @@ public class GestisciIstitutiService {
 	public List<Istituto> getListaIstituti() {
 		return istitutoMapper.findAll();
 	}
+
 	@Transactional(readOnly = true)
 	public Istituto getIstituto(Integer idIstituto) {
 		return istitutoMapper.selectByPrimaryKey(idIstituto);
 	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public Istituto inserisciIstituto(Istituto istituto, Integer idPsicologo) {
 		int temporaryCode = ThreadLocalRandom.current().nextInt(100000, 1000000);
@@ -77,5 +79,14 @@ public class GestisciIstitutiService {
 	public RelPsicologoIstituto getCodice(Integer idIstituto, Integer idPsicologo) {
 		RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, idIstituto);
 		return istituto;
+	}
+
+	public void eliminaIstituto(Integer idIstituto) throws Exception {
+		try {
+			istitutoMapper.deleteByPrimaryKey(idIstituto);
+		} catch (DataIntegrityViolationException e) {
+			throw new Exception("",
+					new Throwable("Non è possibile eliminare l'istituto in quanto collegato a dei bambini"));
+		}
 	}
 }
