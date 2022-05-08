@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core'
 import { HttpService } from '../../services/http.service'
 import { FormBuilder, Validators } from '@angular/forms'
-import { BsModalService } from 'ngx-bootstrap/modal'
 import { AlertModalComponent } from '../alert-modal/alert-modal.component'
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
+import { AlertModalConfirmationComponent } from '../alert-modal-confirmation/alert-modal-confirm.component'
 import * as _ from 'lodash'
 
 @Component({
@@ -25,7 +26,7 @@ export class GestisciIstitutiComponent implements OnInit {
 	istitutiForm: any
 	istituti: any = []
 	newIstituto: any = {}
-
+	modalRef: BsModalRef;
 	getListaIstituti() {
 		this.httpService.callPost('getListaIstituti', null).subscribe(
 			(data: any) => {
@@ -50,14 +51,26 @@ export class GestisciIstitutiComponent implements OnInit {
 	}
 
 	eliminaIstituto(index: any) {
-		let url = 'eliminaIstituto?idIstituto=' + this.istituti[index].id
-		this.httpService.callPost(url, null).subscribe(
-			(data: any) => {
-				this.istituti.splice(index, 1)
-			},
-			(error: any) => { },
-			() => { }
-		)
+		this.modalRef = this.modalService.show(AlertModalConfirmationComponent, {
+			initialState: {
+				text: 'Sicuri di voler eliminare l istituto dalla lista?',
+				title: "Attenzione!",
+				textColor: 'text-success',
+				callback: (result) => {
+					if (result == 'si') {
+						let url = 'eliminaIstituto?idIstituto=' + this.istituti[index].id
+						this.httpService.callPost(url, null).subscribe(
+							(data: any) => {
+								this.istituti.splice(index, 1)
+							},
+							(error: any) => { },
+							() => { }
+						)
+					}
+				}
+			}
+		})
+
 	}
 	inviaMail(istituto: any) {
 		//	var row = this.istitutiForm.controls.istitutiRows.controls[index].value
@@ -70,6 +83,7 @@ export class GestisciIstitutiComponent implements OnInit {
 			() => { }
 		)
 	}
+
 
 	createIstitutiForm() {
 		this.istitutiForm.controls.istitutiRows = this.formBuilder.array(

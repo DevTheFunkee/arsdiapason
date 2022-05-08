@@ -1,3 +1,4 @@
+
 <div class="row align-items-end mb-2">
   <div *ngFor="let combo of searchCombos" class="col-2">
     <label class="font-weight-bold">{{combo | capitalize}}</label>
@@ -49,14 +50,15 @@
             <td>{{child.sezione || 'N.P.'}}</td>
             <td>{{child.dataTest ? (child.dataTest | date: 'dd MMM yyyy') : 'N.P.'}}</td>
             <td>{{child.testFinito | testFinito}}</td>
+            <td style="width: 0">
+              <button  (click)="goToChildPage(child.id)" class="btn btn-primary btn-sm"
+                tooltip="vai a pagina bambino">
+                <i class="fa fa-user-circle"></i>
+              </button>
+            </td>
               <td style="width: 0">
               <button (click)="deleteBimbo(child.id,i)" class="btn btn-primary btn-sm" tooltip="Elimina Bambino">
                 <i class="fa fa-trash-o" ></i>
-              </button>
-            </td>
-            <td style="width: 0">
-              <button (click)="child.showDetail = !child.showDetail" class="btn btn-primary btn-sm" tooltip="Dettagli">
-                <i class="fa" [ngClass]="{'fa-plus': !child.showDetail, 'fa-minus': child.showDetail}"></i>
               </button>
             </td>
             <td style="width: 0">
@@ -71,45 +73,9 @@
                 <i class="fa fa-file-text-o"></i>
               </button>
             </td>
+
           </tr>
-          <tr *ngIf="child.showDetail">
-            <td colspan="20">
-              <table class="table table-sm table-info sub-table table-borderless">
-                <tr>
-                  <th>Comune di Nascita</th>
-                  <td>{{child.comuneNascita}}</td>
-                  <th>Comune di Residenza</th>
-                  <td>{{child.comuneResidenza}}</td>
-                  <th>Indirizzo di Residenza</th>
-                  <td colspan="3">{{child.indirizzoResidenza}}</td>
-                </tr>
-                <tr>
-                  <th>Figlio Adottivo</th>
-                  <td>{{child.figlioAdottivo}}</td>
-                  <th>Ordine Genitura</th>
-                  <td>{{child.ordineGenitura}}</td>
-                  <th>Numero Fratelli</th>
-                  <td>{{child.numeroFratelli}}</td>
-                  <th>Numero Sorelle</th>
-                  <td>{{child.numeroSorelle}}</td>
-                </tr>
-                <tr>
-                  <th>Titolo Studio Padre</th>
-                  <td>{{child.titoloStudioPadre}}</td>
-                  <th>Titolo Studio Madre</th>
-                  <td>{{child.titoloStudioMadre}}</td>
-                  <th>Lavoro Padre</th>
-                  <td>{{child.lavoroPadre}}</td>
-                  <th>Lavoro Madre</th>
-                  <td>{{child.lavoroMadre}}</td>
-                </tr>
-                <tr>
-                  <th>Note</th>
-                  <td colspan="20">{{child.note}}</td>
-                </tr>
-              </table>
-            </td>
-          </tr>
+          
         </ng-container>
       </tbody>
     </table>

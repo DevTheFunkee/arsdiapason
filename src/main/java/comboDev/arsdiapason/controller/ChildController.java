@@ -51,5 +51,10 @@ public class ChildController implements BasicController {
 	public List<Bambino> childsList(Authentication authentication) {
 		return childListService.childsList((Integer) authentication.getDetails());
 	}
+	
+	@PostMapping("/child")
+	public Bambino child(@RequestParam Integer idBambino) {
+		return childListService.child( idBambino);
+	}
 
 }

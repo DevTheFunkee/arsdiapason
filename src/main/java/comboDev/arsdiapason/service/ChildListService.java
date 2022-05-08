@@ -36,5 +36,10 @@ public class ChildListService {
         }
         return bambini;
     }
+    
+    @Transactional(readOnly = true)
+    public Bambino child(Integer idBambino) {
+        return bambinoMapper.selectByPrimaryKey(idBambino);
+    }
 
 }

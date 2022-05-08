@@ -88,7 +88,7 @@
                   <i class="fa fa-trash-o"></i>
                 </button>
                   </td>
-                 <td class="buttons" style="width: 0">
+                 <td class="buttons" style="width: 0" [hidden]="istituto.caricato == 'Y' ">
                 <button class="btn btn-primary btn-sm" (click)="inviaMail(istituto)" tooltip="Mail">
                   <i class="fa fa-envelope-open-o"></i>
                 </button>

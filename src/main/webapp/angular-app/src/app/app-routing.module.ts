@@ -6,6 +6,7 @@ import { LoginComponent } from './components/login/login.component'
 import { CreateAccountComponent } from './components/create-account/create-account.component'
 import { InsertChildComponent } from './components/insert-child/insert-child.component'
 import { ChildListComponent } from './components/child-list/child-list.component'
+import { ChildPageComponent } from './components/child-page/child-page.component'
 import { TestBalconiComponent } from './components/test-balconi/test-balconi.component'
 import { GestisciIstitutiComponent } from './components/gestisci-istituti/gestisci-istituti.component'
 import { TestResultComponent } from './components/test-result/test-result.component'
@@ -25,6 +26,8 @@ const routes: Routes = [
   { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
   { path: 'testBalconi', component: TestBalconiComponent, canActivate: [RouteGuardService] },
   { path: 'testBalconi/:id', component: TestBalconiComponent, canActivate: [RouteGuardService] },
+  { path: 'pageChild', component: ChildPageComponent, canActivate: [RouteGuardService] },
+  { path: 'pageChild/:id', component: ChildPageComponent, canActivate: [RouteGuardService] },
   { path: 'gestisciIstituti', component: GestisciIstitutiComponent, canActivate: [RouteGuardService] },
   { path: 'testResult/:id', component: TestResultComponent, canActivate: [RouteGuardService] },
   { path: 'paginaGrafici', component: PaginaGraficiComponent, canActivate: [RouteGuardService] },

@@ -20,8 +20,8 @@ public class GestisciIstitutiController implements BasicController  {
     private GestisciIstitutiService gestisciIstitutiService;
 
     @PostMapping("/getListaIstituti")
-    public List<Istituto> getListaIstituti() {
-        return gestisciIstitutiService.getListaIstituti();
+    public List<Istituto> getListaIstituti(Authentication authentication) {
+        return gestisciIstitutiService.getListaIstituti((Integer) authentication.getDetails());
     }
     
     @PostMapping("/getIstitutoForExcel")

@@ -17,9 +17,10 @@ export class ExcelBambiniComponent implements OnInit {
 
 	constructor(private router: Router,private httpService: HttpService, private excelService: ExcelService, private route: ActivatedRoute, private modalService: BsModalService) { }
 	idPsicologo: string = ''
+    istituto: any
 	modalRef: BsModalRef;
 	ngOnInit(): void {
-
+        this.istituto = ''
 		this.idPsicologo = this.route.snapshot.paramMap.get('idPsicologo');
 		let idIstituto = this.route.snapshot.paramMap.get('idIstituto');
 		this.getIstituto(idIstituto)
@@ -29,16 +30,28 @@ export class ExcelBambiniComponent implements OnInit {
 	istitutoLabel: string = 'istituto'
 	istituoFromExcel: any = {}
 	istituo: any
-	istituto: any
+
 	istituti: any[] = []
 	childs: any[] = []
 	fields: any[] = [{ label: 'Nome', property: 'nome', width: 25 },
 	{ label: 'Cognome', property: 'cognome', width: 25 },
 	{ label: 'Sesso (M/F)', property: 'sesso', width: 15 },
 	{ label: 'Data di Nascita (gg/mm/aaaa)', property: 'dataNascita', width: 30 },
-	{ label: 'Sezione', property: 'sezione', width: 20 }]
+	{ label: 'Sezione', property: 'sezione', width: 20 },
+	{ label: 'Comune di Nascita', property: 'comuneNascita', width: 25 },
+	{ label: 'Comune di Residenza', property: 'comuneResidenza', width: 25 },
+	{ label: 'Indirizzo di Residenza', property: 'indirizzoResidenza', width: 30 },
+	{ label: 'Numero Fratelli', property: 'numeroFratelli', width: 25 },
+	{ label: 'Numero Sorelle', property: 'numeroSorelle', width: 25 },
+	{ label: 'Ordine Genitura', property: 'ordineGenitura', width: 25 },
+	{ label: 'Lavoro Padre', property: 'lavoroPadre', width: 25 },
+	{ label: 'Lavoro Madre', property: 'lavoroMadre', width: 25 },
+	{ label: 'Titolo di Studio del Padre', property: 'titoloStudioPadre', width: 35 },
+	{ label: 'Titolo di Studio della Madre', property: 'titoloStudioMadre', width: 35 },
+	{ label: 'Note', property: 'note', width: 15 }]
 
 	getIstituto(idIstituto: string) {
+		if(this.istituto === undefined) {return}
 		let url = 'getIstitutoForExcel?idIstituto=' + idIstituto
 		this.httpService.callPost(url, null).subscribe(
 			(data: any) => {
@@ -53,15 +66,18 @@ export class ExcelBambiniComponent implements OnInit {
 		let datiIstituo = [this.istitutoLabel, this.istituto.nome, this.istituto.id]
 		let headers = []
 		let widths = []
+		let colors = []
 		for (let i = 0; i < this.fields.length; i++) {
 			headers.push(this.fields[i].label)
 			widths.push(this.fields[i].width)
+			colors.push(this.fields[i].color)
 		}
 		let excelParams = {
 			title: 'Lista Bambini',
 			data: [],
 			headers: [datiIstituo, headers],
-			widths: widths
+			widths: widths,
+			colors: colors
 		}
 		this.excelService.generateExcel(this.excelService.createExcel(excelParams), excelParams.title).then(() => { })
 	}

@@ -53,31 +53,17 @@ export class TestBalconiComponent implements OnInit {
             let tipi = _(this.proveSchede).filter(['numeroScheda', scheda.numero]).groupBy('tipo').keys().value()
             for (let i = 0; i < tipi.length; i++) {
                 if (tipi[i] === 'null') {
-                    let finded = false
                     let rows = _.filter(this.proveSchede, { 'numeroScheda': scheda.numero })
                     for (let j = 0; j < rows.length; j++) {
-                        if (!!_.find(this.relBambinoSchede, { 'idProvaScheda': rows[j].id })) {
-                            finded = true
-                        }
                         rows[j].checked = !!_.find(this.relBambinoSchede, { 'idProvaScheda': rows[j].id })
                     }
                     this.tipiScheda[scheda.numero].push({ tipo: null, rows: rows })
-                    if (!finded) {
-                        this.tipiScheda[scheda.numero].noResult = true
-                    }
                 } else {
-                    let finded = false
                     let rows = _.filter(this.proveSchede, { 'numeroScheda': scheda.numero, 'tipo': tipi[i] })
                     for (let j = 0; j < rows.length; j++) {
-                        if (!!_.find(this.relBambinoSchede, { 'idProvaScheda': rows[j].id })) {
-                            finded = true
-                        }
                         rows[j].checked = !!_.find(this.relBambinoSchede, { 'idProvaScheda': rows[j].id })
                     }
                     this.tipiScheda[scheda.numero].push({ tipo: tipi[i], rows: rows })
-                    if (!finded) {
-                        this.tipiScheda[scheda.numero].noResult = true
-                    }
                 }
             }
         }

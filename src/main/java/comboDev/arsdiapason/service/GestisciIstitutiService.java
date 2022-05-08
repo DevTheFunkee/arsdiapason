@@ -27,8 +27,13 @@ public class GestisciIstitutiService {
 	private MailService mailService;
 
 	@Transactional(readOnly = true)
-	public List<Istituto> getListaIstituti() {
-		return istitutoMapper.findAll();
+	public List<Istituto> getListaIstituti(Integer idPsicologo) {
+		List<Istituto> listIst = istitutoMapper.findAll();
+		listIst.stream().forEach(i->{
+			RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, i.getId());
+			i.setCaricato(istituto.getCaricato());
+		});
+		return listIst;
 	}
 
 	@Transactional(readOnly = true)

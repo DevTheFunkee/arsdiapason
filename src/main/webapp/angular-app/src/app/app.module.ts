@@ -32,6 +32,7 @@ import { ConfirmAccountComponent } from './components/confirm-account/confirm-ac
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component';
 import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component';
 import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
+import { ChildPageComponent } from './components/child-page/child-page.component';
 
 registerLocaleData(localeIt);
 
@@ -54,7 +55,8 @@ registerLocaleData(localeIt);
     ConfirmAccountComponent,
     ResetPasswordComponent,
     MailResetPasswordComponent,
-    ExcelBambiniComponent
+    ExcelBambiniComponent,
+    ChildPageComponent
   ],
   imports: [
     BrowserModule,
