@@ -1,18 +1,19 @@
 package comboDev.arsdiapason.service;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import comboDev.arsdiapason.dto.DatiIstituto;
 import comboDev.arsdiapason.mybatis.mapper.IstitutoMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelPsicologoIstitutoMapper;
 import comboDev.arsdiapason.mybatis.model.Istituto;
 import comboDev.arsdiapason.mybatis.model.RelPsicologoIstituto;
+import comboDev.arsdiapason.mybatis.model.RelPsicologoIstitutoExample;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Service
 public class GestisciIstitutiService {
@@ -28,12 +29,14 @@ public class GestisciIstitutiService {
 
 	@Transactional(readOnly = true)
 	public List<Istituto> getListaIstituti(Integer idPsicologo) {
-		List<Istituto> listIst = istitutoMapper.findAll();
-		listIst.stream().forEach(i->{
-			RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, i.getId());
-			i.setCaricato(istituto.getCaricato());
-		});
-		return listIst;
+		RelPsicologoIstitutoExample relPsicologoIstitutoExample = new RelPsicologoIstitutoExample();
+		relPsicologoIstitutoExample.createCriteria().andIdPsicologoEqualTo(idPsicologo);
+		List<RelPsicologoIstituto> relPsiIstList = relPsicologoIstitutoMapper.selectByExample(relPsicologoIstitutoExample);
+		List<Istituto> istituti = new ArrayList<>();
+		for(RelPsicologoIstituto relPsicologoIstituto: relPsiIstList) {
+			istituti.add(istitutoMapper.selectByPrimaryKey(relPsicologoIstituto.getIdIstituto()));
+		}
+		return istituti;
 	}
 
 	@Transactional(readOnly = true)
