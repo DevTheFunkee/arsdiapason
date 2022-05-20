@@ -35,7 +35,9 @@ public class GestisciIstitutiService {
 		List<Istituto> listIst = mapper.findAll();
 		listIst.stream().forEach(i -> {
 			RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, i.getId());
+			if(istituto != null) {
 			i.setCaricato(istituto.getCaricato());
+			}
 		});
 		return listIst;
 	}
