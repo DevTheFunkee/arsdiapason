@@ -34,6 +34,7 @@ import { MailResetPasswordComponent } from './components/mail-reset-password/mai
 import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
 import { ChildPageComponent } from './components/child-page/child-page.component';
 import { GraficoBambinoComponent } from './components/grafico-bambino/grafico-bambino.component';
+import { GraficoBambinoDueComponent } from './components/grafico-bambino-due/grafico-bambino-due.component';
 
 registerLocaleData(localeIt);
 
@@ -58,7 +59,8 @@ registerLocaleData(localeIt);
     MailResetPasswordComponent,
     ExcelBambiniComponent,
     ChildPageComponent,
-    GraficoBambinoComponent
+    GraficoBambinoComponent,
+    GraficoBambinoDueComponent
   ],
   imports: [
     BrowserModule,
