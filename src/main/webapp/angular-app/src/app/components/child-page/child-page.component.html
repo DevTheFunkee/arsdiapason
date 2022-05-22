@@ -1,4 +1,4 @@
-<div class="row mb-1">
+<div class="row">
 	<div class="col">
 		<h5>Nome:</h5>
 		<p>{{child.nome}} {{child.cognome}}</p>
@@ -17,7 +17,7 @@
 	</div>
 </div>
 
-<div class="row mb-1">
+<div class="row">
 	<div class="col">
 		<h5>Nome Istituto:</h5>
 		<p>{{getNomeIstituto(child.idIstituto)}}</p>
@@ -37,7 +37,7 @@
 	</div>
 </div>
 
-<div class="row mb-1">
+<div class="row">
 	<div [hidden]="!child.figlioAdottivo" class="col">
 		<h5>Figlio Adottivo:</h5>
 		<p>{{child.figlioAdottivo}}</p>
@@ -56,7 +56,7 @@
 	</div>
 </div>
 
-<div class="row mb-1">
+<div class="row">
 	<div [hidden]="!child.titoloStudioPadre" class="col">
 		<h5>Titolo Studio Padre:</h5>
 		<p>{{child.titoloStudioPadre}}</p>
@@ -75,31 +75,36 @@
 	</div>
 </div>
 
-<div class="row mb-1">
-	<div [hidden]="child.comuneNascita != ''" class="col-3">
+<div class="row">
+	<div [hidden]="!child.comuneNascita" class="col-3">
 		<h5>Comune di Nascita:</h5>
 		<p>{{child.comuneNascita}}</p>
 	</div>
-	<div [hidden]="child.comuneResidenza != '' " class="col-3">
+	<div [hidden]="!child.comuneResidenza" class="col-3">
 		<h5>Comune di Residenza:</h5>
 		<p>{{child.comuneResidenza}}</p>
 	</div>
-	<div [hidden]="child.indirizzoResidenza != '' " class="col-3">
+	<div [hidden]="!child.indirizzoResidenza" class="col-3">
 		<h5>Indirizzo di Residenza:</h5>
 		<p>{{child.indirizzoResidenza}}</p>
 	</div>
 </div>
 
-<div class="row mb-1">
-	<div [hidden]="child.note != ''" class="col">
+<div class="row">
+	<div [hidden]="!child.note" class="col">
 		<h5>Note:</h5>
 		<p>{{child.note}}</p>
 	</div>
 </div>
 
-<div class="mb-1">
-	<app-grafico-bambino-due *ngIf="child" [bambino]="child"></app-grafico-bambino-due>
+<div class="row mt-2">
+	<div class="col-12">
+		<app-grafico-bambino-due *ngIf="child" [bambino]="child"></app-grafico-bambino-due>
+	</div>
 </div>
-<div class="mb-1">
-	<app-grafico-bambino *ngIf="child" [bambino]="child"></app-grafico-bambino>
+
+<div class="row mt-2">
+	<div class="col-12">
+		<app-grafico-bambino *ngIf="child" [bambino]="child"></app-grafico-bambino>
+	</div>
 </div>

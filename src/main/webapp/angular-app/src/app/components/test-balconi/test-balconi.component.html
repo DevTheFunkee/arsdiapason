@@ -109,7 +109,7 @@
             <th *ngFor="let anni of arrayAnni">
               <span *ngFor="let row of getRowsByAnni(obj.rows, anni); let i = index">
                 <span *ngIf="i === 0">{{row.prova}}</span>
-                <span *ngIf="i > 0"> e/o {{row.prova}}</span>
+                <span *ngIf="i > 0"><span style="font-weight: 500"> e/o</span> {{row.prova}}</span>
               </span>
             </th>
           </tr>

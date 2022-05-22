@@ -4,6 +4,7 @@ import { HttpService } from '../../services/http.service'
 import * as _ from 'lodash'
 import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap/modal';
 import { AlertModalConfirmationComponent } from '../alert-modal-confirmation/alert-modal-confirm.component'
+
 @Component({
 	selector: 'app-child-list',
 	templateUrl: './child-list.component.html',
@@ -58,7 +59,7 @@ export class ChildListComponent implements OnInit {
 	searchChild() {
 		let that = this
 		if (that.searchCognome) {
-			this.listaBambiniSearch = _.filter(this.listaBambini, function(o) {
+			this.listaBambiniSearch = _.filter(this.listaBambini, function (o) {
 				return o.cognome && o.cognome.toLowerCase().startsWith(that.searchCognome.toLowerCase())
 			})
 		} else {
@@ -69,11 +70,11 @@ export class ChildListComponent implements OnInit {
 	goToTest(childId: number) {
 		this.router.navigate(['testBalconi', childId])
 	}
-	
-	goToChildPage(childId: number){
-	this.router.navigate(['pageChild', childId])
+
+	goToChildPage(childId: number) {
+		this.router.navigate(['pageChild', childId])
 	}
-	
+
 	goToTestResult(childId: number) {
 		this.router.navigate(['testResult', childId])
 	}
@@ -86,7 +87,7 @@ export class ChildListComponent implements OnInit {
 	}
 
 	initComboSezione(listaBambini: any) {
-		return _(listaBambini).filter(function(o) { return o.sezione !== null }).groupBy('sezione').keys().value()
+		return _(listaBambini).filter(function (o) { return o.sezione !== null }).groupBy('sezione').keys().value()
 	}
 
 	resetCombos() {
@@ -95,14 +96,14 @@ export class ChildListComponent implements OnInit {
 		this.initCombos()
 		this.searchLists.sezione = this.initComboSezione(this.listaBambini)
 	}
-	deleteBimbo(childId: number, index: any) {
 
+	deleteBimbo(childId: number, index: any) {
 		this.modalRef = this.modalService.show(AlertModalConfirmationComponent, {
 			initialState: {
 				text: 'Sicuri di voler eliminare il bambino dalla lista?',
 				title: "Attenzione!",
 				textColor: 'text-success',
-				callback: (result) => {
+				callback: (result: any) => {
 					if (result == 'si') {
 						this.httpService.callPost('deleteChild?idBambino=' + childId, null).subscribe(
 							(data: any) => {
@@ -115,9 +116,8 @@ export class ChildListComponent implements OnInit {
 				}
 			}
 		})
-
-
 	}
+
 	findByCombo(combo: string) {
 		if (combo === 'sezione') {
 			let listaBambini = _(this.listaBambini).filter(['sezione', this.searchModels.sezione])

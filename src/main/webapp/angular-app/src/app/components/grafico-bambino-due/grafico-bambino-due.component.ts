@@ -87,7 +87,7 @@ export class GraficoBambinoDueComponent implements OnInit {
   })
 
   resizeChart() {
-    let w = $("#chart-div").width()
+    let w = $("#chart-div").width() - 50 //- 50 serve perchè se la pagina crea la sbarra di scorrimento poi non si vede il bordo nero
     let h = $("#chart-div").width() / 3
     this.options['chartArea'] = { left: w / 100 * 5, right: w / 100 * 5, top: h / 100 * 10, bottom: h / 100 * 8, width: '100%', height: '100%' }
     this.width = w
