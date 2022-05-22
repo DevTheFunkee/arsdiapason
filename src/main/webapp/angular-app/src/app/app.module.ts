@@ -33,6 +33,7 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component';
 import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
 import { ChildPageComponent } from './components/child-page/child-page.component';
+import { GraficoBambinoComponent } from './components/grafico-bambino/grafico-bambino.component';
 
 registerLocaleData(localeIt);
 
@@ -56,7 +57,8 @@ registerLocaleData(localeIt);
     ResetPasswordComponent,
     MailResetPasswordComponent,
     ExcelBambiniComponent,
-    ChildPageComponent
+    ChildPageComponent,
+    GraficoBambinoComponent
   ],
   imports: [
     BrowserModule,

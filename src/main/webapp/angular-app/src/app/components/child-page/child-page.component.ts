@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpService } from '../../services/http.service'
 import { ActivatedRoute, Router } from '@angular/router'
 import * as _ from 'lodash'
+
 @Component({
 	selector: 'app-child-page',
 	templateUrl: './child-page.component.html',
@@ -17,11 +18,9 @@ export class ChildPageComponent implements OnInit {
 	istitutiOrigin: any
 
 	ngOnInit(): void {
-	this.getChild()
-	this.getListaIstituti()
-
+		this.getChild()
+		this.getListaIstituti()
 	}
-
 
 	getChild() {
 		let url = 'child?idBambino=' + this.idBambino
@@ -33,8 +32,8 @@ export class ChildPageComponent implements OnInit {
 			() => { }
 		)
 	}
-	
-		getListaIstituti() {
+
+	getListaIstituti() {
 		this.httpService.callPost('getListaIstituti', null).subscribe(
 			(data: any) => {
 				this.istitutiOrigin = data

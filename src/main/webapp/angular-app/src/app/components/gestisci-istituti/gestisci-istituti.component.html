@@ -9,12 +9,12 @@
           <div class="col-6">
             <label>Nome</label>
             <input type="text" class="form-control form-control-sm" name="nome" [(ngModel)]="newIstituto.nome"
-              required />
+                   required />
           </div>
           <div class="col-6">
             <label>Regione</label>
             <input type="text" class="form-control form-control-sm" name="regione" [(ngModel)]="newIstituto.regione"
-              required />
+                   required />
           </div>
         </div>
 
@@ -22,12 +22,12 @@
           <div class="col-6">
             <label>Provincia</label>
             <input type="text" class="form-control form-control-sm" name="provincia" [(ngModel)]="newIstituto.provincia"
-              required />
+                   required />
           </div>
           <div class="col-6">
             <label>Comune</label>
             <input type="text" class="form-control form-control-sm" name="comune" [(ngModel)]="newIstituto.comune"
-              required />
+                   required />
           </div>
         </div>
 
@@ -35,15 +35,15 @@
           <div class="col-6">
             <label>Indirizzo</label>
             <input type="text" class="form-control form-control-sm" name="indirizzo" [(ngModel)]="newIstituto.indirizzo"
-              required />
+                   required />
           </div>
-      <div class="col-6">
+          <div class="col-6">
             <label>Mail</label>
             <input type="text" class="form-control form-control-sm" name="email" [(ngModel)]="newIstituto.mail"
-              required />
+                   required />
           </div>
         </div>
-         <div class="row align-items-end">
+        <div class="row align-items-end">
 
           <div class="col-6">
             <button class="btn btn-primary mr-3" type="submit" [disabled]="f.form.invalid">Salva</button>
@@ -66,7 +66,7 @@
             <th>Comune</th>
             <th>Indirizzo</th>
             <th>Email</th>
-            <th></th>
+            <th colspan="5"></th>
           </tr>
         </thead>
         <tbody formArrayName="istitutiRows">
@@ -78,22 +78,21 @@
               <td>{{istituto.comune}}</td>
               <td>{{istituto.indirizzo}}</td>
               <td>{{istituto.mail}}</td>
-              <td class="buttons" style="width: 0">
+              <td class="buttons">
                 <button class="btn btn-primary btn-sm" (click)="istituto.inModifica = true" tooltip="Modifica">
                   <i class="fa fa-pencil"></i>
                 </button>
-                </td>
-                 <td class="buttons" style="width: 0">
+              </td>
+              <td class="buttons">
                 <button class="btn btn-primary btn-sm" (click)="eliminaIstituto(i)" tooltip="Elimina">
                   <i class="fa fa-trash-o"></i>
                 </button>
-                  </td>
-                 <td class="buttons" style="width: 0" [hidden]="istituto.caricato == 'Y' ">
+              </td>
+              <td class="buttons" [hidden]="istituto.caricato == 'Y' ">
                 <button class="btn btn-primary btn-sm" (click)="inviaMail(istituto)" tooltip="Mail">
                   <i class="fa fa-envelope-open-o"></i>
                 </button>
-                  </td>
-              
+              </td>
             </ng-container>
             <ng-container *ngIf="istituto.inModifica" [formGroupName]="i">
               <td><input type="text" formControlName="nome" class="form-control form-control-sm"></td>
@@ -104,10 +103,12 @@
               <td><input type="text" formControlName="mail" class="form-control form-control-sm"></td>
               <td class="buttons">
                 <button class="btn btn-primary btn-sm" type="submit" (click)="saveModIstituto(i)"
-                  [disabled]="formInvalid(i)" tooltip="Salva">
+                        [disabled]="formInvalid(i)" tooltip="Salva">
                   <i class="fa fa-save"></i>
                 </button>
-                <button class="btn btn-primary btn-sm ml-1" (click)="cancelModIstituto(i)" tooltip="Annulla">
+              </td>
+              <td class="buttons">
+                <button class="btn btn-primary btn-sm" (click)="cancelModIstituto(i)" tooltip="Annulla">
                   <i class="fa fa-times"></i>
                 </button>
               </td>

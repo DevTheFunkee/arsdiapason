@@ -1,4 +1,3 @@
-
 <div class="row align-items-end mb-2">
   <div *ngFor="let combo of searchCombos" class="col-2">
     <label class="font-weight-bold">{{combo | capitalize}}</label>
@@ -34,7 +33,7 @@
           <th>Sezione</th>
           <th>Data Test</th>
           <th>Test Effettuato</th>
-          <th></th>
+          <th colspan="10"></th>
         </tr>
       </thead>
       <tbody>
@@ -51,14 +50,8 @@
             <td>{{child.dataTest ? (child.dataTest | date: 'dd MMM yyyy') : 'N.P.'}}</td>
             <td>{{child.testFinito | testFinito}}</td>
             <td style="width: 0">
-              <button  (click)="goToChildPage(child.id)" class="btn btn-primary btn-sm"
-                tooltip="vai a pagina bambino">
+              <button (click)="goToChildPage(child.id)" class="btn btn-primary btn-sm" tooltip="Vai a pagina bambino">
                 <i class="fa fa-user-circle"></i>
-              </button>
-            </td>
-              <td style="width: 0">
-              <button (click)="deleteBimbo(child.id,i)" class="btn btn-primary btn-sm" tooltip="Elimina Bambino">
-                <i class="fa fa-trash-o" ></i>
               </button>
             </td>
             <td style="width: 0">
@@ -73,9 +66,12 @@
                 <i class="fa fa-file-text-o"></i>
               </button>
             </td>
-
+            <td style="width: 0">
+              <button (click)="deleteBimbo(child.id,i)" class="btn btn-primary btn-sm" tooltip="Elimina Bambino">
+                <i class="fa fa-trash-o"></i>
+              </button>
+            </td>
           </tr>
-          
         </ng-container>
       </tbody>
     </table>

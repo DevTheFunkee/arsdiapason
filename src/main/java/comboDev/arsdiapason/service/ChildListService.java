@@ -1,10 +1,10 @@
 package comboDev.arsdiapason.service;
 
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
+import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
+import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelPsicologoBambinoMapper;
-import comboDev.arsdiapason.mybatis.model.Bambino;
-import comboDev.arsdiapason.mybatis.model.RelPsicologoBambino;
-import comboDev.arsdiapason.mybatis.model.RelPsicologoBambinoExample;
+import comboDev.arsdiapason.mybatis.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +19,10 @@ public class ChildListService {
     private BambinoMapper bambinoMapper;
     @Autowired
     private RelPsicologoBambinoMapper relPsicologoBambinoMapper;
+    @Autowired
+    private ProvaSchedaMapper provaSchedaMapper;
+    @Autowired
+    private RelBambinoSchedaMapper relBambinoSchedaMapper;
 
     @Transactional(readOnly = true)
     public List<Bambino> childsList(Integer idPsicologo) {
@@ -36,10 +40,26 @@ public class ChildListService {
         }
         return bambini;
     }
-    
+
     @Transactional(readOnly = true)
     public Bambino child(Integer idBambino) {
         return bambinoMapper.selectByPrimaryKey(idBambino);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ProvaScheda> childTest(Integer idBambino) {
+        RelBambinoSchedaExample relBambinoSchedaExample = new RelBambinoSchedaExample();
+        relBambinoSchedaExample.createCriteria().andIdBambinoEqualTo(idBambino);
+        List<RelBambinoScheda> relBambinoSchedaList = relBambinoSchedaMapper.selectByExample(relBambinoSchedaExample);
+
+        List<ProvaScheda> provaSchedas = new ArrayList<>();
+        for (RelBambinoScheda relBambinoScheda : relBambinoSchedaList) {
+            ProvaScheda provaScheda = provaSchedaMapper.selectByPrimaryKey(relBambinoScheda.getIdProvaScheda());
+            if (provaScheda != null) {
+                provaSchedas.add(provaSchedaMapper.selectByPrimaryKey(relBambinoScheda.getIdProvaScheda()));
+            }
+        }
+        return provaSchedas;
     }
 
 }

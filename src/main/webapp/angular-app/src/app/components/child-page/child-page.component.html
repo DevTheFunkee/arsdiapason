@@ -1,4 +1,3 @@
-
 <div class="row align-items-start">
 	<div class="col">
 		<h3>Nome:</h3>
@@ -17,7 +16,6 @@
 		<p>{{child.sesso | sesso}}</p>
 	</div>
 </div>
-
 
 <div style="padding-top:15px" class="row align-items-center">
 	<div class="col">
@@ -100,4 +98,4 @@
 	</div>
 </div>
 
-
+<app-grafico-bambino *ngIf="child" [bambino]="child"></app-grafico-bambino>

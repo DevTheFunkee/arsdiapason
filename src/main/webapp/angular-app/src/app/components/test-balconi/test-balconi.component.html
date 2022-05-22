@@ -95,11 +95,11 @@
                 <div *ngIf="bambino">
                   <input [(ngModel)]="row.checked" (change)="checkBefore(obj, row.id, scheda)"
                     [disabled]="bambino && bambino.testFinito" type="checkbox"
-                    id="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"
-                    name="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}">
+                    id="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}{{row.prova}}"
+                    name="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}{{row.prova}}">
                 </div>
                 <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
-                  for="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"></label>
+                  for="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}{{row.prova}}"></label>
               </div>
             </th>
           </tr>
