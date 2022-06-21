@@ -1,6 +1,7 @@
 package comboDev.arsdiapason.service;
 
 import comboDev.arsdiapason.dto.DatiIstituto;
+import comboDev.arsdiapason.mybatis.customMapper.CustomMapper;
 import comboDev.arsdiapason.mybatis.mapper.IstitutoMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelPsicologoIstitutoMapper;
 import comboDev.arsdiapason.mybatis.model.Istituto;
@@ -27,16 +28,19 @@ public class GestisciIstitutiService {
 	@Autowired
 	private MailService mailService;
 
+	@Autowired
+	private CustomMapper mapper;
+
 	@Transactional(readOnly = true)
 	public List<Istituto> getListaIstituti(Integer idPsicologo) {
-		RelPsicologoIstitutoExample relPsicologoIstitutoExample = new RelPsicologoIstitutoExample();
-		relPsicologoIstitutoExample.createCriteria().andIdPsicologoEqualTo(idPsicologo);
-		List<RelPsicologoIstituto> relPsiIstList = relPsicologoIstitutoMapper.selectByExample(relPsicologoIstitutoExample);
-		List<Istituto> istituti = new ArrayList<>();
-		for(RelPsicologoIstituto relPsicologoIstituto: relPsiIstList) {
-			istituti.add(istitutoMapper.selectByPrimaryKey(relPsicologoIstituto.getIdIstituto()));
-		}
-		return istituti;
+		List<Istituto> listIst = mapper.findAll();
+		listIst.stream().forEach(i -> {
+			RelPsicologoIstituto istituto = relPsicologoIstitutoMapper.selectByPrimaryKey(idPsicologo, i.getId());
+			if(istituto != null) {
+			i.setCaricato(istituto.getCaricato());
+			}
+		});
+		return listIst;
 	}
 
 	@Transactional(readOnly = true)
