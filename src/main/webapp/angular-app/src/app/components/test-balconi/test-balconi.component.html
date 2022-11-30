@@ -95,11 +95,11 @@
                 <div *ngIf="bambino">
                   <input [(ngModel)]="row.checked" (change)="checkBefore(obj, row.id, scheda)"
                     [disabled]="bambino && bambino.testFinito" type="checkbox"
-                    id="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"
-                    name="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}">
+                    id="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}{{row.prova}}"
+                    name="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}{{row.prova}}">
                 </div>
                 <label [innerHTML]="getTableText(obj.rows, row, idBambino)"
-                  for="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}"></label>
+                  for="prova{{scheda.numero}}{{obj.tipo}}{{row.anni}}{{row.prova}}"></label>
               </div>
             </th>
           </tr>
@@ -109,7 +109,7 @@
             <th *ngFor="let anni of arrayAnni">
               <span *ngFor="let row of getRowsByAnni(obj.rows, anni); let i = index">
                 <span *ngIf="i === 0">{{row.prova}}</span>
-                <span *ngIf="i > 0"> e/o {{row.prova}}</span>
+                <span *ngIf="i > 0"><span style="font-weight: 500"> e/o</span> {{row.prova}}</span>
               </span>
             </th>
           </tr>

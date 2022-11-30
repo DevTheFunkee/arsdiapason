@@ -12,7 +12,7 @@ import * as _ from 'lodash'
 	styleUrls: ['./gestisci-istituti.component.css']
 })
 export class GestisciIstitutiComponent implements OnInit {
-
+    pageTitle: string
 	constructor(private httpService: HttpService, private formBuilder: FormBuilder, private modalService: BsModalService) {
 		this.istitutiForm = this.formBuilder.group({
 			istitutiRows: this.formBuilder.array([])
@@ -22,16 +22,31 @@ export class GestisciIstitutiComponent implements OnInit {
 	ngOnInit(): void {
 		this.getListaIstituti()
 	}
-
+    isActive: any = false
 	istitutiForm: any
 	istituti: any = []
 	newIstituto: any = {}
 	modalRef: BsModalRef;
+	InsertInstitue: any = false
+	buttons = [
+        { text: 'Inserisci istituto', isClicked: true, id: 1 },
+        { text: "Lista istituti inseriti dall'utente", isClicked: false, id: 2 },
+        { text: 'Lista totale istituti inseriti', isClicked: false, id: 3 }
+    ]
+	activeOnClick(button : any){
+	this.buttons.forEach(function (value) {
+  		if(button.id == value.id){
+	      button.isClicked = !button.isClicked
+		}else{
+	 value.isClicked = false
+	}
+	}); 
+	}
 	getListaIstituti() {
-		this.httpService.callPost('getListaIstituti', null).subscribe(
+		this.httpService.callPost('getListaIstitutiCompleta', null).subscribe(
 			(data: any) => {
 				this.istituti = _.filter(data, function(o) { return o.id !== 1 })
-				this.createIstitutiForm()
+				this.createIstitutiForm();
 			},
 			(error: any) => { },
 			() => { }
@@ -70,12 +85,24 @@ export class GestisciIstitutiComponent implements OnInit {
 				}
 			}
 		})
+}
 
-	}
 	inviaMail(istituto: any) {
 		//	var row = this.istitutiForm.controls.istitutiRows.controls[index].value
 		istituto.appUrl = window.location.origin
 		this.httpService.callPost('inviaMailIstituto', istituto).subscribe(
+			(data: any) => {
+				this.openModal("Mail Inviata")
+			},
+			(error: any) => { },
+			() => { }
+		)
+	}
+	
+		inviaMailAdmin(istituto: any) {
+		//	var row = this.istitutiForm.controls.istitutiRows.controls[index].value
+		istituto.appUrl = window.location.origin
+		this.httpService.callPost('inviaMailAdmin', istituto).subscribe(
 			(data: any) => {
 				this.openModal("Mail Inviata")
 			},
@@ -102,6 +129,7 @@ export class GestisciIstitutiComponent implements OnInit {
 	inserisciIstituto() {
 		this.httpService.callPost('inserisciIstituto', this.newIstituto).subscribe(
 			(data: any) => {
+				data.associato = true
 				this.istituti.push(data)
 				this.istitutiForm.controls.istitutiRows.push(this.formBuilder.group({
 					id: [data.id],
@@ -112,6 +140,7 @@ export class GestisciIstitutiComponent implements OnInit {
 					indirizzo: [data.indirizzo, [Validators.required]],
 					mail: [data.mail, [Validators.required]]
 				}));
+				this.InsertInstitue = false;
 			},
 			(error: any) => { },
 			() => { }

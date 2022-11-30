@@ -2,6 +2,7 @@ package comboDev.arsdiapason.controller;
 
 import java.util.List;
 
+import comboDev.arsdiapason.mybatis.model.ProvaScheda;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,9 +53,20 @@ public class ChildController implements BasicController {
 		return childListService.childsList((Integer) authentication.getDetails());
 	}
 	
+	@PostMapping("/getChildsAndPsicologo")
+	public List<Bambino> childsPsicologoList() {
+		return childListService.childsPsicologoList();
+	}
+	
+	
 	@PostMapping("/child")
 	public Bambino child(@RequestParam Integer idBambino) {
 		return childListService.child( idBambino);
+	}
+
+	@PostMapping("/childTest")
+	public List<ProvaScheda> childTest(@RequestParam Integer idBambino) {
+		return childListService.childTest( idBambino);
 	}
 
 }

@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ChildPageComponent } from './child-page.component';
+import { AdminChildComponent } from './admin-child.component';
 
-describe('ChildPageComponent', () => {
-  let component: ChildPageComponent;
-  let fixture: ComponentFixture<ChildPageComponent>;
+describe('AdminChildComponent', () => {
+  let component: AdminChildComponent;
+  let fixture: ComponentFixture<AdminChildComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ChildPageComponent ]
+      declarations: [ AdminChildComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ChildPageComponent);
+    fixture = TestBed.createComponent(AdminChildComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -1,5 +1,6 @@
 package comboDev.arsdiapason.service;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -8,11 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.apache.commons.lang3.StringUtils;
 
 import comboDev.arsdiapason.dto.DatiUtente;
 import comboDev.arsdiapason.mybatis.mapper.PsicologoMapper;
 import comboDev.arsdiapason.mybatis.mapper.UtenteMapper;
 import comboDev.arsdiapason.mybatis.model.Psicologo;
+import comboDev.arsdiapason.mybatis.model.PsicologoExample;
 import comboDev.arsdiapason.mybatis.model.Utente;
 
 @Service
@@ -99,5 +102,26 @@ public class UserService {
 		utenteMapper.updateByPrimaryKey(utente);
 		return utente;
 	}
+
+	public List<Psicologo> getListaPsicologo() {
+		PsicologoExample example = new PsicologoExample();
+		return psicologoMapper.selectByExample(example);
+	}
+
+	public Psicologo login(Integer psicologoId, String admin) throws Exception {
+		if(!StringUtils.isBlank(admin) && "admin".equalsIgnoreCase(admin)) {
+			Utente utente = utenteMapper.selectByPrimaryKey(null);
+			return psicologoMapper.selectByPrimaryKey(psicologoId);
+		}
+		else if(!StringUtils.isBlank(admin) && !"admin".equalsIgnoreCase(admin)) {
+			throw new Exception("", new Throwable("dati non corretti per gestione admin"));
+		}
+		else if(StringUtils.isBlank(admin)) {
+			return psicologoMapper.selectByPrimaryKey(psicologoId);
+		}
+		
+		return psicologoMapper.selectByPrimaryKey(psicologoId);
+	}
+
 
 }

@@ -13,5 +13,5 @@ legend {
   font-size: 1.1rem;
 }
 td.buttons {
-  text-align: right;
+  width: 0;
 }

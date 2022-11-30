@@ -34,7 +34,7 @@ export class TestResultComponent implements OnInit {
                 this.proveSchede = data.proveSchede
                 this.bambino = data.bambino
                 this.countPointsForYears()
-                this.realChildMonths = moment().diff(this.bambino.dataNascita, 'months')
+                this.realChildMonths = moment(this.bambino.dataTest).diff(this.bambino.dataNascita, 'months')
                 this.aree = data.areaProva
             },
             (error: any) => { },

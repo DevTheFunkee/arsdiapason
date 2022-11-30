@@ -127,13 +127,13 @@ export class PaginaGraficiComponent implements OnInit {
             let scheda: any
             let label: string
             if (i === 0) {
-               label = 'Scheda' + (i + 1) + ' (Copia)'
+               label = 'Scheda ' + (i + 1) + ' (Copia)'
                scheda = _.filter(proveScheda, { 'numeroScheda': i + 1, 'tipo': 'Copia' })
             } else if (i === 1) {
-               label = 'Scheda' + i + ' (Memoria)'
+               label = 'Scheda ' + i + ' (Memoria)'
                scheda = _.filter(proveScheda, { 'numeroScheda': i, 'tipo': 'Memoria' })
             } else {
-               label = 'Scheda' + i
+               label = 'Scheda ' + i
                scheda = _.filter(proveScheda, { 'numeroScheda': i })
             }
             data.push([label, 0, 0, 0, 0])

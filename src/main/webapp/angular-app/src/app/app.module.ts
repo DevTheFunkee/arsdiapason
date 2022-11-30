@@ -33,7 +33,11 @@ import { ResetPasswordComponent } from './components/reset-password/reset-passwo
 import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component';
 import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
 import { ChildPageComponent } from './components/child-page/child-page.component';
-
+import { GraficoBambinoComponent } from './components/grafico-bambino/grafico-bambino.component';
+import { GraficoBambinoDueComponent } from './components/grafico-bambino-due/grafico-bambino-due.component';
+import { AdminIstitutiComponent } from './components/admin-istituti/admin-istituti.component';
+import {MatTableModule} from '@angular/material/table';
+import { AdminChildComponent } from './components/admin-child/admin-child.component';
 registerLocaleData(localeIt);
 
 @NgModule({
@@ -56,10 +60,15 @@ registerLocaleData(localeIt);
     ResetPasswordComponent,
     MailResetPasswordComponent,
     ExcelBambiniComponent,
-    ChildPageComponent
+    ChildPageComponent,
+    GraficoBambinoComponent,
+    GraficoBambinoDueComponent,
+    AdminIstitutiComponent,
+    AdminChildComponent
   ],
   imports: [
     BrowserModule,
+	MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

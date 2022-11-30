@@ -1,103 +1,110 @@
-
-<div class="row align-items-start">
+<div class="row">
 	<div class="col">
-		<h3>Nome:</h3>
+		<h5>Nome:</h5>
 		<p>{{child.nome}} {{child.cognome}}</p>
 	</div>
 	<div class="col">
-		<h3>Data di Nascita:</h3>
+		<h5>Data di Nascita:</h5>
 		<p>{{child.dataNascita | date: 'dd MMM yyyy'}}</p>
 	</div>
 	<div class="col">
-		<h3>Eta':</h3>
+		<h5>Eta':</h5>
 		<p>{{child.dataNascita | eta}}</p>
 	</div>
 	<div class="col">
-		<h3>Sesso:</h3>
+		<h5>Sesso:</h5>
 		<p>{{child.sesso | sesso}}</p>
 	</div>
 </div>
 
-
-<div style="padding-top:15px" class="row align-items-center">
+<div class="row">
 	<div class="col">
-		<h3>Nome Istituto:</h3>
+		<h5>Nome Istituto:</h5>
 		<p>{{getNomeIstituto(child.idIstituto)}}</p>
 	</div>
 	<div class="col">
-		<h3>Sezione:</h3>
+		<h5>Sezione:</h5>
 		<p>{{child.sezione || 'N.P.'}}</p>
 	</div>
 	<div class="col">
-		<h3>Data Test: {{child.dataTest ? (child.dataTest | date: 'dd MMM
-			yyyy') : 'N.P.'}}</h3>
+		<h5>Data Test:</h5>
 		<p>{{child.dataTest ? (child.dataTest | date: 'dd MMM yyyy') :
 			'N.P.'}}</p>
 	</div>
 	<div class="col">
-		<h3>Test finito:</h3>
+		<h5>Test finito:</h5>
 		<p>{{child.testFinito | testFinito}}</p>
 	</div>
 </div>
 
-<div style="padding-top:15px" class="row align-items-center">
-	<div [hidden]="child.figlioAdottivo != ''" class="col">
-		<h3>Figlio Adottivo:</h3>
+<div class="row">
+	<div [hidden]="!child.figlioAdottivo" class="col">
+		<h5>Figlio Adottivo:</h5>
 		<p>{{child.figlioAdottivo}}</p>
 	</div>
-	<div [hidden]="child.ordineGenitura != ''" class="col">
-		<h3>Ordine Genitura:</h3>
+	<div [hidden]="!child.ordineGenitura" class="col">
+		<h5>Ordine Genitura:</h5>
 		<p>{{child.ordineGenitura}}</p>
 	</div>
-	<div [hidden]="child.numeroFratelli != ''" class="col">
-		<h3>Numero Fratelli:</h3>
+	<div [hidden]="!child.numeroFratelli" class="col">
+		<h5>Numero Fratelli:</h5>
 		<p>{{child.numeroFratelli}}</p>
 	</div>
-	<div [hidden]="child.numeroSorelle != ''" class="col">
-		<h3>Numero Sorelle:</h3>
+	<div [hidden]="!child.numeroSorelle" class="col">
+		<h5>Numero Sorelle:</h5>
 		<p>{{child.numeroSorelle}}</p>
 	</div>
 </div>
 
-<div style="padding-top:15px" class="row align-items-center">
-	<div [hidden]="child.titoloStudioPadre != ''" class="col">
-		<h3>Titolo Studio Padre:</h3>
+<div class="row">
+	<div [hidden]="!child.titoloStudioPadre" class="col">
+		<h5>Titolo Studio Padre:</h5>
 		<p>{{child.titoloStudioPadre}}</p>
 	</div>
-	<div [hidden]="child.titoloStudioMadre != ''" class="col">
-		<h3>Titolo Studio Madre:</h3>
+	<div [hidden]="!child.titoloStudioMadre" class="col">
+		<h5>Titolo Studio Madre:</h5>
 		<p>{{child.titoloStudioMadre}}</p>
 	</div>
-	<div [hidden]="child.lavoroPadre != ''" class="col">
-		<h3>Lavoro Padre:</h3>
+	<div [hidden]="!child.lavoroPadre" class="col">
+		<h5>Lavoro Padre:</h5>
 		<p>{{child.lavoroPadre}}</p>
 	</div>
-	<div [hidden]="child.lavoroMadre != ''" class="col">
-		<h3>Lavoro Madre:</h3>
+	<div [hidden]="!child.lavoroMadre" class="col">
+		<h5>Lavoro Madre:</h5>
 		<p>{{child.lavoroMadre}}</p>
 	</div>
 </div>
 
-<div style="padding-top:15px" class="row align-items-center">
-	<div [hidden]="child.comuneNascita != ''" class="col-3">
-		<h3>Comune di Nascita:</h3>
+<div class="row">
+	<div [hidden]="!child.comuneNascita" class="col-3">
+		<h5>Comune di Nascita:</h5>
 		<p>{{child.comuneNascita}}</p>
 	</div>
-	<div [hidden]="child.comuneResidenza != '' " class="col-3">
-		<h3>Comune di Residenza:</h3>
+	<div [hidden]="!child.comuneResidenza" class="col-3">
+		<h5>Comune di Residenza:</h5>
 		<p>{{child.comuneResidenza}}</p>
 	</div>
-	<div [hidden]="child.indirizzoResidenza != '' " class="col-3">
-		<h3>Indirizzo di Residenza:</h3>
+	<div [hidden]="!child.indirizzoResidenza" class="col-3">
+		<h5>Indirizzo di Residenza:</h5>
 		<p>{{child.indirizzoResidenza}}</p>
 	</div>
 </div>
 
-<div style="padding-top:15px" class="row align-items-center">
-	<div [hidden]="child.note != ''" class="col">
-		<h3>Note:</h3>
+<div class="row">
+	<div [hidden]="!child.note" class="col">
+		<h5>Note:</h5>
 		<p>{{child.note}}</p>
 	</div>
 </div>
 
+<div class="row mt-2">
+	<div class="col-12">
+		<app-grafico-bambino-due *ngIf="child" [bambino]="child"></app-grafico-bambino-due>
+	</div>
+</div>
 
+<div class="row mt-2">
+	<div class="col-12">
+		<app-grafico-bambino *ngIf="child" [bambino]="child"></app-grafico-bambino>
+	</div>
+</div>
