@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { Router } from '@angular/router'
 import { HttpService } from '../../services/http.service'
 import { MemoService } from '../../services/memo.service'
-
+import { ActivatedRoute } from '@angular/router';
 @Component({
     selector: 'app-login',
     templateUrl: './login.component.html',
@@ -10,7 +10,7 @@ import { MemoService } from '../../services/memo.service'
 })
 export class LoginComponent implements OnInit {
 
-    constructor(private httpService: HttpService, private memoService: MemoService, private router: Router) { }
+    constructor(private httpService: HttpService, private memoService: MemoService, private router: Router, private route: ActivatedRoute) { }
 
     errMsg: string = ""
     model: any = {}

@@ -7,6 +7,7 @@ import comboDev.arsdiapason.mybatis.model.Istituto;
 import comboDev.arsdiapason.mybatis.model.RelPsicologoIstituto;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,9 @@ public class MailService {
     
     @Autowired
 	private RelPsicologoIstitutoMapper relPsicologoIstitutoMapper;
+    
+    @Value("${admin.mail}")
+    private String adminMail;
 
     public void sendAuthenticationEmail(DatiUtente datiUtente, int temporaryCode) {
         String email;
@@ -63,5 +67,15 @@ public class MailService {
         msg.setText("Ciao\nPer reimpostare la password clicca qui: " + link);
         javaMailSender.send(msg);
     }
+
+	public void sendAdminEmail(DatiIstituto istituto, Integer idPsicologo) {
+        String link = istituto.getAppUrl() + "/#/excelBambini/"  +istituto.getId() +"/" +idPsicologo;
+        SimpleMailMessage msg = new SimpleMailMessage();
+        msg.setTo(adminMail);
+        msg.setSubject("Arsdiapason - Confermare associazione istituto-psicologo");
+        msg.setText("Ciao\nPer conferma associazione fare il login: " + link);
+        javaMailSender.send(msg);
+		
+	}
 
 }

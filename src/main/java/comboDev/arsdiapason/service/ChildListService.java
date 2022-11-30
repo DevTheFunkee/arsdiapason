@@ -1,7 +1,9 @@
 package comboDev.arsdiapason.service;
 
+import comboDev.arsdiapason.mybatis.customMapper.CustomMapper;
 import comboDev.arsdiapason.mybatis.mapper.BambinoMapper;
 import comboDev.arsdiapason.mybatis.mapper.ProvaSchedaMapper;
+import comboDev.arsdiapason.mybatis.mapper.PsicologoMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelBambinoSchedaMapper;
 import comboDev.arsdiapason.mybatis.mapper.RelPsicologoBambinoMapper;
 import comboDev.arsdiapason.mybatis.model.*;
@@ -23,6 +25,11 @@ public class ChildListService {
     private ProvaSchedaMapper provaSchedaMapper;
     @Autowired
     private RelBambinoSchedaMapper relBambinoSchedaMapper;
+	@Autowired
+	private PsicologoMapper psicologoMapper;
+	@Autowired
+	private CustomMapper customMapper;
+
 
     @Transactional(readOnly = true)
     public List<Bambino> childsList(Integer idPsicologo) {
@@ -61,5 +68,23 @@ public class ChildListService {
         }
         return provaSchedas;
     }
+
+	public List<Bambino> childsPsicologoList() {
+		List<Bambino> listBamb = customMapper.childFindAll();
+
+		listBamb.stream().forEach(i -> {
+			RelPsicologoBambinoExample example = new RelPsicologoBambinoExample();
+			example.createCriteria().andIdBambinoEqualTo(i.getId());
+			List<RelPsicologoBambino> bambino = relPsicologoBambinoMapper.selectByExample(example);
+			List<Psicologo> psicologhi = new ArrayList<>();
+			for (RelPsicologoBambino psiIst : bambino) {
+				Psicologo psicologo = psicologoMapper.selectByPrimaryKey(psiIst.getIdPsicologo());
+				psicologhi.add(psicologo);
+				i.setPsicologhi(psicologhi);
+			}
+
+		});
+		return listBamb;
+	}
 
 }

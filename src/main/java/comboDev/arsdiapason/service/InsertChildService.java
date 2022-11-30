@@ -23,8 +23,7 @@ public class InsertChildService {
 	private RelPsicologoBambinoMapper relPsicologoBambinoMapper;
 	@Autowired
 	private CustomMapper customMapper;
-	@Autowired
-	private RelPsicologoIstitutoMapper relPsicologoIstitutoMapper;
+
 
 	@Transactional(readOnly = true)
 	public List<String> findSezioni(Integer idIstituto) {
@@ -60,7 +59,7 @@ public class InsertChildService {
 		relPsicologoIstituto.setIdIstituto(bambini.stream().findFirst().get().getIdIstituto());
 		relPsicologoIstituto.setIdPsicologo(idPsicologo);
 		relPsicologoIstituto.setCaricato("Y");
-		relPsicologoIstitutoMapper.updateByPrimaryKey(relPsicologoIstituto);
+		customMapper.updateByPrimaryKey(relPsicologoIstituto);
 	}
 
 	public void deleteChild(Integer idBambino, Integer idPsicologo) {

@@ -1,0 +1,86 @@
+<div class="row">
+
+	<div class="col-12">
+		<table class="table table-sm">
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>Nome</th>
+					<th>Regione</th>
+					<th>Provincia</th>
+					<th>Comune</th>
+					<th>Indirizzo</th>
+					<th>Email</th>
+					<th>Psicologhi Attivi</th>
+					<th>Aggiungi Psicologo</th>
+					<th>Elimina Istituto</th>
+				</tr>
+			</thead>
+			<tbody>
+				<ng-container *ngFor="let istituto of listaIstituti; let i = index">
+				<tr>
+					<td>{{i + 1}}</td>
+					<td>{{istituto.nome}}</td>
+					<td>{{istituto.regione}}</td>
+					<td>{{istituto.provincia}}</td>
+					<td>{{istituto.comune}}</td>
+					<td>{{istituto.indirizzo}}</td>
+					<td>{{istituto.mail}}</td>
+					<td>
+						<button (click)="istituto.showDetail = !istituto.showDetail"
+							class="btn btn-primary btn-sm" tooltip="psicologhi">
+							<i class="fa"
+								[ngClass]="{'fa-arrow-up': !istituto.showDetail, 'fa-arrow-down': istituto.showDetail}"></i>
+
+						</button>
+					</td>
+					<td><select [(ngModel)]="istituto.selectedPsicologo"
+						class="form-select" aria-label="Default select example">
+							<option *ngFor="let psicologo of psicologhi"
+								[ngValue]="psicologo">{{psicologo.nome}}
+								{{psicologo.cognome}}</option>
+					</select>
+
+						<button (click)="addPsicologo(istituto,i)"
+							style="margin-left: 20px" class="btn btn-primary btn-sm"
+							tooltip="aggiungi psicologo">
+							<i class="fa fa-plus"></i>
+
+						</button></td>
+				</tr>
+				<tr *ngIf="istituto.showDetail">
+					<td colspan="20">
+						<table
+							class="table table-sm table-info sub-table table-borderless">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nome</th>
+									<th>Cognome</th>
+									<th>Elimina Psicologo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ng-container
+									*ngFor="let psicologo of istituto.psicologhi; let i = index">
+								<tr>
+									<td>{{i + 1}}</td>
+									<td>{{psicologo.nome}}</td>
+									<td>{{psicologo.cognome}}</td>
+									<td>
+										<button (click)="deletePsicologo(psicologo.id,istituto.id,i)"
+											class="btn btn-primary btn-sm" tooltip="elimina psicologo">
+											<i class="fa fa-trash-o"></i>
+										</button>
+									</td>
+								</tr>
+								</ng-container>
+							</tbody>
+						</table>
+					</td>
+				</tr>
+				</ng-container>
+			</tbody>
+		</table>
+	</div>
+</div>

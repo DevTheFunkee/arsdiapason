@@ -1,3 +1,4 @@
+
 <div class="row align-items-end mb-2">
 	<div *ngFor="let combo of searchCombos" class="col-2">
 		<label class="font-weight-bold">{{combo | capitalize}}</label> <select
@@ -24,6 +25,7 @@
 </div>
 
 <div class="row">
+
 	<div class="col-12">
 		<table class="table table-sm">
 			<thead>
@@ -38,12 +40,13 @@
 					<th>Sezione</th>
 					<th>Data Test</th>
 					<th>Test Effettuato</th>
-					<th colspan="10"></th>
+					<th>Psicologhi Attivi</th>
+					<th>Aggiungi Psicologo</th>
 				</tr>
 			</thead>
 			<tbody>
 				<ng-container
-					*ngFor="let child of listaBambiniSearch || listaBambini; let i = index">
+					*ngFor="let child of listaBambini; let i = index">
 				<tr>
 					<td>{{i + 1}}</td>
 					<td>{{child.nome}}</td>
@@ -56,33 +59,56 @@
 					<td>{{child.dataTest ? (child.dataTest | date: 'dd MMM yyyy')
 						: 'N.P.'}}</td>
 					<td>{{child.testFinito | testFinito}}</td>
-					<td style="width: 0">
-						<button (click)="goToChildPage(child.id)"
-							class="btn btn-primary btn-sm" tooltip="Vai a pagina bambino">
-							<i class="fa fa-user-circle"></i>
-						</button>
-					</td>
-					<td style="width: 0">
-						<button (click)="goToTest(child.id)"
-							class="btn btn-primary btn-sm"
-							tooltip="{{child.testFinito ? 'Guarda le risposte' : 'Fai il Test'}}">
-							<i class="fa fa-file-text-o"></i>
-						</button>
-					</td>
-					<td style="width: 0">
-						<button (click)="deleteBimbo(child.id,i)"
-							class="btn btn-primary btn-sm" tooltip="Elimina Bambino">
-							<i class="fa fa-trash-o"></i>
-						</button>
-					</td>
-					<td style="width: 0">
-						<button *ngIf="child.testFinito"
-							(click)="goToTestResult(child.id)" class="btn btn-success btn-sm"
-							tooltip="Risultato del Test" placement="left">
-							<i class="fa fa-file-text-o"></i>
-						</button>
-					</td>
+					<td >
+						<button (click)="child.showDetail = !child.showDetail"
+							class="btn btn-primary btn-sm" tooltip="psicologhi">
+							<i class="fa"
+								[ngClass]="{'fa-arrow-up': !child.showDetail, 'fa-arrow-down': child.showDetail}"></i>
 
+						</button>
+					</td>
+					<td><select [(ngModel)]="child.selectedPsicologo" class="form-select"
+						aria-label="Default select example">
+							<option *ngFor="let psicologo of psicologhi"
+								[ngValue]="psicologo">{{psicologo.nome}} {{psicologo.cognome}}</option>
+					</select>
+
+						<button (click)="addPsicologo(child,i)" style="margin-left: 20px" class="btn btn-primary btn-sm"
+							tooltip="aggiungi psicologo">
+							<i class="fa fa-plus"></i>
+
+						</button></td>
+				</tr>
+				<tr *ngIf="child.showDetail">
+					<td colspan="20">
+						<table
+							class="table table-sm table-info sub-table table-borderless">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th>Nome</th>
+									<th>Cognome</th>
+									<th>Elimina Psicologo</th>
+								</tr>
+							</thead>
+							<tbody>
+								<ng-container
+									*ngFor="let psicologo of child.psicologhi; let i = index">
+								<tr>
+									<td>{{i + 1}}</td>
+									<td>{{psicologo.nome}}</td>
+									<td>{{psicologo.cognome}}</td>
+									<td>
+										<button (click)="deletePsicologo(psicologo.id,child.id,i)" class="btn btn-primary btn-sm"
+											tooltip="elimina psicologo">
+											<i class="fa fa-trash-o"></i>
+										</button>
+									</td>
+								</tr>
+								</ng-container>
+							</tbody>
+						</table>
+					</td>
 				</tr>
 				</ng-container>
 			</tbody>

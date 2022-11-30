@@ -100,7 +100,7 @@ export class ChildListComponent implements OnInit {
 	deleteBimbo(childId: number, index: any) {
 		this.modalRef = this.modalService.show(AlertModalConfirmationComponent, {
 			initialState: {
-				text: 'Sicuri di voler eliminare il bambino dalla lista?',
+				text: 'Sicuri di voler procedere?',
 				title: "Attenzione!",
 				textColor: 'text-success',
 				callback: (result: any) => {

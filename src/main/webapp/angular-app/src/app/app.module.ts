@@ -35,7 +35,9 @@ import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.
 import { ChildPageComponent } from './components/child-page/child-page.component';
 import { GraficoBambinoComponent } from './components/grafico-bambino/grafico-bambino.component';
 import { GraficoBambinoDueComponent } from './components/grafico-bambino-due/grafico-bambino-due.component';
-
+import { AdminIstitutiComponent } from './components/admin-istituti/admin-istituti.component';
+import {MatTableModule} from '@angular/material/table';
+import { AdminChildComponent } from './components/admin-child/admin-child.component';
 registerLocaleData(localeIt);
 
 @NgModule({
@@ -60,10 +62,13 @@ registerLocaleData(localeIt);
     ExcelBambiniComponent,
     ChildPageComponent,
     GraficoBambinoComponent,
-    GraficoBambinoDueComponent
+    GraficoBambinoDueComponent,
+    AdminIstitutiComponent,
+    AdminChildComponent
   ],
   imports: [
     BrowserModule,
+	MatTableModule,
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,

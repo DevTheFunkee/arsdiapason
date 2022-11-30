@@ -15,29 +15,32 @@ import { ConfirmAccountComponent } from './components/confirm-account/confirm-ac
 import { ResetPasswordComponent } from './components/reset-password/reset-password.component'
 import { MailResetPasswordComponent } from './components/mail-reset-password/mail-reset-password.component'
 import { ExcelBambiniComponent } from './components/excel-bambini/excel-bambini.component';
-
+import { AdminIstitutiComponent } from './components/admin-istituti/admin-istituti.component';
+import { AdminChildComponent } from './components/admin-child/admin-child.component';
 const routes: Routes = [
-  { path: 'loginPage', component: LoginComponent },
-  { path: 'confirmAccount/:email/:temporaryCode', component: ConfirmAccountComponent },
-  { path: 'mailResetPassword', component: MailResetPasswordComponent },
-  { path: 'resetPassword/:email/:temporaryCode', component: ResetPasswordComponent },
-  { path: 'createAccount', component: CreateAccountComponent },
-  { path: 'childList', component: ChildListComponent, canActivate: [RouteGuardService] },
-  { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService] },
-  { path: 'testBalconi', component: TestBalconiComponent, canActivate: [RouteGuardService] },
-  { path: 'testBalconi/:id', component: TestBalconiComponent, canActivate: [RouteGuardService] },
-  { path: 'pageChild', component: ChildPageComponent, canActivate: [RouteGuardService] },
-  { path: 'pageChild/:id', component: ChildPageComponent, canActivate: [RouteGuardService] },
-  { path: 'gestisciIstituti', component: GestisciIstitutiComponent, canActivate: [RouteGuardService] },
-  { path: 'testResult/:id', component: TestResultComponent, canActivate: [RouteGuardService] },
-  { path: 'paginaGrafici', component: PaginaGraficiComponent, canActivate: [RouteGuardService] },
+  { path: 'loginPage', component: LoginComponent ,data: { title: 'Login' }},
+  { path: 'confirmAccount/:email/:temporaryCode', component: ConfirmAccountComponent,data: { title: 'Conferma Account' } },
+  { path: 'mailResetPassword', component: MailResetPasswordComponent,data: { title: 'Reset Password' } },
+  { path: 'resetPassword/:email/:temporaryCode', component: ResetPasswordComponent,data: { title: 'Reset Password' } },
+  { path: 'createAccount', component: CreateAccountComponent,data: { title: 'Crea Account' } },
+  { path: 'childList', component: ChildListComponent, canActivate: [RouteGuardService],data: { title: 'Lista Bambini' } },
+  { path: 'adminIstituti', component: AdminIstitutiComponent, canActivate: [RouteGuardService],data: { title: 'Admin Istituti' } },
+  { path: 'adminBambini', component: AdminChildComponent, canActivate: [RouteGuardService],data: { title: 'Admin Bambini' } },
+  { path: 'insertChild', component: InsertChildComponent, canActivate: [RouteGuardService],data: { title: 'Inserisci Bambino' } },
+  { path: 'testBalconi', component: TestBalconiComponent, canActivate: [RouteGuardService],data: { title: 'Test Balconi' } },
+  { path: 'testBalconi/:id', component: TestBalconiComponent, canActivate: [RouteGuardService],data: { title: 'Test Balconi' } },
+  { path: 'pageChild', component: ChildPageComponent, canActivate: [RouteGuardService],data: { title: 'Pagina Bambino' } },
+  { path: 'pageChild/:id', component: ChildPageComponent, canActivate: [RouteGuardService],data: { title: 'Pagina Bambino' } },
+  { path: 'gestisciIstituti', component: GestisciIstitutiComponent, canActivate: [RouteGuardService],data: { title: 'Gestisci Istituti' } },
+  { path: 'testResult/:id', component: TestResultComponent, canActivate: [RouteGuardService],data: { title: 'Risultati Test' } },
+  { path: 'paginaGrafici', component: PaginaGraficiComponent, canActivate: [RouteGuardService],data: { title: 'Grafico Generale' } },
   { path: 'excelBambini/:code/:idIstituto/:idPsicologo', component: ExcelBambiniComponent, canActivate: [RouteGuardInstituteService] },
   { path: '', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
   { path: '**', redirectTo: 'gestisciIstituti', pathMatch: 'full', canActivate: [RouteGuardService] },
 ]
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'})],
   exports: [RouterModule],
   providers: [RouteGuardService,RouteGuardInstituteService]
 })
